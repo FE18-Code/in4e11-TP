@@ -5,13 +5,13 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 	}
 	- isLoadOnDemand = 0;
 	- myViewsWithID = { IRPYRawContainer 
-		- size = 2;
+		- size = 4;
 		- value = 
 		{ CGEMdiDiagramParams 
 			- _placement = { CCommon_WINDOWPLACEMENT 
 				- m_nLength = 44;
-				- m_nFlags = 0;
-				- m_showCmd = 1;
+				- m_nFlags = 2;
+				- m_showCmd = 3;
 				- m_ptMinPositionX = -1;
 				- m_ptMinPositionY = -1;
 				- m_ptMaxPositionX = -4;
@@ -30,16 +30,44 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "Architecture_Systeme";
 				- _id = GUID c5f23ad9-50cf-4425-a359-0fd47d9bb422;
 			}
-			- _UpLeft = 0 0 ;
-			- _DownRight = 1222 503 ;
+			- _UpLeft = 11 23 ;
+			- _DownRight = 1013 525 ;
+			- _instanceName = "";
+			- m_nDiagramIndex = 2;
+		}
+		{ CGEMdiDiagramParams 
+			- _placement = { CCommon_WINDOWPLACEMENT 
+				- m_nLength = 44;
+				- m_nFlags = 0;
+				- m_showCmd = 1;
+				- m_ptMinPositionX = -1;
+				- m_ptMinPositionY = -1;
+				- m_ptMaxPositionX = -4;
+				- m_ptMaxPositionY = -23;
+				- m_nLeft = 88;
+				- m_nTop = 88;
+				- m_nRight = 1301;
+				- m_nBottom = 585;
+			}
+			- _wasOpenedOnCloseProject = 1;
+			- _theDiagram = { IHandle 
+				- _m2Class = "IStateChartDiagram";
+				- _filename = "_MonPkg.sbs";
+				- _subsystem = "_MonPkg";
+				- _class = "AcquisitionUserEnv";
+				- _name = "StatechartDiagram";
+				- _id = GUID 99ca466c-b72f-4e94-8ee3-1724b272c51a;
+			}
+			- _UpLeft = 0 -5 ;
+			- _DownRight = 914 342 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 0;
 		}
 		{ CGEMdiDiagramParams 
 			- _placement = { CCommon_WINDOWPLACEMENT 
 				- m_nLength = 44;
-				- m_nFlags = 2;
-				- m_showCmd = 3;
+				- m_nFlags = 0;
+				- m_showCmd = 1;
 				- m_ptMinPositionX = -1;
 				- m_ptMinPositionY = -1;
 				- m_ptMaxPositionX = -4;
@@ -58,13 +86,41 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "IHM";
 				- _id = GUID 384edb5b-dab8-40de-a538-b4e732957176;
 			}
-			- _UpLeft = 0 33 ;
-			- _DownRight = 1046 589 ;
+			- _UpLeft = 0 60 ;
+			- _DownRight = 666 213 ;
+			- _instanceName = "";
+			- m_nDiagramIndex = 3;
+		}
+		{ CGEMdiDiagramParams 
+			- _placement = { CCommon_WINDOWPLACEMENT 
+				- m_nLength = 44;
+				- m_nFlags = 0;
+				- m_showCmd = 1;
+				- m_ptMinPositionX = -1;
+				- m_ptMinPositionY = -1;
+				- m_ptMaxPositionX = -4;
+				- m_ptMaxPositionY = -23;
+				- m_nLeft = 66;
+				- m_nTop = 66;
+				- m_nRight = 1279;
+				- m_nBottom = 563;
+			}
+			- _wasOpenedOnCloseProject = 1;
+			- _theDiagram = { IHandle 
+				- _m2Class = "IStateChartDiagram";
+				- _filename = "_MonPkg.sbs";
+				- _subsystem = "_MonPkg";
+				- _class = "VehiculeMoteur";
+				- _name = "StatechartDiagram";
+				- _id = GUID f0db9f69-418d-44cc-b2c0-fe87f5fe35b2;
+			}
+			- _UpLeft = 0 0 ;
+			- _DownRight = 1185 450 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 1;
 		}
 	}
-	- _fullName = "C:\\Users\\TEMP.ESIEE-1\\Downloads\\TP_Base2016\\TP_Base2016\\HelloWorld2";
+	- _fullName = "U:\\Documents\\E4FE\\IN4E11\\TP-Voiture\\HelloWorld2";
 	- m_SearchScopeList = { IRPYRawContainer 
 		- size = 0;
 	}
