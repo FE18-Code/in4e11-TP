@@ -1,0 +1,12 @@
+[Op Calls]
+[Events]
+MainDeApplication[0]->objetVehicule->GEN(evContact())`Vehicule
+MainDeApplication[0]->objetVehicule->GEN(evAccelerer())`Vehicule
+Exe[0]->itsSysEclairageSimu->GEN(evSigBas())`SysCtrlEclairage
+Exe[0]->itsSysEclairageSimu->GEN(evSigHaut())`SysCtrlEclairage
+MainSimu[0]->itsControleur->GEN(evSigHaut())`Controleur
+MainSimu[0]->itsControleur->GEN(evOff())`Controleur
+MainSimu[0]->itsControleur->GEN(evOn())`Controleur
+MainSimu[0]->itsSysEclairageSimu->GEN(evSigBas())`SysEclairageSimu
+MainSimu[0]->itsSysEclairageSimu->GEN(evSigHaut())`SysEclairageSimu
+[Breakpoints]

@@ -1,0 +1,11 @@
+I-Logix-RPY-Archive version 8.7.1 * 5066837
+
+- filesTable = { IRPYRawContainer 
+	- size = 4;
+	- value = "HelloWorld2.rpy" ""
+	"HelloWorld2_rpy\\CodesGeneres.cmp" "CodesGeneres"
+	"HelloWorld2_rpy\\IHM_Objets.sbs" "IHM_Objets"
+	"HelloWorld2_rpy\\_MonPkg.sbs" "_MonPkg"
+	
+}
+

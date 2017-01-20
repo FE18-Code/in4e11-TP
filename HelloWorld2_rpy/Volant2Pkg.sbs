@@ -1,0 +1,760 @@
+I-Logix-RPY-Archive version 8.7.1 C++ 5066837
+{ ISubsystem 
+	- _id = GUID b7c926c6-e950-4733-bea7-42c1ab069d35;
+	- _myState = 8192;
+	- _name = "Volant2Pkg";
+	- Dependencies = { IRPYRawContainer 
+		- size = 1;
+		- value = 
+		{ IDependency 
+			- _id = GUID 57c2d0b3-dea1-4953-a5a1-9debcbe1a884;
+			- _myState = 2048;
+			- _name = "_MonPkg";
+			- Stereotypes = { IRPYRawContainer 
+				- size = 1;
+				- value = 
+				{ IHandle 
+					- _m2Class = "IStereotype";
+					- _filename = "PredefinedTypes.sbs";
+					- _subsystem = "PredefinedTypes";
+					- _class = "";
+					- _name = "Usage";
+					- _id = GUID 42aa4325-6112-4e88-87ce-66008878f1db;
+				}
+			}
+			- _dependsOn = { INObjectHandle 
+				- _m2Class = "ISubsystem";
+				- _filename = "_MonPkg.sbs";
+				- _subsystem = "";
+				- _class = "";
+				- _name = "_MonPkg";
+				- _id = GUID 64a74a3b-c261-4958-b577-5a9ed39c89bf;
+			}
+		}
+	}
+	- _lastID = 28;
+	- weakCGTime = 10.3.2016::22:51:49;
+	- strongCGTime = 10.3.2016::9:40:25;
+	- ComponentFiles = { IRPYRawContainer 
+		- size = 2;
+		- value = 
+		{ IFile 
+			- _id = GUID 437588bf-21c1-49c6-9fc6-6c8a4b9cc8e7;
+			- _myState = 139264;
+			- _name = "Volant2Pkg";
+			- m_path = "";
+			- m_type = implFile;
+			- Fragments = { IRPYRawContainer 
+				- size = 10;
+				- value = 
+				{ IFileFragment 
+					- _id = GUID b6d7a173-ca19-4b61-a32d-9f84cd32381c;
+					- _name = "_MonPkg:spec";
+					- m_type = textFragment;
+					- m_text = "//## auto:dependency _MonPkg:spec";
+					- m_startRow = 16;
+					- m_startCol_Short = 1;
+					- m_endRow = 16;
+					- m_endCol_Short = 21;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "";
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID ed70f595-53e1-4648-8611-e7d60fd46d44;
+					- _name = "Interface_17:spec";
+					- m_type = textFragment;
+					- m_text = "//## auto:dependency Interface_17:spec";
+					- m_startRow = 18;
+					- m_startCol_Short = 1;
+					- m_endRow = 18;
+					- m_endCol_Short = 26;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "";
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 95a1250e-e77b-4c11-bfe9-fd581d227132;
+					- _name = "Voiture:spec";
+					- m_type = textFragment;
+					- m_text = "//## auto:dependency Voiture:spec";
+					- m_startRow = 20;
+					- m_startCol_Short = 1;
+					- m_endRow = 20;
+					- m_endCol_Short = 21;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "";
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID f7bda183-8f2a-4a2e-bf5e-edce9e489ac8;
+					- _name = "Volant:spec";
+					- m_type = textFragment;
+					- m_text = "//## auto:dependency Volant:spec";
+					- m_startRow = 22;
+					- m_startCol_Short = 1;
+					- m_endRow = 22;
+					- m_endCol_Short = 20;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "";
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 2851c375-1cb1-423e-a6ca-0627cb340ca3;
+					- _name = "evButtonGauche";
+					- m_type = implFragment;
+					- m_text = "";
+					- m_startRow = 341;
+					- m_startCol_Short = 17;
+					- m_endRow = 341;
+					- m_endCol_Short = 17;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "IEvent";
+						- _filename = "_MonPkg.sbs";
+						- _subsystem = "_MonPkg";
+						- _class = "";
+						- _name = "evButtonGauche()";
+						- _id = GUID e4bba612-6905-4958-8a28-bec14c096236;
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 46ff7e59-bc8e-4e00-82b6-09f2261a132f;
+					- _name = "evButtonDroit";
+					- m_type = implFragment;
+					- m_text = "";
+					- m_startRow = 353;
+					- m_startCol_Short = 16;
+					- m_endRow = 353;
+					- m_endCol_Short = 16;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "IEvent";
+						- _filename = "_MonPkg.sbs";
+						- _subsystem = "_MonPkg";
+						- _class = "";
+						- _name = "evButtonDroit()";
+						- _id = GUID a21b94c7-4cb1-4ded-83f6-b82a93cbcedc;
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 394bd913-83f6-4ff1-a18e-9c0b76046db4;
+					- _name = "evButtonZero";
+					- m_type = implFragment;
+					- m_text = "";
+					- m_startRow = 365;
+					- m_startCol_Short = 15;
+					- m_endRow = 365;
+					- m_endCol_Short = 15;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "IEvent";
+						- _filename = "_MonPkg.sbs";
+						- _subsystem = "_MonPkg";
+						- _class = "";
+						- _name = "evButtonZero()";
+						- _id = GUID 1acb7b99-68d6-4664-8311-78b1476a3e7e;
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 629c1050-2972-4293-be24-b30f56debe30;
+					- _name = "evButtonDeux";
+					- m_type = implFragment;
+					- m_text = "";
+					- m_startRow = 377;
+					- m_startCol_Short = 15;
+					- m_endRow = 377;
+					- m_endCol_Short = 15;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "IEvent";
+						- _filename = "_MonPkg.sbs";
+						- _subsystem = "_MonPkg";
+						- _class = "";
+						- _name = "evButtonDeux()";
+						- _id = GUID 5b91186d-aa6c-42e1-a2f4-be52844dca89;
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID eb1d275b-3fa6-44a1-bde7-ea526231ed9c;
+					- _name = "evTournerD";
+					- m_type = implFragment;
+					- m_text = "";
+					- m_startRow = 389;
+					- m_startCol_Short = 13;
+					- m_endRow = 389;
+					- m_endCol_Short = 13;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "IEvent";
+						- _filename = "_MonPkg.sbs";
+						- _subsystem = "_MonPkg";
+						- _class = "";
+						- _name = "evTournerD()";
+						- _id = GUID 0a756615-4930-4681-bc62-02ca3b42904e;
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID e407ae2d-8009-4ea0-b5a4-c510bd62ee3e;
+					- _name = "evTournerG";
+					- m_type = implFragment;
+					- m_text = "";
+					- m_startRow = 401;
+					- m_startCol_Short = 13;
+					- m_endRow = 401;
+					- m_endCol_Short = 13;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "IEvent";
+						- _filename = "_MonPkg.sbs";
+						- _subsystem = "_MonPkg";
+						- _class = "";
+						- _name = "evTournerG()";
+						- _id = GUID 5b03df63-29e2-4e77-94e6-b98f1b7fce6b;
+					}
+				}
+			}
+		}
+		{ IFile 
+			- _id = GUID bf12233e-cdac-44f0-87f5-2f954c3683f2;
+			- _myState = 139264;
+			- _name = "Volant2Pkg";
+			- m_path = "";
+			- m_type = specFile;
+			- Fragments = { IRPYRawContainer 
+				- size = 15;
+				- value = 
+				{ IFileFragment 
+					- _id = GUID d2218036-8b06-45ae-9846-20422d244292;
+					- _name = "oxf:spec";
+					- m_type = textFragment;
+					- m_text = "//## auto:dependency oxf:spec";
+					- m_startRow = 15;
+					- m_startCol_Short = 1;
+					- m_endRow = 15;
+					- m_endCol_Short = 21;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "";
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 6df17f02-e5bb-47b7-98a9-59f66f80d4b6;
+					- _name = "aom:spec";
+					- m_type = textFragment;
+					- m_text = "//## auto:dependency aom:spec";
+					- m_startRow = 17;
+					- m_startCol_Short = 1;
+					- m_endRow = 17;
+					- m_endCol_Short = 21;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "";
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID ab65df25-270d-4175-8061-8dc1d409e367;
+					- _name = "Windows:spec";
+					- m_type = textFragment;
+					- m_text = "//## auto:dependency Windows:spec";
+					- m_startRow = 19;
+					- m_startCol_Short = 1;
+					- m_endRow = 19;
+					- m_endCol_Short = 21;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "";
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 48d63972-9b96-4407-a530-35314107124a;
+					- _name = "stdlib:spec";
+					- m_type = textFragment;
+					- m_text = "//## auto:dependency stdlib:spec";
+					- m_startRow = 21;
+					- m_startCol_Short = 1;
+					- m_endRow = 21;
+					- m_endCol_Short = 20;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "";
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 1b60bcff-cbbe-4faa-bb06-56e28c308523;
+					- _name = "stdio:spec";
+					- m_type = textFragment;
+					- m_text = "//## auto:dependency stdio:spec";
+					- m_startRow = 23;
+					- m_startCol_Short = 1;
+					- m_endRow = 23;
+					- m_endCol_Short = 19;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "";
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID e02143e9-7b45-4fef-8432-714370012109;
+					- _name = "string:spec";
+					- m_type = textFragment;
+					- m_text = "//## auto:dependency string:spec";
+					- m_startRow = 25;
+					- m_startCol_Short = 1;
+					- m_endRow = 25;
+					- m_endCol_Short = 20;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "";
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 903c473b-f646-41f6-ba1f-cd6555eaa146;
+					- _name = "stdint:spec";
+					- m_type = textFragment;
+					- m_text = "//## auto:dependency stdint:spec";
+					- m_startRow = 27;
+					- m_startCol_Short = 1;
+					- m_endRow = 27;
+					- m_endCol_Short = 20;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "";
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 058d4125-9ed3-4273-9eea-dc940bc202cb;
+					- _name = "tchar:spec";
+					- m_type = textFragment;
+					- m_text = "//## auto:dependency tchar:spec";
+					- m_startRow = 29;
+					- m_startCol_Short = 1;
+					- m_endRow = 29;
+					- m_endCol_Short = 19;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "";
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 1f9161db-88e9-4d89-8716-6c259ec9c9b0;
+					- _name = "event:spec";
+					- m_type = textFragment;
+					- m_text = "//## auto:dependency event:spec";
+					- m_startRow = 31;
+					- m_startCol_Short = 1;
+					- m_endRow = 31;
+					- m_endCol_Short = 23;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "";
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 23f1b5af-f8ff-4244-8708-7c597b80fd32;
+					- _name = "evButtonGauche";
+					- Tags = { IRPYRawContainer 
+						- size = 2;
+						- value = 
+						{ ITag 
+							- _id = GUID a5ba9660-2d83-4665-b4df-62fc24f5ff3f;
+							- _myState = 8192;
+							- _name = "BodyStartLine";
+							- ValueSpecifications = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ ILiteralSpecification 
+									- _id = GUID 6acbc1f3-e72f-4400-9f92-298e2022bf25;
+									- _value = "515";
+								}
+							}
+							- _typeOf = { IHandle 
+								- _m2Class = "IType";
+								- _filename = "PredefinedTypes.sbs";
+								- _subsystem = "PredefinedTypes";
+								- _class = "";
+								- _name = "RhpString";
+								- _id = GUID ae5e3720-4e3e-40f1-9346-9a8b4e501f35;
+							}
+							- _isOrdered = 0;
+						}
+						{ ITag 
+							- _id = GUID 97d16a71-64d6-4d73-a7ef-5f15b53c27d8;
+							- _myState = 8192;
+							- _name = "BodyStartCol";
+							- ValueSpecifications = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ ILiteralSpecification 
+									- _id = GUID b8cad6b9-a8bb-4165-9427-9178f6d99aa1;
+									- _value = "39";
+								}
+							}
+							- _typeOf = { IHandle 
+								- _m2Class = "IType";
+								- _filename = "PredefinedTypes.sbs";
+								- _subsystem = "PredefinedTypes";
+								- _class = "";
+								- _name = "RhpString";
+								- _id = GUID ae5e3720-4e3e-40f1-9346-9a8b4e501f35;
+							}
+							- _isOrdered = 0;
+						}
+					}
+					- m_type = specFragment;
+					- m_text = "";
+					- m_startRow = 515;
+					- m_startCol_Short = 1;
+					- m_endRow = 533;
+					- m_endCol_Short = 1;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "IEvent";
+						- _filename = "_MonPkg.sbs";
+						- _subsystem = "_MonPkg";
+						- _class = "";
+						- _name = "evButtonGauche()";
+						- _id = GUID e4bba612-6905-4958-8a28-bec14c096236;
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 9b8000d5-4897-4df9-8b6c-13f6f1f9bfcd;
+					- _name = "evButtonDroit";
+					- Tags = { IRPYRawContainer 
+						- size = 2;
+						- value = 
+						{ ITag 
+							- _id = GUID 85a89a6e-8d30-4467-9699-5672a32030fd;
+							- _myState = 8192;
+							- _name = "BodyStartLine";
+							- ValueSpecifications = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ ILiteralSpecification 
+									- _id = GUID e4a4d4b8-23f0-42f7-a9a1-bacfbb32f33a;
+									- _value = "544";
+								}
+							}
+							- _typeOf = { IHandle 
+								- _m2Class = "IType";
+								- _filename = "PredefinedTypes.sbs";
+								- _subsystem = "PredefinedTypes";
+								- _class = "";
+								- _name = "RhpString";
+								- _id = GUID ae5e3720-4e3e-40f1-9346-9a8b4e501f35;
+							}
+							- _isOrdered = 0;
+						}
+						{ ITag 
+							- _id = GUID e230ff52-1665-496e-b27d-60c21398b6c3;
+							- _myState = 8192;
+							- _name = "BodyStartCol";
+							- ValueSpecifications = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ ILiteralSpecification 
+									- _id = GUID 07e48bb7-7179-4d3e-a906-5ebf7763e9e6;
+									- _value = "38";
+								}
+							}
+							- _typeOf = { IHandle 
+								- _m2Class = "IType";
+								- _filename = "PredefinedTypes.sbs";
+								- _subsystem = "PredefinedTypes";
+								- _class = "";
+								- _name = "RhpString";
+								- _id = GUID ae5e3720-4e3e-40f1-9346-9a8b4e501f35;
+							}
+							- _isOrdered = 0;
+						}
+					}
+					- m_type = specFragment;
+					- m_text = "";
+					- m_startRow = 544;
+					- m_startCol_Short = 1;
+					- m_endRow = 562;
+					- m_endCol_Short = 1;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "IEvent";
+						- _filename = "_MonPkg.sbs";
+						- _subsystem = "_MonPkg";
+						- _class = "";
+						- _name = "evButtonDroit()";
+						- _id = GUID a21b94c7-4cb1-4ded-83f6-b82a93cbcedc;
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 7c568ed7-03e2-42da-ad71-065c326dc7d9;
+					- _name = "evButtonZero";
+					- Tags = { IRPYRawContainer 
+						- size = 2;
+						- value = 
+						{ ITag 
+							- _id = GUID b28f0643-5bd9-48b5-98df-ddb8d0eba90b;
+							- _myState = 8192;
+							- _name = "BodyStartLine";
+							- ValueSpecifications = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ ILiteralSpecification 
+									- _id = GUID 2fb5467f-d493-4d89-a70f-3b42d01d13b9;
+									- _value = "573";
+								}
+							}
+							- _typeOf = { IHandle 
+								- _m2Class = "IType";
+								- _filename = "PredefinedTypes.sbs";
+								- _subsystem = "PredefinedTypes";
+								- _class = "";
+								- _name = "RhpString";
+								- _id = GUID ae5e3720-4e3e-40f1-9346-9a8b4e501f35;
+							}
+							- _isOrdered = 0;
+						}
+						{ ITag 
+							- _id = GUID bfcc71e0-8cdc-456e-b380-66f99a93e9d4;
+							- _myState = 8192;
+							- _name = "BodyStartCol";
+							- ValueSpecifications = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ ILiteralSpecification 
+									- _id = GUID 1eec033a-5b3e-43db-8e0e-14791f9c312d;
+									- _value = "37";
+								}
+							}
+							- _typeOf = { IHandle 
+								- _m2Class = "IType";
+								- _filename = "PredefinedTypes.sbs";
+								- _subsystem = "PredefinedTypes";
+								- _class = "";
+								- _name = "RhpString";
+								- _id = GUID ae5e3720-4e3e-40f1-9346-9a8b4e501f35;
+							}
+							- _isOrdered = 0;
+						}
+					}
+					- m_type = specFragment;
+					- m_text = "";
+					- m_startRow = 573;
+					- m_startCol_Short = 1;
+					- m_endRow = 591;
+					- m_endCol_Short = 1;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "IEvent";
+						- _filename = "_MonPkg.sbs";
+						- _subsystem = "_MonPkg";
+						- _class = "";
+						- _name = "evButtonZero()";
+						- _id = GUID 1acb7b99-68d6-4664-8311-78b1476a3e7e;
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 80f3747d-c3d3-4557-986e-d4e1002effab;
+					- _name = "evButtonDeux";
+					- Tags = { IRPYRawContainer 
+						- size = 2;
+						- value = 
+						{ ITag 
+							- _id = GUID 08b3279f-aac3-4d65-813e-9c5d8f795ec8;
+							- _myState = 8192;
+							- _name = "BodyStartLine";
+							- ValueSpecifications = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ ILiteralSpecification 
+									- _id = GUID 3b836b2c-9734-4a77-beeb-60a9c44047f3;
+									- _value = "602";
+								}
+							}
+							- _typeOf = { IHandle 
+								- _m2Class = "IType";
+								- _filename = "PredefinedTypes.sbs";
+								- _subsystem = "PredefinedTypes";
+								- _class = "";
+								- _name = "RhpString";
+								- _id = GUID ae5e3720-4e3e-40f1-9346-9a8b4e501f35;
+							}
+							- _isOrdered = 0;
+						}
+						{ ITag 
+							- _id = GUID 7d96aa5d-f1eb-416f-85b8-c0ae060f2008;
+							- _myState = 8192;
+							- _name = "BodyStartCol";
+							- ValueSpecifications = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ ILiteralSpecification 
+									- _id = GUID e0503031-9ae8-4c00-a787-04bfd3a53cbf;
+									- _value = "37";
+								}
+							}
+							- _typeOf = { IHandle 
+								- _m2Class = "IType";
+								- _filename = "PredefinedTypes.sbs";
+								- _subsystem = "PredefinedTypes";
+								- _class = "";
+								- _name = "RhpString";
+								- _id = GUID ae5e3720-4e3e-40f1-9346-9a8b4e501f35;
+							}
+							- _isOrdered = 0;
+						}
+					}
+					- m_type = specFragment;
+					- m_text = "";
+					- m_startRow = 602;
+					- m_startCol_Short = 1;
+					- m_endRow = 620;
+					- m_endCol_Short = 1;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "IEvent";
+						- _filename = "_MonPkg.sbs";
+						- _subsystem = "_MonPkg";
+						- _class = "";
+						- _name = "evButtonDeux()";
+						- _id = GUID 5b91186d-aa6c-42e1-a2f4-be52844dca89;
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 6ffb12cc-1922-48b8-b738-36de19b992d7;
+					- _name = "evTournerD";
+					- Tags = { IRPYRawContainer 
+						- size = 2;
+						- value = 
+						{ ITag 
+							- _id = GUID a4157742-c8ac-4ba2-80e6-7904ee69dd11;
+							- _myState = 8192;
+							- _name = "BodyStartLine";
+							- ValueSpecifications = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ ILiteralSpecification 
+									- _id = GUID 4f8b3c11-954c-41b8-8343-d327f41d16e5;
+									- _value = "631";
+								}
+							}
+							- _typeOf = { IHandle 
+								- _m2Class = "IType";
+								- _filename = "PredefinedTypes.sbs";
+								- _subsystem = "PredefinedTypes";
+								- _class = "";
+								- _name = "RhpString";
+								- _id = GUID ae5e3720-4e3e-40f1-9346-9a8b4e501f35;
+							}
+							- _isOrdered = 0;
+						}
+						{ ITag 
+							- _id = GUID 91f31d82-f7fe-47fe-b8b9-8ca5de0accae;
+							- _myState = 8192;
+							- _name = "BodyStartCol";
+							- ValueSpecifications = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ ILiteralSpecification 
+									- _id = GUID 02010330-d668-47b3-8f99-6f09d6801e55;
+									- _value = "35";
+								}
+							}
+							- _typeOf = { IHandle 
+								- _m2Class = "IType";
+								- _filename = "PredefinedTypes.sbs";
+								- _subsystem = "PredefinedTypes";
+								- _class = "";
+								- _name = "RhpString";
+								- _id = GUID ae5e3720-4e3e-40f1-9346-9a8b4e501f35;
+							}
+							- _isOrdered = 0;
+						}
+					}
+					- m_type = specFragment;
+					- m_text = "";
+					- m_startRow = 631;
+					- m_startCol_Short = 1;
+					- m_endRow = 649;
+					- m_endCol_Short = 1;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "IEvent";
+						- _filename = "_MonPkg.sbs";
+						- _subsystem = "_MonPkg";
+						- _class = "";
+						- _name = "evTournerD()";
+						- _id = GUID 0a756615-4930-4681-bc62-02ca3b42904e;
+					}
+				}
+				{ IFileFragment 
+					- _id = GUID 92bc9001-3f25-4829-b10d-48759a7ce8dc;
+					- _name = "evTournerG";
+					- Tags = { IRPYRawContainer 
+						- size = 2;
+						- value = 
+						{ ITag 
+							- _id = GUID 30621aee-6659-4932-a551-2a179e94f71f;
+							- _myState = 8192;
+							- _name = "BodyStartLine";
+							- ValueSpecifications = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ ILiteralSpecification 
+									- _id = GUID cdc1b6ce-5cb1-481a-bca6-91b6940c580d;
+									- _value = "660";
+								}
+							}
+							- _typeOf = { IHandle 
+								- _m2Class = "IType";
+								- _filename = "PredefinedTypes.sbs";
+								- _subsystem = "PredefinedTypes";
+								- _class = "";
+								- _name = "RhpString";
+								- _id = GUID ae5e3720-4e3e-40f1-9346-9a8b4e501f35;
+							}
+							- _isOrdered = 0;
+						}
+						{ ITag 
+							- _id = GUID 31f4ba49-4a41-48e8-80a8-0c8cf8e37110;
+							- _myState = 8192;
+							- _name = "BodyStartCol";
+							- ValueSpecifications = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ ILiteralSpecification 
+									- _id = GUID 912ffab6-6e2e-405e-b931-85daa2d74c1d;
+									- _value = "35";
+								}
+							}
+							- _typeOf = { IHandle 
+								- _m2Class = "IType";
+								- _filename = "PredefinedTypes.sbs";
+								- _subsystem = "PredefinedTypes";
+								- _class = "";
+								- _name = "RhpString";
+								- _id = GUID ae5e3720-4e3e-40f1-9346-9a8b4e501f35;
+							}
+							- _isOrdered = 0;
+						}
+					}
+					- m_type = specFragment;
+					- m_text = "";
+					- m_startRow = 660;
+					- m_startCol_Short = 1;
+					- m_endRow = 678;
+					- m_endCol_Short = 1;
+					- m_subject = { INObjectHandle 
+						- _m2Class = "IEvent";
+						- _filename = "_MonPkg.sbs";
+						- _subsystem = "_MonPkg";
+						- _class = "";
+						- _name = "evTournerG()";
+						- _id = GUID 5b03df63-29e2-4e77-94e6-b98f1b7fce6b;
+					}
+				}
+			}
+		}
+	}
+	- _defaultComposite = GUID 3479218c-9a64-4f7f-b302-734b5e07a11a;
+	- _eventsBaseID = -1;
+	- Classes = { IRPYRawContainer 
+		- size = 1;
+		- value = 
+		{ IClass 
+			- _id = GUID 3479218c-9a64-4f7f-b302-734b5e07a11a;
+			- _myState = 40960;
+			- _name = "TopLevel";
+			- weakCGTime = 10.3.2016::22:13:40;
+			- strongCGTime = 10.3.2016::9:40:25;
+			- _multiplicity = "";
+			- _itsStateChart = { IHandle 
+				- _m2Class = "";
+			}
+			- _classModifier = Unspecified;
+		}
+	}
+	- Events = { IRPYRawContainer 
+		- size = 0;
+	}
+	- _configurationRelatedTime = 10.3.2016::22:49:42;
+}
+

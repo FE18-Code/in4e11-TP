@@ -1,0 +1,96 @@
+I-Logix-RPY-Archive version 8.7.1 * 5066837
+{ CGEMdiWorkspace 
+	- stubList = { IRPYRawContainer 
+		- size = 0;
+	}
+	- isLoadOnDemand = 0;
+	- myViewsWithID = { IRPYRawContainer 
+		- size = 2;
+		- value = 
+		{ CGEMdiDiagramParams 
+			- _placement = { CCommon_WINDOWPLACEMENT 
+				- m_nLength = 44;
+				- m_nFlags = 0;
+				- m_showCmd = 1;
+				- m_ptMinPositionX = -1;
+				- m_ptMinPositionY = -1;
+				- m_ptMaxPositionX = -4;
+				- m_ptMaxPositionY = -23;
+				- m_nLeft = 88;
+				- m_nTop = 88;
+				- m_nRight = 1338;
+				- m_nBottom = 638;
+			}
+			- _wasOpenedOnCloseProject = 1;
+			- _theDiagram = { IHandle 
+				- _m2Class = "IDiagram";
+				- _filename = "";
+				- _subsystem = "";
+				- _class = "";
+				- _name = "Architecture_Systeme";
+				- _id = GUID c5f23ad9-50cf-4425-a359-0fd47d9bb422;
+			}
+			- _UpLeft = 0 0 ;
+			- _DownRight = 1222 503 ;
+			- _instanceName = "";
+			- m_nDiagramIndex = 0;
+		}
+		{ CGEMdiDiagramParams 
+			- _placement = { CCommon_WINDOWPLACEMENT 
+				- m_nLength = 44;
+				- m_nFlags = 2;
+				- m_showCmd = 3;
+				- m_ptMinPositionX = -1;
+				- m_ptMinPositionY = -1;
+				- m_ptMaxPositionX = -4;
+				- m_ptMaxPositionY = -23;
+				- m_nLeft = 0;
+				- m_nTop = 246;
+				- m_nRight = 895;
+				- m_nBottom = 492;
+			}
+			- _wasOpenedOnCloseProject = 1;
+			- _theDiagram = { IHandle 
+				- _m2Class = "IPanelDiagram";
+				- _filename = "_MonPkg.sbs";
+				- _subsystem = "_MonPkg";
+				- _class = "";
+				- _name = "IHM";
+				- _id = GUID 384edb5b-dab8-40de-a538-b4e732957176;
+			}
+			- _UpLeft = 0 33 ;
+			- _DownRight = 1046 589 ;
+			- _instanceName = "";
+			- m_nDiagramIndex = 1;
+		}
+	}
+	- _fullName = "C:\\Users\\TEMP.ESIEE-1\\Downloads\\TP_Base2016\\TP_Base2016\\HelloWorld2";
+	- m_SearchScopeList = { IRPYRawContainer 
+		- size = 0;
+	}
+	- bUsingCustomBrowserView = 0;
+	- bUsingQueries = 0;
+	- bApplyOnDiagrams = 0;
+	- liQueryIDs = { IRPYRawContainer 
+		- size = 0;
+	}
+	- liElementTypes = { IRPYRawContainer 
+		- size = 0;
+	}
+
+	- m_favoritesTree = {
+		count=2;
+		{ - favoritesItem
+			generation = 0;
+			name = Favorites;
+			idOrFolder = folder-expanded;
+		}
+		{ - favoritesItem
+			generation = 1;
+			name = IHM;
+			idOrFolder = GUID 384edb5b-dab8-40de-a538-b4e732957176;
+		}
+	}
+
+}
+

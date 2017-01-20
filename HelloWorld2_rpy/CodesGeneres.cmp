@@ -1,0 +1,225 @@
+I-Logix-RPY-Archive version 8.7.1 C++ 5066837
+{ IComponent 
+	- _id = GUID 3d99dc34-15fa-4ef9-9e32-d4373e63fc39;
+	- _myState = 139264;
+	- _name = "CodesGeneres";
+	- m_buildType = Executable;
+	- m_libraries = "";
+	- m_additionalSources = "";
+	- m_standardHeaders = "";
+	- m_includePath = "";
+	- m_initializationCode = "";
+	- m_folder = { IFolder 
+		- _id = GUID 25f4a565-0c7e-4796-a613-032094f5a697;
+		- _myState = 73728;
+		- _name = "Files";
+		- m_path = "";
+		- Elements = { IRPYRawContainer 
+			- size = 3;
+			- value = 
+			{ IHandle 
+				- _m2Class = "ISubsystem";
+				- _filename = "_MonPkg.sbs";
+				- _subsystem = "";
+				- _class = "";
+				- _name = "_MonPkg";
+				- _id = GUID 64a74a3b-c261-4958-b577-5a9ed39c89bf;
+			}
+			{ IHandle 
+				- _m2Class = "ISubsystem";
+				- _filename = "PredefinedUMainPkg_NE_PAS_MODIFIER.sbs";
+				- _subsystem = "";
+				- _class = "";
+				- _name = "PredefinedUMainPkg_NE_PAS_MODIFIER";
+				- _id = GUID 01dd56fe-298e-423f-8f52-a5e5dff6dbdc;
+			}
+			{ IHandle 
+				- _m2Class = "IClass";
+				- _filename = "_MonPkg.sbs";
+				- _subsystem = "_MonPkg";
+				- _class = "";
+				- _name = "Vehicule";
+				- _id = GUID 3684b53f-4fb7-4106-9c73-3759402a3dd5;
+			}
+		}
+		- Files = { IRPYRawContainer 
+			- size = 1;
+			- value = 
+			{ IFile 
+				- _id = GUID 28908b64-0ebb-4358-97a6-0e79cd266a0c;
+				- _myState = 139264;
+				- _properties = { IPropertyContainer 
+					- Subjects = { IRPYRawContainer 
+						- size = 2;
+						- value = 
+						{ IPropertySubject 
+							- _Name = "CG";
+							- Metaclasses = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ IPropertyMetaclass 
+									- _Name = "File";
+									- Properties = { IRPYRawContainer 
+										- size = 1;
+										- value = 
+										{ IProperty 
+											- _Name = "AddToMakefile";
+											- _Value = "False";
+											- _Type = Bool;
+										}
+									}
+								}
+							}
+						}
+						{ IPropertySubject 
+							- _Name = "CPP_CG";
+							- Metaclasses = { IRPYRawContainer 
+								- size = 1;
+								- value = 
+								{ IPropertyMetaclass 
+									- _Name = "File";
+									- Properties = { IRPYRawContainer 
+										- size = 1;
+										- value = 
+										{ IProperty 
+											- _Name = "Generate";
+											- _Value = "False";
+											- _Type = Enum;
+											- _ExtraTypeInfo = "True, False, Specification, Implementation";
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				- _name = "math";
+				- m_path = "";
+				- m_type = specFile;
+				- Fragments = { IRPYRawContainer 
+					- size = 0;
+				}
+			}
+		}
+	}
+	- m_configActive = { ICodeGenConfigInfoHandle 
+		- _m2Class = "ICodeGenConfigInfo";
+		- _id = GUID 676b993c-40d1-439f-9c34-e579750a2b51;
+	}
+	- Configs = { IRPYRawContainer 
+		- size = 1;
+		- value = 
+		{ ICodeGenConfigInfo 
+			- _id = GUID 676b993c-40d1-439f-9c34-e579750a2b51;
+			- _myState = 8192;
+			- _name = "ModeAnimation";
+			- HyperLinks = { IRPYRawContainer 
+				- size = 2;
+				- value = 
+				{ IMHyperLink 
+					- _id = GUID dedb69c4-4a69-4230-b79f-dcf9b63d0a0c;
+					- _dependsOn = { INObjectHandle 
+						- _m2Class = "";
+					}
+					- _linkDispName = "Edit Makefile";
+					- _linkType = "FREE";
+					- _linkTarget = "U:\\enseignement\\IN5R21\\HelloWorld\\DefaultComponent\\DefaultConfig\\DefaultComponent.mak";
+					- isConfigurationFileHyperLink = 1;
+				}
+				{ IMHyperLink 
+					- _id = GUID 8e33c37b-cf97-463a-b28c-f74f072ad41e;
+					- _dependsOn = { INObjectHandle 
+						- _m2Class = "";
+					}
+					- _linkDispName = "Edit Main File";
+					- _linkType = "FREE";
+					- _linkTarget = "U:\\enseignement\\IN5R21\\HelloWorld\\DefaultComponent\\DefaultConfig\\MainDefaultComponent";
+					- isConfigurationFileHyperLink = 1;
+				}
+			}
+			- _scopeType = Explicit;
+			- _libraries = "";
+			- _additionalSources = "";
+			- _standardHeaders = "\"Windows.h\",\"stdlib.h\",\"stdio.h\",\"string.h\",\"stdint.h\",\"tchar.h\"";
+			- _includePath = "";
+			- _targetMain = "";
+			- _instrumentation = Animation;
+			- _timeModel = RealTime;
+			- m_generateActors = 1;
+			- _statechartImplementation = Flat;
+			- _initializationCode = "";
+			- _checksList = 0 ;
+			- ScopeElements = { IRPYRawContainer 
+				- size = 0;
+			}
+			- InitialInstances = { IRPYRawContainer 
+				- size = 1;
+				- value = 
+				{ IHandle 
+					- _m2Class = "IClass";
+					- _filename = "PredefinedUMainPkg_NE_PAS_MODIFIER.sbs";
+					- _subsystem = "PredefinedUMainPkg_NE_PAS_MODIFIER";
+					- _class = "";
+					- _name = "MainDeApplication";
+					- _id = GUID 9812cd6c-887c-4c87-a787-da3d76b01c1e;
+				}
+			}
+			- _root = { IFolder 
+				- _id = GUID 3bb4936a-c72d-4a6d-aeaf-a6d255ae33cd;
+				- _myState = 8192;
+				- _name = "ModeAnimation";
+				- m_path = "";
+				- Elements = { IRPYRawContainer 
+					- size = 0;
+				}
+				- Files = { IRPYRawContainer 
+					- size = 0;
+				}
+			}
+			- weakCGTime = 10.3.2016::9:28:9;
+			- strongCGTime = 10.3.2016::9:28:9;
+			- AnimScopeElements = { IRPYRawContainer 
+				- size = 0;
+			}
+			- m_allInAnimScope = 1;
+			- m_generateUsecases = 0;
+		}
+	}
+	- HandlesInMe = { IRPYRawContainer 
+		- size = 3;
+		- value = 
+		{ IHandle 
+			- _m2Class = "ISubsystem";
+			- _filename = "_MonPkg.sbs";
+			- _subsystem = "";
+			- _class = "";
+			- _name = "_MonPkg";
+			- _id = GUID 64a74a3b-c261-4958-b577-5a9ed39c89bf;
+		}
+		{ IHandle 
+			- _m2Class = "ISubsystem";
+			- _filename = "PredefinedUMainPkg_NE_PAS_MODIFIER.sbs";
+			- _subsystem = "";
+			- _class = "";
+			- _name = "PredefinedUMainPkg_NE_PAS_MODIFIER";
+			- _id = GUID 01dd56fe-298e-423f-8f52-a5e5dff6dbdc;
+		}
+		{ IHandle 
+			- _m2Class = "ISubsystem";
+			- _filename = "Volant2Pkg.sbs";
+			- _subsystem = "";
+			- _class = "";
+			- _name = "Volant2Pkg";
+			- _id = GUID b7c926c6-e950-4733-bea7-42c1ab069d35;
+		}
+	}
+	- VariationPoints = { IRPYRawContainer 
+		- size = 0;
+	}
+	- SelectedVariants = { IRPYRawContainer 
+		- size = 0;
+	}
+	- weakCGTime = 10.3.2016::9:28:9;
+	- strongCGTime = 10.2.2014::11:7:51;
+}
+
