@@ -5,13 +5,13 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 	}
 	- isLoadOnDemand = 0;
 	- myViewsWithID = { IRPYRawContainer 
-		- size = 4;
+		- size = 6;
 		- value = 
 		{ CGEMdiDiagramParams 
 			- _placement = { CCommon_WINDOWPLACEMENT 
 				- m_nLength = 44;
-				- m_nFlags = 2;
-				- m_showCmd = 3;
+				- m_nFlags = 0;
+				- m_showCmd = 1;
 				- m_ptMinPositionX = -1;
 				- m_ptMinPositionY = -1;
 				- m_ptMaxPositionX = -4;
@@ -31,9 +31,9 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _id = GUID c5f23ad9-50cf-4425-a359-0fd47d9bb422;
 			}
 			- _UpLeft = 11 23 ;
-			- _DownRight = 1013 525 ;
+			- _DownRight = 864 374 ;
 			- _instanceName = "";
-			- m_nDiagramIndex = 2;
+			- m_nDiagramIndex = 4;
 		}
 		{ CGEMdiDiagramParams 
 			- _placement = { CCommon_WINDOWPLACEMENT 
@@ -61,13 +61,41 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 			- _UpLeft = 0 -5 ;
 			- _DownRight = 914 342 ;
 			- _instanceName = "";
-			- m_nDiagramIndex = 0;
+			- m_nDiagramIndex = 2;
 		}
 		{ CGEMdiDiagramParams 
 			- _placement = { CCommon_WINDOWPLACEMENT 
 				- m_nLength = 44;
 				- m_nFlags = 0;
 				- m_showCmd = 1;
+				- m_ptMinPositionX = -1;
+				- m_ptMinPositionY = -1;
+				- m_ptMaxPositionX = -4;
+				- m_ptMaxPositionY = -23;
+				- m_nLeft = 132;
+				- m_nTop = 132;
+				- m_nRight = 1306;
+				- m_nBottom = 620;
+			}
+			- _wasOpenedOnCloseProject = 1;
+			- _theDiagram = { IHandle 
+				- _m2Class = "IStateChartDiagram";
+				- _filename = "_MonPkg.sbs";
+				- _subsystem = "_MonPkg";
+				- _class = "AcquisitionUserEnv";
+				- _name = "StatechartDiagram";
+				- _id = GUID 99ca466c-b72f-4e94-8ee3-1724b272c51a;
+			}
+			- _UpLeft = 188 -5 ;
+			- _DownRight = 1072 335 ;
+			- _instanceName = "MainDeApplication[0]->objAcqUserEnv";
+			- m_nDiagramIndex = 1;
+		}
+		{ CGEMdiDiagramParams 
+			- _placement = { CCommon_WINDOWPLACEMENT 
+				- m_nLength = 44;
+				- m_nFlags = 2;
+				- m_showCmd = 3;
 				- m_ptMinPositionX = -1;
 				- m_ptMinPositionY = -1;
 				- m_ptMaxPositionX = -4;
@@ -86,10 +114,10 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "IHM";
 				- _id = GUID 384edb5b-dab8-40de-a538-b4e732957176;
 			}
-			- _UpLeft = 0 60 ;
-			- _DownRight = 666 213 ;
+			- _UpLeft = 0 30 ;
+			- _DownRight = 1055 582 ;
 			- _instanceName = "";
-			- m_nDiagramIndex = 3;
+			- m_nDiagramIndex = 5;
 		}
 		{ CGEMdiDiagramParams 
 			- _placement = { CCommon_WINDOWPLACEMENT 
@@ -114,10 +142,38 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID f0db9f69-418d-44cc-b2c0-fe87f5fe35b2;
 			}
-			- _UpLeft = 0 0 ;
-			- _DownRight = 1185 450 ;
+			- _UpLeft = 0 32 ;
+			- _DownRight = 860 359 ;
 			- _instanceName = "";
-			- m_nDiagramIndex = 1;
+			- m_nDiagramIndex = 3;
+		}
+		{ CGEMdiDiagramParams 
+			- _placement = { CCommon_WINDOWPLACEMENT 
+				- m_nLength = 44;
+				- m_nFlags = 0;
+				- m_showCmd = 1;
+				- m_ptMinPositionX = -1;
+				- m_ptMinPositionY = -1;
+				- m_ptMaxPositionX = -4;
+				- m_ptMaxPositionY = -23;
+				- m_nLeft = 154;
+				- m_nTop = 154;
+				- m_nRight = 1328;
+				- m_nBottom = 642;
+			}
+			- _wasOpenedOnCloseProject = 1;
+			- _theDiagram = { IHandle 
+				- _m2Class = "IStateChartDiagram";
+				- _filename = "_MonPkg.sbs";
+				- _subsystem = "_MonPkg";
+				- _class = "VehiculeMoteur";
+				- _name = "StatechartDiagram";
+				- _id = GUID f0db9f69-418d-44cc-b2c0-fe87f5fe35b2;
+			}
+			- _UpLeft = 0 0 ;
+			- _DownRight = 1146 441 ;
+			- _instanceName = "MainDeApplication[0]->objVehiculeMoteur";
+			- m_nDiagramIndex = 0;
 		}
 	}
 	- _fullName = "U:\\Documents\\E4FE\\IN4E11\\TP-Voiture\\HelloWorld2";

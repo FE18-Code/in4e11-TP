@@ -317,10 +317,13 @@ void AcquisitionUserEnv::initStatechart() {
     rootState_active = OMNonState;
     volant_reel_subState = OMNonState;
     volant_reel_timeout = NULL;
+    simulation_subState = OMNonState;
+    simulation_timeout = NULL;
 }
 
 void AcquisitionUserEnv::cancelTimeouts() {
     cancel(volant_reel_timeout);
+    cancel(simulation_timeout);
 }
 
 bool AcquisitionUserEnv::cancelTimeout(const IOxfTimeout* arg) {
@@ -328,6 +331,11 @@ bool AcquisitionUserEnv::cancelTimeout(const IOxfTimeout* arg) {
     if(volant_reel_timeout == arg)
         {
             volant_reel_timeout = NULL;
+            res = true;
+        }
+    if(simulation_timeout == arg)
+        {
+            simulation_timeout = NULL;
             res = true;
         }
     return res;
@@ -404,9 +412,7 @@ IOxfReactive::TakeEventStatus AcquisitionUserEnv::rootState_processEvent() {
                             NOTIFY_TRANSITION_STARTED("5");
                             popNullTransition();
                             NOTIFY_STATE_EXITED("ROOT.state_37");
-                            NOTIFY_STATE_ENTERED("ROOT.simulation");
-                            rootState_subState = simulation;
-                            rootState_active = simulation;
+                            simulation_entDef();
                             NOTIFY_TRANSITION_TERMINATED("5");
                             NOTIFY_TRANSITION_TERMINATED("4");
                             res = eventConsumed;
@@ -415,7 +421,31 @@ IOxfReactive::TakeEventStatus AcquisitionUserEnv::rootState_processEvent() {
             
         }
         break;
-        
+        // State state_41
+        case state_41:
+        {
+            if(IS_EVENT_TYPE_OF(OMTimeoutEventId))
+                {
+                    if(getCurrentEvent() == simulation_timeout)
+                        {
+                            NOTIFY_TRANSITION_STARTED("7");
+                            cancel(simulation_timeout);
+                            NOTIFY_STATE_EXITED("ROOT.simulation.state_41");
+                            //#[ transition 7 
+                            if (acc>0) OUT_PORT(out)->GEN(evAccelerer(acc));
+                            //#]
+                            NOTIFY_STATE_ENTERED("ROOT.simulation.state_41");
+                            simulation_subState = state_41;
+                            rootState_active = state_41;
+                            simulation_timeout = scheduleTimeout(255, "ROOT.simulation.state_41");
+                            NOTIFY_TRANSITION_TERMINATED("7");
+                            res = eventConsumed;
+                        }
+                }
+            
+            
+        }
+        break;
         default:
             break;
     }
@@ -446,6 +476,29 @@ void AcquisitionUserEnv::volant_reel_exit() {
     volant_reel_subState = OMNonState;
     
     NOTIFY_STATE_EXITED("ROOT.volant_reel");
+}
+
+void AcquisitionUserEnv::simulation_entDef() {
+    NOTIFY_STATE_ENTERED("ROOT.simulation");
+    rootState_subState = simulation;
+    NOTIFY_TRANSITION_STARTED("6");
+    NOTIFY_STATE_ENTERED("ROOT.simulation.state_41");
+    simulation_subState = state_41;
+    rootState_active = state_41;
+    simulation_timeout = scheduleTimeout(255, "ROOT.simulation.state_41");
+    NOTIFY_TRANSITION_TERMINATED("6");
+}
+
+void AcquisitionUserEnv::simulation_exit() {
+    // State state_41
+    if(simulation_subState == state_41)
+        {
+            cancel(simulation_timeout);
+            NOTIFY_STATE_EXITED("ROOT.simulation.state_41");
+        }
+    simulation_subState = OMNonState;
+    
+    NOTIFY_STATE_EXITED("ROOT.simulation");
 }
 
 #ifdef _OMINSTRUMENT
@@ -504,6 +557,14 @@ void OMAnimatedAcquisitionUserEnv::state_37_serializeStates(AOMSState* aomsState
 
 void OMAnimatedAcquisitionUserEnv::simulation_serializeStates(AOMSState* aomsState) const {
     aomsState->addState("ROOT.simulation");
+    if(myReal->simulation_subState == AcquisitionUserEnv::state_41)
+        {
+            state_41_serializeStates(aomsState);
+        }
+}
+
+void OMAnimatedAcquisitionUserEnv::state_41_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.simulation.state_41");
 }
 //#]
 

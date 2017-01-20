@@ -252,6 +252,16 @@ public :
     // simulation:
     //## statechart_method
     inline bool simulation_IN() const;
+    
+    //## statechart_method
+    void simulation_entDef();
+    
+    //## statechart_method
+    void simulation_exit();
+    
+    // state_41:
+    //## statechart_method
+    inline bool state_41_IN() const;
 
 protected :
 
@@ -261,7 +271,8 @@ protected :
         volant_reel = 1,
         state_35 = 2,
         state_37 = 3,
-        simulation = 4
+        simulation = 4,
+        state_41 = 5
     };
     
     int rootState_subState;
@@ -271,6 +282,10 @@ protected :
     int volant_reel_subState;
     
     IOxfTimeout* volant_reel_timeout;
+    
+    int simulation_subState;
+    
+    IOxfTimeout* simulation_timeout;
 //#]
 };
 
@@ -307,6 +322,9 @@ public :
     
     //## statechart_method
     void simulation_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void state_41_serializeStates(AOMSState* aomsState) const;
 };
 //#]
 #endif // _OMINSTRUMENT
@@ -329,6 +347,10 @@ inline bool AcquisitionUserEnv::state_37_IN() const {
 
 inline bool AcquisitionUserEnv::simulation_IN() const {
     return rootState_subState == simulation;
+}
+
+inline bool AcquisitionUserEnv::state_41_IN() const {
+    return simulation_subState == state_41;
 }
 
 #endif

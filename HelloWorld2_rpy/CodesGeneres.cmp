@@ -27,10 +27,10 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 			}
 			{ IHandle 
 				- _m2Class = "ISubsystem";
-				- _filename = "PredefinedUMainPkg_NE_PAS_MODIFIER.sbs";
+				- _filename = "IHM_Objets.sbs";
 				- _subsystem = "";
 				- _class = "";
-				- _name = "PredefinedUMainPkg_NE_PAS_MODIFIER";
+				- _name = "IHM_Objets";
 				- _id = GUID 01dd56fe-298e-423f-8f52-a5e5dff6dbdc;
 			}
 			{ IHandle 
@@ -38,7 +38,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 				- _filename = "_MonPkg.sbs";
 				- _subsystem = "_MonPkg";
 				- _class = "";
-				- _name = "Vehicule";
+				- _name = "VehiculeMoteur";
 				- _id = GUID 3684b53f-4fb7-4106-9c73-3759402a3dd5;
 			}
 		}
@@ -157,8 +157,8 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 				- value = 
 				{ IHandle 
 					- _m2Class = "IClass";
-					- _filename = "PredefinedUMainPkg_NE_PAS_MODIFIER.sbs";
-					- _subsystem = "PredefinedUMainPkg_NE_PAS_MODIFIER";
+					- _filename = "IHM_Objets.sbs";
+					- _subsystem = "IHM_Objets";
 					- _class = "";
 					- _name = "MainDeApplication";
 					- _id = GUID 9812cd6c-887c-4c87-a787-da3d76b01c1e;
@@ -186,7 +186,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 		}
 	}
 	- HandlesInMe = { IRPYRawContainer 
-		- size = 3;
+		- size = 2;
 		- value = 
 		{ IHandle 
 			- _m2Class = "ISubsystem";
@@ -198,19 +198,11 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 		}
 		{ IHandle 
 			- _m2Class = "ISubsystem";
-			- _filename = "PredefinedUMainPkg_NE_PAS_MODIFIER.sbs";
+			- _filename = "IHM_Objets.sbs";
 			- _subsystem = "";
 			- _class = "";
-			- _name = "PredefinedUMainPkg_NE_PAS_MODIFIER";
+			- _name = "IHM_Objets";
 			- _id = GUID 01dd56fe-298e-423f-8f52-a5e5dff6dbdc;
-		}
-		{ IHandle 
-			- _m2Class = "ISubsystem";
-			- _filename = "Volant2Pkg.sbs";
-			- _subsystem = "";
-			- _class = "";
-			- _name = "Volant2Pkg";
-			- _id = GUID b7c926c6-e950-4733-bea7-42c1ab069d35;
 		}
 	}
 	- VariationPoints = { IRPYRawContainer 

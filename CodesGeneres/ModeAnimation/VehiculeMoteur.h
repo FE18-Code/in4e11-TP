@@ -286,12 +286,60 @@ public :
 
 protected :
 
+    //## auto_generated
+    void initStatechart();
+    
+    //## auto_generated
+    void cancelTimeouts();
+    
+    //## auto_generated
+    bool cancelTimeout(const IOxfTimeout* arg);
+    
     double alpha;		//## attribute alpha
     
 //#[ ignore
     toCtrl_C toCtrl;
     
     fromVolant_C fromVolant;
+//#]
+
+public :
+
+    // rootState:
+    //## statechart_method
+    inline bool rootState_IN() const;
+    
+    //## statechart_method
+    virtual void rootState_entDef();
+    
+    //## statechart_method
+    virtual IOxfReactive::TakeEventStatus rootState_processEvent();
+    
+    // moteur_demarre:
+    //## statechart_method
+    inline bool moteur_demarre_IN() const;
+    
+    //## statechart_method
+    IOxfReactive::TakeEventStatus moteur_demarre_handleEvent();
+    
+    // moteur_arrete:
+    //## statechart_method
+    inline bool moteur_arrete_IN() const;
+
+protected :
+
+//#[ ignore
+    enum VehiculeMoteur_Enum {
+        OMNonState = 0,
+        moteur_demarre = 1,
+        moteur_arrete = 2
+    };
+    
+    int rootState_subState;
+    
+    int rootState_active;
+    
+    IOxfTimeout* rootState_timeout;
 //#]
 };
 
@@ -300,7 +348,7 @@ DECLARE_OPERATION_CLASS(_MonPkg_VehiculeMoteur_setAlpha_intRef)
 
 //#[ ignore
 class OMAnimatedVehiculeMoteur : virtual public AOMInstance {
-    DECLARE_META(VehiculeMoteur, OMAnimatedVehiculeMoteur)
+    DECLARE_REACTIVE_META(VehiculeMoteur, OMAnimatedVehiculeMoteur)
     
     DECLARE_META_OP(_MonPkg_VehiculeMoteur_setAlpha_intRef)
     
@@ -309,9 +357,30 @@ class OMAnimatedVehiculeMoteur : virtual public AOMInstance {
 public :
 
     virtual void serializeAttributes(AOMSAttributes* aomsAttributes) const;
+    
+    //## statechart_method
+    void rootState_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void moteur_demarre_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void moteur_arrete_serializeStates(AOMSState* aomsState) const;
 };
 //#]
 #endif // _OMINSTRUMENT
+
+inline bool VehiculeMoteur::rootState_IN() const {
+    return true;
+}
+
+inline bool VehiculeMoteur::moteur_demarre_IN() const {
+    return rootState_subState == moteur_demarre;
+}
+
+inline bool VehiculeMoteur::moteur_arrete_IN() const {
+    return rootState_subState == moteur_arrete;
+}
 
 #endif
 /*********************************************************************
