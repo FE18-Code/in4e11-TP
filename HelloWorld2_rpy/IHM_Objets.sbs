@@ -4,7 +4,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 	- _myState = 8192;
 	- _name = "IHM_Objets";
 	- _lastID = 2;
-	- weakCGTime = 1.23.2017::8:5:25;
+	- weakCGTime = 1.23.2017::8:18:1;
 	- strongCGTime = 10.3.2016::22:41:54;
 	- ComponentFiles = { IRPYRawContainer 
 		- size = 2;
@@ -106,7 +106,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 			- _id = GUID c6ebe487-749a-424c-8c16-94f16e9ee15a;
 			- _myState = 40960;
 			- _name = "TopLevel";
-			- weakCGTime = 1.23.2017::7:51:50;
+			- weakCGTime = 1.23.2017::8:18:1;
 			- strongCGTime = 10.3.2016::22:41:54;
 			- _multiplicity = "";
 			- _itsStateChart = { IHandle 
@@ -136,7 +136,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 					- _body = "";
 				}
 			}
-			- weakCGTime = 1.23.2017::8:5:25;
+			- weakCGTime = 1.23.2017::8:18:1;
 			- strongCGTime = 10.2.2014::10:48:4;
 			- Operations = { IRPYRawContainer 
 				- size = 8;
@@ -170,7 +170,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID ae069b53-4aad-4f95-bbaf-ae4c4b57583f;
+						- _id = GUID bcd09abb-ab77-488f-aa9b-ad701e2dad21;
 						- _myState = 8192;
 						- _declaration = "SysControle*";
 						- _kind = Language;
@@ -322,7 +322,7 @@ OMReactive::destroy();";
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID 0aa3f209-61bf-41e2-992f-95203a0ba11e;
+						- _id = GUID d2bce227-7f0e-448d-9674-488c12155a5e;
 						- _myState = 8192;
 						- _declaration = "AcquisitionUserEnv*";
 						- _kind = Language;
@@ -346,7 +346,7 @@ OMReactive::destroy();";
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID cfc9aa66-722f-4a03-a21d-c068651e1ce9;
+						- _id = GUID 670f231e-6062-483e-a71d-96959af0955f;
 						- _myState = 8192;
 						- _declaration = "VehiculeMoteur*";
 						- _kind = Language;

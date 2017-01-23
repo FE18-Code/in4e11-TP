@@ -31,6 +31,10 @@
 #define OMAnim__MonPkg_AcquisitionUserEnv_setAlpha_int_UNSERIALIZE_ARGS OP_UNSER(OMDestructiveString2X,p_alpha)
 
 #define OMAnim__MonPkg_AcquisitionUserEnv_setAlpha_int_SERIALIZE_RET_VAL
+
+#define OMAnim__MonPkg_AcquisitionUserEnv_setFre_int_UNSERIALIZE_ARGS OP_UNSER(OMDestructiveString2X,p_fre)
+
+#define OMAnim__MonPkg_AcquisitionUserEnv_setFre_int_SERIALIZE_RET_VAL
 //#]
 
 //## package _MonPkg
@@ -271,7 +275,7 @@ void AcquisitionUserEnv::initRelations() {
     }
 }
 
-AcquisitionUserEnv::AcquisitionUserEnv(IOxfActive* theActiveContext) : Button(2), acc(0), alpha(0), bDroit(0), bGauche(0), period(200), volant(false), volantVersDroite(0), volantVersGauche(0) {
+AcquisitionUserEnv::AcquisitionUserEnv(IOxfActive* theActiveContext) : Button(2), acc(0), alpha(0), bDroit(0), bGauche(0), fre(0), period(200), volant(false), volantVersDroite(0), volantVersGauche(0) {
     NOTIFY_ACTIVE_CONSTRUCTOR(AcquisitionUserEnv, AcquisitionUserEnv(), 0, _MonPkg_AcquisitionUserEnv_AcquisitionUserEnv_SERIALIZE);
     setActiveContext(this, true);
     initRelations();
@@ -311,6 +315,15 @@ int AcquisitionUserEnv::getBGauche() {
 
 void AcquisitionUserEnv::setBGauche(int p_bGauche) {
     bGauche = p_bGauche;
+    NOTIFY_SET_OPERATION;
+}
+
+int AcquisitionUserEnv::getFre() {
+    return fre;
+}
+
+void AcquisitionUserEnv::setFre(int p_fre) {
+    fre = p_fre;
     NOTIFY_SET_OPERATION;
 }
 
@@ -428,7 +441,9 @@ IOxfReactive::TakeEventStatus AcquisitionUserEnv::rootState_processEvent() {
                             cancel(acq_volant_pedale_simule_timeout);
                             NOTIFY_STATE_EXITED("ROOT.acq_volant_pedale_simule.state_41");
                             //#[ transition 6 
+                            
                             if (acc>0) OUT_PORT(out)->GEN(evAccelerer(acc));
+                            if (fre>0) OUT_PORT(out)->GEN(evFreiner(fre));
                             //#]
                             NOTIFY_STATE_ENTERED("ROOT.acq_volant_pedale_simule.state_41");
                             acq_volant_pedale_simule_subState = state_41;
@@ -547,6 +562,7 @@ void OMAnimatedAcquisitionUserEnv::serializeAttributes(AOMSAttributes* aomsAttri
     aomsAttributes->addAttribute("volantVersDroite", x2String(myReal->volantVersDroite));
     aomsAttributes->addAttribute("bGauche", x2String(myReal->bGauche));
     aomsAttributes->addAttribute("bDroit", x2String(myReal->bDroit));
+    aomsAttributes->addAttribute("fre", x2String(myReal->fre));
 }
 
 void OMAnimatedAcquisitionUserEnv::rootState_serializeStates(AOMSState* aomsState) const {
@@ -601,6 +617,10 @@ IMPLEMENT_OP_CALL(_MonPkg_AcquisitionUserEnv_setAcc_int, AcquisitionUserEnv, set
 IMPLEMENT_META_OP(OMAnimatedAcquisitionUserEnv, _MonPkg_AcquisitionUserEnv_setAlpha_int, "setAlpha", FALSE, "setAlpha(int)", 1)
 
 IMPLEMENT_OP_CALL(_MonPkg_AcquisitionUserEnv_setAlpha_int, AcquisitionUserEnv, setAlpha(p_alpha), NO_OP())
+
+IMPLEMENT_META_OP(OMAnimatedAcquisitionUserEnv, _MonPkg_AcquisitionUserEnv_setFre_int, "setFre", FALSE, "setFre(int)", 1)
+
+IMPLEMENT_OP_CALL(_MonPkg_AcquisitionUserEnv_setFre_int, AcquisitionUserEnv, setFre(p_fre), NO_OP())
 #endif // _OMINSTRUMENT
 
 /*********************************************************************

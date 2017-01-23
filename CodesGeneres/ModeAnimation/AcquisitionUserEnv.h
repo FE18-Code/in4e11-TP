@@ -42,6 +42,8 @@
 #define OMAnim__MonPkg_AcquisitionUserEnv_setAcc_int_ARGS_DECLARATION int p_acc;
 
 #define OMAnim__MonPkg_AcquisitionUserEnv_setAlpha_int_ARGS_DECLARATION int p_alpha;
+
+#define OMAnim__MonPkg_AcquisitionUserEnv_setFre_int_ARGS_DECLARATION int p_fre;
 //#]
 
 //## package _MonPkg
@@ -205,6 +207,12 @@ public :
     void setBGauche(int p_bGauche);
     
     //## auto_generated
+    int getFre();
+    
+    //## auto_generated
+    void setFre(int p_fre);
+    
+    //## auto_generated
     bool getVolant();
     
     //## auto_generated
@@ -240,6 +248,8 @@ protected :
     int bDroit;		//## attribute bDroit
     
     int bGauche;		//## attribute bGauche
+    
+    int fre;		//## attribute fre
     
     bool volant;		//## attribute volant
     
@@ -327,6 +337,8 @@ DECLARE_OPERATION_CLASS(_MonPkg_AcquisitionUserEnv_setAcc_int)
 
 DECLARE_OPERATION_CLASS(_MonPkg_AcquisitionUserEnv_setAlpha_int)
 
+DECLARE_OPERATION_CLASS(_MonPkg_AcquisitionUserEnv_setFre_int)
+
 //#[ ignore
 class OMAnimatedAcquisitionUserEnv : virtual public AOMInstance {
     DECLARE_REACTIVE_META(AcquisitionUserEnv, OMAnimatedAcquisitionUserEnv)
@@ -334,6 +346,8 @@ class OMAnimatedAcquisitionUserEnv : virtual public AOMInstance {
     DECLARE_META_OP(_MonPkg_AcquisitionUserEnv_setAcc_int)
     
     DECLARE_META_OP(_MonPkg_AcquisitionUserEnv_setAlpha_int)
+    
+    DECLARE_META_OP(_MonPkg_AcquisitionUserEnv_setFre_int)
     
     ////    Framework operations    ////
     

@@ -58,8 +58,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 99ca466c-b72f-4e94-8ee3-1724b272c51a;
 			}
-			- _UpLeft = 55 0 ;
-			- _DownRight = 380 202 ;
+			- _UpLeft = 95 0 ;
+			- _DownRight = 420 202 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 3;
 		}
@@ -86,8 +86,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 99ca466c-b72f-4e94-8ee3-1724b272c51a;
 			}
-			- _UpLeft = 0 0 ;
-			- _DownRight = 1160 492 ;
+			- _UpLeft = 290 38 ;
+			- _DownRight = 1119 390 ;
 			- _instanceName = "MainDeApplication[0]->objAcqUserEnv";
 			- m_nDiagramIndex = 1;
 		}
@@ -114,8 +114,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "IHM";
 				- _id = GUID 384edb5b-dab8-40de-a538-b4e732957176;
 			}
-			- _UpLeft = 0 9 ;
-			- _DownRight = 1383 786 ;
+			- _UpLeft = 0 24 ;
+			- _DownRight = 1383 781 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 5;
 		}
@@ -142,8 +142,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 32d7ac53-85c2-4343-a6b7-225cadb111b8;
 			}
-			- _UpLeft = 263 225 ;
-			- _DownRight = 1112 580 ;
+			- _UpLeft = 263 185 ;
+			- _DownRight = 1112 540 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 2;
 		}
@@ -156,10 +156,10 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- m_ptMinPositionY = -1;
 				- m_ptMaxPositionX = -4;
 				- m_ptMaxPositionY = -23;
-				- m_nLeft = 154;
-				- m_nTop = 154;
-				- m_nRight = 1342;
-				- m_nBottom = 693;
+				- m_nLeft = 176;
+				- m_nTop = 176;
+				- m_nRight = 1364;
+				- m_nBottom = 695;
 			}
 			- _wasOpenedOnCloseProject = 1;
 			- _theDiagram = { IHandle 
@@ -170,8 +170,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 32d7ac53-85c2-4343-a6b7-225cadb111b8;
 			}
-			- _UpLeft = 287 263 ;
-			- _DownRight = 1447 755 ;
+			- _UpLeft = 287 273 ;
+			- _DownRight = 1447 745 ;
 			- _instanceName = "MainDeApplication[0]->objVehiculeMoteur";
 			- m_nDiagramIndex = 0;
 		}

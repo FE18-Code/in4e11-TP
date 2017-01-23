@@ -626,7 +626,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 				}
 			}
 			- _name = "Architecture_Systeme";
-			- _lastModifiedTime = "1.19.2017::16:30:50";
+			- _lastModifiedTime = "1.23.2017::8:15:59";
 			- _graphicChart = { CGIClassChart 
 				- _id = GUID 2a38a124-9076-45f3-85c5-8cac9a5e3ab0;
 				- m_type = 0;
@@ -1364,7 +1364,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 						- m_nOrientationCtrlPt = 5;
 					}
 					- m_drawBehavior = 4096;
-					- m_transform = 3.56026 -6.48725e-006 3.66411e-006 6.30337 666 79 ;
+					- m_transform = 3.56026 -6.34467e-006 3.66411e-006 6.16484 666 84.4675 ;
 					- m_bIsPreferencesInitialized = 0;
 					- m_AdditionalLabel = { CGIText 
 						- m_str = "";
@@ -1469,7 +1469,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 						- m_nOrientationCtrlPt = 5;
 					}
 					- m_drawBehavior = 2824;
-					- m_transform = 0.370772 0 0 0.396614 596 810 ;
+					- m_transform = 0.370772 0 0 0.405527 596 807.079 ;
 					- m_bIsPreferencesInitialized = 0;
 					- m_AdditionalLabel = { CGIText 
 						- m_str = "";

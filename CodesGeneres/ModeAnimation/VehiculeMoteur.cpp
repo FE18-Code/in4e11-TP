@@ -220,6 +220,7 @@ void VehiculeMoteur::setIgnition(bool p_ignition) {
     ignition = p_ignition;
     NOTIFY_SET_OPERATION;
     //#]
+    NOTIFY_SET_OPERATION;
 }
 
 int VehiculeMoteur::getPeriod() {
@@ -295,7 +296,7 @@ void VehiculeMoteur::setIntensite_acceleration(double p_intensite_acceleration) 
     intensite_acceleration = p_intensite_acceleration;
 }
 
-VehiculeMoteur::VehiculeMoteur(IOxfActive* theActiveContext) : MAX_BRAKE(10), MAX_SPEED(120), MAX_THROTTLE(10.0), alpha(0), distance(0), intensite_acceleration(1.0), period(200), speed(0), throttle(0.0) {
+VehiculeMoteur::VehiculeMoteur(IOxfActive* theActiveContext) : MAX_BRAKE(10), MAX_SPEED(120), MAX_THROTTLE(10.0), alpha(0), distance(0), ignition(false), intensite_acceleration(1.0), period(200), speed(0), throttle(0.0) {
     NOTIFY_ACTIVE_CONSTRUCTOR(VehiculeMoteur, VehiculeMoteur(), 0, _MonPkg_VehiculeMoteur_VehiculeMoteur_SERIALIZE);
     setActiveContext(this, true);
     initRelations();
