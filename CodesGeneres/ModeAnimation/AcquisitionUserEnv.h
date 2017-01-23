@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: AcquisitionUserEnv
-//!	Generated Date	: Thu, 19, Jan 2017  
+//!	Generated Date	: Mon, 23, Jan 2017  
 	File Path	: CodesGeneres\ModeAnimation\AcquisitionUserEnv.h
 *********************************************************************/
 
@@ -193,10 +193,34 @@ public :
     void setAlpha(int p_alpha);
     
     //## auto_generated
+    int getBDroit();
+    
+    //## auto_generated
+    void setBDroit(int p_bDroit);
+    
+    //## auto_generated
+    int getBGauche();
+    
+    //## auto_generated
+    void setBGauche(int p_bGauche);
+    
+    //## auto_generated
     bool getVolant();
     
     //## auto_generated
     void setVolant(bool p_volant);
+    
+    //## auto_generated
+    int getVolantVersDroite();
+    
+    //## auto_generated
+    void setVolantVersDroite(int p_volantVersDroite);
+    
+    //## auto_generated
+    int getVolantVersGauche();
+    
+    //## auto_generated
+    void setVolantVersGauche(int p_volantVersGauche);
 
 protected :
 
@@ -213,7 +237,15 @@ protected :
     
     int alpha;		//## attribute alpha
     
+    int bDroit;		//## attribute bDroit
+    
+    int bGauche;		//## attribute bGauche
+    
     bool volant;		//## attribute volant
+    
+    int volantVersDroite;		//## attribute volantVersDroite
+    
+    int volantVersGauche;		//## attribute volantVersGauche
     
 //#[ ignore
     out_C out;
@@ -231,61 +263,62 @@ public :
     //## statechart_method
     virtual IOxfReactive::TakeEventStatus rootState_processEvent();
     
-    // volant_reel:
+    // acq_volant_pedale_simule:
     //## statechart_method
-    inline bool volant_reel_IN() const;
+    inline bool acq_volant_pedale_simule_IN() const;
     
     //## statechart_method
-    void volant_reel_entDef();
+    void acq_volant_pedale_simule_entDef();
     
     //## statechart_method
-    void volant_reel_exit();
-    
-    // state_35:
-    //## statechart_method
-    inline bool state_35_IN() const;
-    
-    // state_37:
-    //## statechart_method
-    inline bool state_37_IN() const;
-    
-    // simulation:
-    //## statechart_method
-    inline bool simulation_IN() const;
+    void acq_volant_pedale_simule_exit();
     
     //## statechart_method
-    void simulation_entDef();
-    
-    //## statechart_method
-    void simulation_exit();
+    IOxfReactive::TakeEventStatus acq_volant_pedale_simule_handleEvent();
     
     // state_41:
     //## statechart_method
     inline bool state_41_IN() const;
+    
+    // acq_volant_pedale_reel:
+    //## statechart_method
+    inline bool acq_volant_pedale_reel_IN() const;
+    
+    //## statechart_method
+    void acq_volant_pedale_reel_entDef();
+    
+    //## statechart_method
+    void acq_volant_pedale_reel_exit();
+    
+    //## statechart_method
+    IOxfReactive::TakeEventStatus acq_volant_pedale_reel_handleEvent();
+    
+    // state_35:
+    //## statechart_method
+    inline bool state_35_IN() const;
 
 protected :
 
 //#[ ignore
     enum AcquisitionUserEnv_Enum {
         OMNonState = 0,
-        volant_reel = 1,
-        state_35 = 2,
-        state_37 = 3,
-        simulation = 4,
-        state_41 = 5
+        acq_volant_pedale_simule = 1,
+        state_41 = 2,
+        acq_volant_pedale_reel = 3,
+        state_35 = 4
     };
     
     int rootState_subState;
     
     int rootState_active;
     
-    int volant_reel_subState;
+    int acq_volant_pedale_simule_subState;
     
-    IOxfTimeout* volant_reel_timeout;
+    IOxfTimeout* acq_volant_pedale_simule_timeout;
     
-    int simulation_subState;
+    int acq_volant_pedale_reel_subState;
     
-    IOxfTimeout* simulation_timeout;
+    IOxfTimeout* acq_volant_pedale_reel_timeout;
 //#]
 };
 
@@ -312,19 +345,16 @@ public :
     void rootState_serializeStates(AOMSState* aomsState) const;
     
     //## statechart_method
-    void volant_reel_serializeStates(AOMSState* aomsState) const;
-    
-    //## statechart_method
-    void state_35_serializeStates(AOMSState* aomsState) const;
-    
-    //## statechart_method
-    void state_37_serializeStates(AOMSState* aomsState) const;
-    
-    //## statechart_method
-    void simulation_serializeStates(AOMSState* aomsState) const;
+    void acq_volant_pedale_simule_serializeStates(AOMSState* aomsState) const;
     
     //## statechart_method
     void state_41_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void acq_volant_pedale_reel_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void state_35_serializeStates(AOMSState* aomsState) const;
 };
 //#]
 #endif // _OMINSTRUMENT
@@ -333,24 +363,20 @@ inline bool AcquisitionUserEnv::rootState_IN() const {
     return true;
 }
 
-inline bool AcquisitionUserEnv::volant_reel_IN() const {
-    return rootState_subState == volant_reel;
-}
-
-inline bool AcquisitionUserEnv::state_35_IN() const {
-    return volant_reel_subState == state_35;
-}
-
-inline bool AcquisitionUserEnv::state_37_IN() const {
-    return rootState_subState == state_37;
-}
-
-inline bool AcquisitionUserEnv::simulation_IN() const {
-    return rootState_subState == simulation;
+inline bool AcquisitionUserEnv::acq_volant_pedale_simule_IN() const {
+    return rootState_subState == acq_volant_pedale_simule;
 }
 
 inline bool AcquisitionUserEnv::state_41_IN() const {
-    return simulation_subState == state_41;
+    return acq_volant_pedale_simule_subState == state_41;
+}
+
+inline bool AcquisitionUserEnv::acq_volant_pedale_reel_IN() const {
+    return rootState_subState == acq_volant_pedale_reel;
+}
+
+inline bool AcquisitionUserEnv::state_35_IN() const {
+    return acq_volant_pedale_reel_subState == state_35;
 }
 
 #endif

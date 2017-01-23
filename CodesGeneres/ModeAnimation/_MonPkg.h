@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: _MonPkg
-//!	Generated Date	: Thu, 19, Jan 2017  
+//!	Generated Date	: Mon, 23, Jan 2017  
 	File Path	: CodesGeneres\ModeAnimation\_MonPkg.h
 *********************************************************************/
 
@@ -55,6 +55,10 @@ class VehiculeMoteur;
 #define evTournerD__MonPkg_id 13408
 
 #define evTournerG__MonPkg_id 13409
+
+#define evReel__MonPkg_id 13410
+
+#define evSimu__MonPkg_id 13411
 //#]
 
 //## package _MonPkg
@@ -332,6 +336,64 @@ public :
 //#[ ignore
 class OMAnimatedevTournerG : virtual public AOMEvent {
     DECLARE_META_EVENT(evTournerG)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//## event evReel()
+class evReel : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedevReel;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    evReel();
+    
+    ////    Framework operations    ////
+    
+    //## statechart_method
+    virtual bool isTypeOf(const short id) const;
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedevReel : virtual public AOMEvent {
+    DECLARE_META_EVENT(evReel)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//## event evSimu()
+class evSimu : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedevSimu;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    evSimu();
+    
+    ////    Framework operations    ////
+    
+    //## statechart_method
+    virtual bool isTypeOf(const short id) const;
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedevSimu : virtual public AOMEvent {
+    DECLARE_META_EVENT(evSimu)
 };
 //#]
 #endif // _OMINSTRUMENT

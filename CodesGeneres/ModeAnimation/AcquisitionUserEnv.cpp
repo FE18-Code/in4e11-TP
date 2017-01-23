@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: AcquisitionUserEnv
-//!	Generated Date	: Thu, 19, Jan 2017  
+//!	Generated Date	: Mon, 23, Jan 2017  
 	File Path	: CodesGeneres\ModeAnimation\AcquisitionUserEnv.cpp
 *********************************************************************/
 
@@ -76,13 +76,29 @@ void AcquisitionUserEnv::GetData() {
     					printf("%d    ", buf[2]); //3eme octet?: valeur de accelerateur de 0 a 100
     					VolantAcc = buf[2];	
     									
-    					buf[3]=buf[3]>>7; 					
+    					//buf[3]=buf[3]>>7; 					
     					printf("%d", buf[3]);    //4eme octet?: angle volant?voir explication apres  
-    					VolantAngle = buf[3]; 					
+    					VolantAngle = buf[3]; 
+    
+    					if (VolantAngle>=10 && VolantAngle<130) {volantVersDroite=1;volantVersGauche=0;}
+    					else if (VolantAngle>=130) {volantVersGauche=1;volantVersDroite=0;}
+    					else {volantVersGauche=0;volantVersDroite=0;}
+    					
+    					
     					printf("   "); 
     					
-    					printf("%d    ", buf[4]); //5eme octet?: activation des boutons?
+    					printf("%x    ", buf[4]); //5eme octet?: activation des boutons?
+                        
                         Button= (int) buf[4];
+                        if(Button==1)
+                        	{bDroit=1;bGauche=0;}
+                        else if (Button==2)  
+                        		{bDroit=0;bGauche=1;}
+                        	 else if (Button==3)   
+                        		{bDroit=1;bGauche=1;}
+                        		else {bDroit=0;bGauche=0;}
+                        			
+                        	
     
     					
     					printf("%0x    ", buf[5]);  //6eme octet?: delimiteur de fin 0x0D
@@ -107,11 +123,9 @@ void AcquisitionUserEnv::GetData() {
 void AcquisitionUserEnv::Run() {
     NOTIFY_OPERATION(Run, Run(), 0, _MonPkg_AcquisitionUserEnv_Run_SERIALIZE);
     //#[ operation Run()
-          //打开串口
+        
     	g_hCom = CreateFile(_T("COM9"), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
     
-    
-    	//设置读超时
     	COMMTIMEOUTS timeouts;
     	GetCommTimeouts(g_hCom, &timeouts);
     	timeouts.ReadIntervalTimeout = 0;
@@ -121,7 +135,6 @@ void AcquisitionUserEnv::Run() {
     	timeouts.WriteTotalTimeoutConstant = 0;
     	SetCommTimeouts(g_hCom, &timeouts);
     
-    	//设置串口配置信息
     	DCB dcb;
     
     	int nBaud = 9600;
@@ -139,59 +152,35 @@ void AcquisitionUserEnv::Run() {
     	//清空缓冲
     	PurgeComm(g_hCom, PURGE_RXCLEAR | PURGE_TXCLEAR);
     
-    
-    
-    
-       /*
+        bool fin = false; 
+    	unsigned char buf[6];
+    	DWORD nLenOut;
+        int tentative=0;  
         
-    	while (1) {
-    		unsigned char buf[6];
-    		
-    		memset(buf, 0, 5);
-    		DWORD nLenOut = 0;
-    		if (ReadFile(g_hCom, buf, 6, &nLenOut, NULL))
-    		{
-    			if (nLenOut) {//成功
-    						  
-    					printf("%x    ", buf[0]); //1er octet?: delimiteur?de debut (caractère?: ) valeur 0x3A hexa 
-    				//	start = buf[0];
-    					
-    					printf("%d    ", buf[1]); //2eme octet?: valeur du frein de 0 a 100
-    			//		VolantFrein = buf[1];
-    					
-    					printf("%d    ", buf[2]); //3eme octet?: valeur de accelerateur de 0 a 100
-    			//		VolantAcc = buf[2];	
-    									
-    					buf[3]=buf[3]>>7; 					
-    					printf("%d", buf[3]);    //4eme octet?: angle volant?voir explication apres  
-    			//		VolantAngle = buf[3]; 					
-    					printf("   "); 
-    					
-    					printf("%d    ", buf[4]); //5eme octet?: activation des boutons?
-                        Button= (int) buf[4];
+        while (!fin && tentative <10){   
+          
+    	  memset(buf, 0, 5);    
+    	  nLenOut = 0;
+          ReadFile(g_hCom, buf, 1, &nLenOut, NULL);
+                      
+          printf("length = %d  ", nLenOut);
+          printf("buf[0]...%x", buf[0]);
+       		//if (nLenOut) {
+       		    if (buf[0]==0x3A){ fin=true;}
+       		//}
+          //memset(buf, 0, 5); 
+          //nLenOut = 0;
+          ReadFile(g_hCom, buf, 5, &nLenOut, NULL);
+          /*printf("buf[1]...%x", buf[1]);
+          printf("buf[1]...%x", buf[1]);
+          printf("buf[1]...%x", buf[1]);
+          printf("buf[1]...%x", buf[1]);
+            */
+          tentative++;
+        }
     
-    					
-    					printf("%0x    ", buf[5]);  //6eme octet?: delimiteur de fin 0x0D
-    				//	fin = buf[5];
-    				
-    			
-    				printf("***********\n");
     
-    			}
-    
-    			else//超时
-    				printf("time out\n");
-    		}
-    		else
-    			//失败
-    			printf("fail to read\n");
-    
-    	} 
-    	
-    	
-    */
-    	//CloseHandle(g_hCom);   
-    	
+      
     //#]
 }
 
@@ -221,6 +210,7 @@ int AcquisitionUserEnv::getVolantAcc() {
 
 void AcquisitionUserEnv::setVolantAcc(int p_VolantAcc) {
     VolantAcc = p_VolantAcc;
+    NOTIFY_SET_OPERATION;
 }
 
 int AcquisitionUserEnv::getVolantAngle() {
@@ -229,6 +219,7 @@ int AcquisitionUserEnv::getVolantAngle() {
 
 void AcquisitionUserEnv::setVolantAngle(int p_VolantAngle) {
     VolantAngle = p_VolantAngle;
+    NOTIFY_SET_OPERATION;
 }
 
 int AcquisitionUserEnv::getVolantFrein() {
@@ -237,6 +228,7 @@ int AcquisitionUserEnv::getVolantFrein() {
 
 void AcquisitionUserEnv::setVolantFrein(int p_VolantFrein) {
     VolantFrein = p_VolantFrein;
+    NOTIFY_SET_OPERATION;
 }
 
 bool AcquisitionUserEnv::getBReadStat() {
@@ -279,7 +271,7 @@ void AcquisitionUserEnv::initRelations() {
     }
 }
 
-AcquisitionUserEnv::AcquisitionUserEnv(IOxfActive* theActiveContext) : Button(2), acc(0), alpha(0), period(200), volant(false) {
+AcquisitionUserEnv::AcquisitionUserEnv(IOxfActive* theActiveContext) : Button(2), acc(0), alpha(0), bDroit(0), bGauche(0), period(200), volant(false), volantVersDroite(0), volantVersGauche(0) {
     NOTIFY_ACTIVE_CONSTRUCTOR(AcquisitionUserEnv, AcquisitionUserEnv(), 0, _MonPkg_AcquisitionUserEnv_AcquisitionUserEnv_SERIALIZE);
     setActiveContext(this, true);
     initRelations();
@@ -304,6 +296,24 @@ void AcquisitionUserEnv::setAlpha(int p_alpha) {
     NOTIFY_SET_OPERATION;
 }
 
+int AcquisitionUserEnv::getBDroit() {
+    return bDroit;
+}
+
+void AcquisitionUserEnv::setBDroit(int p_bDroit) {
+    bDroit = p_bDroit;
+    NOTIFY_SET_OPERATION;
+}
+
+int AcquisitionUserEnv::getBGauche() {
+    return bGauche;
+}
+
+void AcquisitionUserEnv::setBGauche(int p_bGauche) {
+    bGauche = p_bGauche;
+    NOTIFY_SET_OPERATION;
+}
+
 bool AcquisitionUserEnv::getVolant() {
     return volant;
 }
@@ -312,30 +322,48 @@ void AcquisitionUserEnv::setVolant(bool p_volant) {
     volant = p_volant;
 }
 
+int AcquisitionUserEnv::getVolantVersDroite() {
+    return volantVersDroite;
+}
+
+void AcquisitionUserEnv::setVolantVersDroite(int p_volantVersDroite) {
+    volantVersDroite = p_volantVersDroite;
+    NOTIFY_SET_OPERATION;
+}
+
+int AcquisitionUserEnv::getVolantVersGauche() {
+    return volantVersGauche;
+}
+
+void AcquisitionUserEnv::setVolantVersGauche(int p_volantVersGauche) {
+    volantVersGauche = p_volantVersGauche;
+    NOTIFY_SET_OPERATION;
+}
+
 void AcquisitionUserEnv::initStatechart() {
     rootState_subState = OMNonState;
     rootState_active = OMNonState;
-    volant_reel_subState = OMNonState;
-    volant_reel_timeout = NULL;
-    simulation_subState = OMNonState;
-    simulation_timeout = NULL;
+    acq_volant_pedale_simule_subState = OMNonState;
+    acq_volant_pedale_simule_timeout = NULL;
+    acq_volant_pedale_reel_subState = OMNonState;
+    acq_volant_pedale_reel_timeout = NULL;
 }
 
 void AcquisitionUserEnv::cancelTimeouts() {
-    cancel(volant_reel_timeout);
-    cancel(simulation_timeout);
+    cancel(acq_volant_pedale_simule_timeout);
+    cancel(acq_volant_pedale_reel_timeout);
 }
 
 bool AcquisitionUserEnv::cancelTimeout(const IOxfTimeout* arg) {
     bool res = false;
-    if(volant_reel_timeout == arg)
+    if(acq_volant_pedale_simule_timeout == arg)
         {
-            volant_reel_timeout = NULL;
+            acq_volant_pedale_simule_timeout = NULL;
             res = true;
         }
-    if(simulation_timeout == arg)
+    if(acq_volant_pedale_reel_timeout == arg)
         {
-            simulation_timeout = NULL;
+            acq_volant_pedale_reel_timeout = NULL;
             res = true;
         }
     return res;
@@ -345,10 +373,7 @@ void AcquisitionUserEnv::rootState_entDef() {
     {
         NOTIFY_STATE_ENTERED("ROOT");
         NOTIFY_TRANSITION_STARTED("2");
-        NOTIFY_STATE_ENTERED("ROOT.state_37");
-        pushNullTransition();
-        rootState_subState = state_37;
-        rootState_active = state_37;
+        acq_volant_pedale_simule_entDef();
         NOTIFY_TRANSITION_TERMINATED("2");
     }
 }
@@ -361,11 +386,11 @@ IOxfReactive::TakeEventStatus AcquisitionUserEnv::rootState_processEvent() {
         {
             if(IS_EVENT_TYPE_OF(OMTimeoutEventId))
                 {
-                    if(getCurrentEvent() == volant_reel_timeout)
+                    if(getCurrentEvent() == acq_volant_pedale_reel_timeout)
                         {
                             NOTIFY_TRANSITION_STARTED("1");
-                            cancel(volant_reel_timeout);
-                            NOTIFY_STATE_EXITED("ROOT.volant_reel.state_35");
+                            cancel(acq_volant_pedale_reel_timeout);
+                            NOTIFY_STATE_EXITED("ROOT.acq_volant_pedale_reel.state_35");
                             //#[ transition 1 
                             GetData();
                             if (Button==0) OUT_PORT(out)->GEN(evButtonZero);
@@ -377,48 +402,19 @@ IOxfReactive::TakeEventStatus AcquisitionUserEnv::rootState_processEvent() {
                             if (VolantAcc>5) OUT_PORT(out)->GEN(evAccelerer(VolantAcc));
                             if (VolantFrein>5) OUT_PORT(out)->GEN(evFreiner(VolantFrein));
                             //#]
-                            NOTIFY_STATE_ENTERED("ROOT.volant_reel.state_35");
-                            volant_reel_subState = state_35;
+                            NOTIFY_STATE_ENTERED("ROOT.acq_volant_pedale_reel.state_35");
+                            acq_volant_pedale_reel_subState = state_35;
                             rootState_active = state_35;
-                            volant_reel_timeout = scheduleTimeout(50, "ROOT.volant_reel.state_35");
+                            acq_volant_pedale_reel_timeout = scheduleTimeout(50, "ROOT.acq_volant_pedale_reel.state_35");
                             NOTIFY_TRANSITION_TERMINATED("1");
                             res = eventConsumed;
                         }
                 }
             
-            
-        }
-        break;
-        // State state_37
-        case state_37:
-        {
-            if(IS_EVENT_TYPE_OF(OMNullEventId))
+            if(res == eventNotConsumed)
                 {
-                    //## transition 3 
-                    if(volant==true)
-                        {
-                            NOTIFY_TRANSITION_STARTED("4");
-                            NOTIFY_TRANSITION_STARTED("3");
-                            popNullTransition();
-                            NOTIFY_STATE_EXITED("ROOT.state_37");
-                            volant_reel_entDef();
-                            NOTIFY_TRANSITION_TERMINATED("3");
-                            NOTIFY_TRANSITION_TERMINATED("4");
-                            res = eventConsumed;
-                        }
-                    else
-                        {
-                            NOTIFY_TRANSITION_STARTED("4");
-                            NOTIFY_TRANSITION_STARTED("5");
-                            popNullTransition();
-                            NOTIFY_STATE_EXITED("ROOT.state_37");
-                            simulation_entDef();
-                            NOTIFY_TRANSITION_TERMINATED("5");
-                            NOTIFY_TRANSITION_TERMINATED("4");
-                            res = eventConsumed;
-                        }
+                    res = acq_volant_pedale_reel_handleEvent();
                 }
-            
         }
         break;
         // State state_41
@@ -426,24 +422,27 @@ IOxfReactive::TakeEventStatus AcquisitionUserEnv::rootState_processEvent() {
         {
             if(IS_EVENT_TYPE_OF(OMTimeoutEventId))
                 {
-                    if(getCurrentEvent() == simulation_timeout)
+                    if(getCurrentEvent() == acq_volant_pedale_simule_timeout)
                         {
-                            NOTIFY_TRANSITION_STARTED("7");
-                            cancel(simulation_timeout);
-                            NOTIFY_STATE_EXITED("ROOT.simulation.state_41");
-                            //#[ transition 7 
+                            NOTIFY_TRANSITION_STARTED("6");
+                            cancel(acq_volant_pedale_simule_timeout);
+                            NOTIFY_STATE_EXITED("ROOT.acq_volant_pedale_simule.state_41");
+                            //#[ transition 6 
                             if (acc>0) OUT_PORT(out)->GEN(evAccelerer(acc));
                             //#]
-                            NOTIFY_STATE_ENTERED("ROOT.simulation.state_41");
-                            simulation_subState = state_41;
+                            NOTIFY_STATE_ENTERED("ROOT.acq_volant_pedale_simule.state_41");
+                            acq_volant_pedale_simule_subState = state_41;
                             rootState_active = state_41;
-                            simulation_timeout = scheduleTimeout(255, "ROOT.simulation.state_41");
-                            NOTIFY_TRANSITION_TERMINATED("7");
+                            acq_volant_pedale_simule_timeout = scheduleTimeout(255, "ROOT.acq_volant_pedale_simule.state_41");
+                            NOTIFY_TRANSITION_TERMINATED("6");
                             res = eventConsumed;
                         }
                 }
             
-            
+            if(res == eventNotConsumed)
+                {
+                    res = acq_volant_pedale_simule_handleEvent();
+                }
         }
         break;
         default:
@@ -452,53 +451,83 @@ IOxfReactive::TakeEventStatus AcquisitionUserEnv::rootState_processEvent() {
     return res;
 }
 
-void AcquisitionUserEnv::volant_reel_entDef() {
-    NOTIFY_STATE_ENTERED("ROOT.volant_reel");
-    rootState_subState = volant_reel;
+void AcquisitionUserEnv::acq_volant_pedale_simule_entDef() {
+    NOTIFY_STATE_ENTERED("ROOT.acq_volant_pedale_simule");
+    rootState_subState = acq_volant_pedale_simule;
+    NOTIFY_TRANSITION_STARTED("5");
+    NOTIFY_STATE_ENTERED("ROOT.acq_volant_pedale_simule.state_41");
+    acq_volant_pedale_simule_subState = state_41;
+    rootState_active = state_41;
+    acq_volant_pedale_simule_timeout = scheduleTimeout(255, "ROOT.acq_volant_pedale_simule.state_41");
+    NOTIFY_TRANSITION_TERMINATED("5");
+}
+
+void AcquisitionUserEnv::acq_volant_pedale_simule_exit() {
+    // State state_41
+    if(acq_volant_pedale_simule_subState == state_41)
+        {
+            cancel(acq_volant_pedale_simule_timeout);
+            NOTIFY_STATE_EXITED("ROOT.acq_volant_pedale_simule.state_41");
+        }
+    acq_volant_pedale_simule_subState = OMNonState;
+    
+    NOTIFY_STATE_EXITED("ROOT.acq_volant_pedale_simule");
+}
+
+IOxfReactive::TakeEventStatus AcquisitionUserEnv::acq_volant_pedale_simule_handleEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    if(IS_EVENT_TYPE_OF(evReel__MonPkg_id))
+        {
+            NOTIFY_TRANSITION_STARTED("3");
+            acq_volant_pedale_simule_exit();
+            acq_volant_pedale_reel_entDef();
+            NOTIFY_TRANSITION_TERMINATED("3");
+            res = eventConsumed;
+        }
+    
+    return res;
+}
+
+void AcquisitionUserEnv::acq_volant_pedale_reel_entDef() {
+    NOTIFY_STATE_ENTERED("ROOT.acq_volant_pedale_reel");
+    rootState_subState = acq_volant_pedale_reel;
     NOTIFY_TRANSITION_STARTED("0");
     //#[ transition 0 
     Run();
     //#]
-    NOTIFY_STATE_ENTERED("ROOT.volant_reel.state_35");
-    volant_reel_subState = state_35;
+    NOTIFY_STATE_ENTERED("ROOT.acq_volant_pedale_reel.state_35");
+    acq_volant_pedale_reel_subState = state_35;
     rootState_active = state_35;
-    volant_reel_timeout = scheduleTimeout(50, "ROOT.volant_reel.state_35");
+    acq_volant_pedale_reel_timeout = scheduleTimeout(50, "ROOT.acq_volant_pedale_reel.state_35");
     NOTIFY_TRANSITION_TERMINATED("0");
 }
 
-void AcquisitionUserEnv::volant_reel_exit() {
+void AcquisitionUserEnv::acq_volant_pedale_reel_exit() {
     // State state_35
-    if(volant_reel_subState == state_35)
+    if(acq_volant_pedale_reel_subState == state_35)
         {
-            cancel(volant_reel_timeout);
-            NOTIFY_STATE_EXITED("ROOT.volant_reel.state_35");
+            cancel(acq_volant_pedale_reel_timeout);
+            NOTIFY_STATE_EXITED("ROOT.acq_volant_pedale_reel.state_35");
         }
-    volant_reel_subState = OMNonState;
-    
-    NOTIFY_STATE_EXITED("ROOT.volant_reel");
+    acq_volant_pedale_reel_subState = OMNonState;
+    //#[ state acq_volant_pedale_reel.(Exit) 
+    CloseHandle(g_hCom); 
+    //#]
+    NOTIFY_STATE_EXITED("ROOT.acq_volant_pedale_reel");
 }
 
-void AcquisitionUserEnv::simulation_entDef() {
-    NOTIFY_STATE_ENTERED("ROOT.simulation");
-    rootState_subState = simulation;
-    NOTIFY_TRANSITION_STARTED("6");
-    NOTIFY_STATE_ENTERED("ROOT.simulation.state_41");
-    simulation_subState = state_41;
-    rootState_active = state_41;
-    simulation_timeout = scheduleTimeout(255, "ROOT.simulation.state_41");
-    NOTIFY_TRANSITION_TERMINATED("6");
-}
-
-void AcquisitionUserEnv::simulation_exit() {
-    // State state_41
-    if(simulation_subState == state_41)
+IOxfReactive::TakeEventStatus AcquisitionUserEnv::acq_volant_pedale_reel_handleEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    if(IS_EVENT_TYPE_OF(evSimu__MonPkg_id))
         {
-            cancel(simulation_timeout);
-            NOTIFY_STATE_EXITED("ROOT.simulation.state_41");
+            NOTIFY_TRANSITION_STARTED("4");
+            acq_volant_pedale_reel_exit();
+            acq_volant_pedale_simule_entDef();
+            NOTIFY_TRANSITION_TERMINATED("4");
+            res = eventConsumed;
         }
-    simulation_subState = OMNonState;
     
-    NOTIFY_STATE_EXITED("ROOT.simulation");
+    return res;
 }
 
 #ifdef _OMINSTRUMENT
@@ -514,24 +543,23 @@ void OMAnimatedAcquisitionUserEnv::serializeAttributes(AOMSAttributes* aomsAttri
     aomsAttributes->addAttribute("acc", x2String(myReal->acc));
     aomsAttributes->addAttribute("volant", x2String(myReal->volant));
     aomsAttributes->addAttribute("alpha", x2String(myReal->alpha));
+    aomsAttributes->addAttribute("volantVersGauche", x2String(myReal->volantVersGauche));
+    aomsAttributes->addAttribute("volantVersDroite", x2String(myReal->volantVersDroite));
+    aomsAttributes->addAttribute("bGauche", x2String(myReal->bGauche));
+    aomsAttributes->addAttribute("bDroit", x2String(myReal->bDroit));
 }
 
 void OMAnimatedAcquisitionUserEnv::rootState_serializeStates(AOMSState* aomsState) const {
     aomsState->addState("ROOT");
     switch (myReal->rootState_subState) {
-        case AcquisitionUserEnv::volant_reel:
+        case AcquisitionUserEnv::acq_volant_pedale_reel:
         {
-            volant_reel_serializeStates(aomsState);
+            acq_volant_pedale_reel_serializeStates(aomsState);
         }
         break;
-        case AcquisitionUserEnv::state_37:
+        case AcquisitionUserEnv::acq_volant_pedale_simule:
         {
-            state_37_serializeStates(aomsState);
-        }
-        break;
-        case AcquisitionUserEnv::simulation:
-        {
-            simulation_serializeStates(aomsState);
+            acq_volant_pedale_simule_serializeStates(aomsState);
         }
         break;
         default:
@@ -539,32 +567,28 @@ void OMAnimatedAcquisitionUserEnv::rootState_serializeStates(AOMSState* aomsStat
     }
 }
 
-void OMAnimatedAcquisitionUserEnv::volant_reel_serializeStates(AOMSState* aomsState) const {
-    aomsState->addState("ROOT.volant_reel");
-    if(myReal->volant_reel_subState == AcquisitionUserEnv::state_35)
-        {
-            state_35_serializeStates(aomsState);
-        }
-}
-
-void OMAnimatedAcquisitionUserEnv::state_35_serializeStates(AOMSState* aomsState) const {
-    aomsState->addState("ROOT.volant_reel.state_35");
-}
-
-void OMAnimatedAcquisitionUserEnv::state_37_serializeStates(AOMSState* aomsState) const {
-    aomsState->addState("ROOT.state_37");
-}
-
-void OMAnimatedAcquisitionUserEnv::simulation_serializeStates(AOMSState* aomsState) const {
-    aomsState->addState("ROOT.simulation");
-    if(myReal->simulation_subState == AcquisitionUserEnv::state_41)
+void OMAnimatedAcquisitionUserEnv::acq_volant_pedale_simule_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.acq_volant_pedale_simule");
+    if(myReal->acq_volant_pedale_simule_subState == AcquisitionUserEnv::state_41)
         {
             state_41_serializeStates(aomsState);
         }
 }
 
 void OMAnimatedAcquisitionUserEnv::state_41_serializeStates(AOMSState* aomsState) const {
-    aomsState->addState("ROOT.simulation.state_41");
+    aomsState->addState("ROOT.acq_volant_pedale_simule.state_41");
+}
+
+void OMAnimatedAcquisitionUserEnv::acq_volant_pedale_reel_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.acq_volant_pedale_reel");
+    if(myReal->acq_volant_pedale_reel_subState == AcquisitionUserEnv::state_35)
+        {
+            state_35_serializeStates(aomsState);
+        }
+}
+
+void OMAnimatedAcquisitionUserEnv::state_35_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.acq_volant_pedale_reel.state_35");
 }
 //#]
 

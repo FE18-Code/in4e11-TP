@@ -626,7 +626,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 				}
 			}
 			- _name = "Architecture_Systeme";
-			- _lastModifiedTime = "1.19.2017::12:49:28";
+			- _lastModifiedTime = "1.19.2017::16:30:50";
 			- _graphicChart = { CGIClassChart 
 				- _id = GUID 2a38a124-9076-45f3-85c5-8cac9a5e3ab0;
 				- m_type = 0;

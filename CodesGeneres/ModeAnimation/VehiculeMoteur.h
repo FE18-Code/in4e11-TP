@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: VehiculeMoteur
-//!	Generated Date	: Thu, 19, Jan 2017  
+//!	Generated Date	: Mon, 23, Jan 2017  
 	File Path	: CodesGeneres\ModeAnimation\VehiculeMoteur.h
 *********************************************************************/
 
@@ -113,8 +113,8 @@ public :
     
     ////    Operations    ////
     
-    //## operation accelerer()
-    void accelerer();
+    //## operation accelerer(int)
+    void accelerer(int intensite);
     
     //## operation arreter()
     void arreter();
@@ -125,8 +125,8 @@ public :
     //## operation dyn_moteur()
     void dyn_moteur();
     
-    //## operation freiner()
-    void freiner();
+    //## operation freiner(int)
+    void freiner(int intensite);
     
     ////    Additional operations    ////
     

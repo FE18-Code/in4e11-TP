@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: _MonPkg
-//!	Generated Date	: Thu, 19, Jan 2017  
+//!	Generated Date	: Mon, 23, Jan 2017  
 	File Path	: CodesGeneres\ModeAnimation\_MonPkg.cpp
 *********************************************************************/
 
@@ -73,6 +73,18 @@
 #define evTournerG_UNSERIALIZE OM_NO_OP
 
 #define evTournerG_CONSTRUCTOR evTournerG()
+
+#define evReel_SERIALIZE OM_NO_OP
+
+#define evReel_UNSERIALIZE OM_NO_OP
+
+#define evReel_CONSTRUCTOR evReel()
+
+#define evSimu_SERIALIZE OM_NO_OP
+
+#define evSimu_UNSERIALIZE OM_NO_OP
+
+#define evSimu_CONSTRUCTOR evSimu()
 //#]
 
 //## package _MonPkg
@@ -204,6 +216,30 @@ bool evTournerG::isTypeOf(const short id) const {
 }
 
 IMPLEMENT_META_EVENT_P(evTournerG, _MonPkg, _MonPkg, evTournerG())
+
+//## event evReel()
+evReel::evReel() {
+    NOTIFY_EVENT_CONSTRUCTOR(evReel)
+    setId(evReel__MonPkg_id);
+}
+
+bool evReel::isTypeOf(const short id) const {
+    return (evReel__MonPkg_id==id);
+}
+
+IMPLEMENT_META_EVENT_P(evReel, _MonPkg, _MonPkg, evReel())
+
+//## event evSimu()
+evSimu::evSimu() {
+    NOTIFY_EVENT_CONSTRUCTOR(evSimu)
+    setId(evSimu__MonPkg_id);
+}
+
+bool evSimu::isTypeOf(const short id) const {
+    return (evSimu__MonPkg_id==id);
+}
+
+IMPLEMENT_META_EVENT_P(evSimu, _MonPkg, _MonPkg, evSimu())
 
 /*********************************************************************
 	File Path	: CodesGeneres\ModeAnimation\_MonPkg.cpp

@@ -18,7 +18,7 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- m_ptMaxPositionY = -23;
 				- m_nLeft = 88;
 				- m_nTop = 88;
-				- m_nRight = 1338;
+				- m_nRight = 1128;
 				- m_nBottom = 638;
 			}
 			- _wasOpenedOnCloseProject = 1;
@@ -30,8 +30,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "Architecture_Systeme";
 				- _id = GUID c5f23ad9-50cf-4425-a359-0fd47d9bb422;
 			}
-			- _UpLeft = 11 23 ;
-			- _DownRight = 864 374 ;
+			- _UpLeft = 10 23 ;
+			- _DownRight = 666 349 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 4;
 		}
@@ -44,10 +44,10 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- m_ptMinPositionY = -1;
 				- m_ptMaxPositionX = -4;
 				- m_ptMaxPositionY = -23;
-				- m_nLeft = 88;
-				- m_nTop = 88;
-				- m_nRight = 1301;
-				- m_nBottom = 585;
+				- m_nLeft = 75;
+				- m_nTop = 75;
+				- m_nRight = 590;
+				- m_nBottom = 425;
 			}
 			- _wasOpenedOnCloseProject = 1;
 			- _theDiagram = { IHandle 
@@ -58,10 +58,10 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 99ca466c-b72f-4e94-8ee3-1724b272c51a;
 			}
-			- _UpLeft = 0 -5 ;
-			- _DownRight = 914 342 ;
+			- _UpLeft = 55 0 ;
+			- _DownRight = 380 202 ;
 			- _instanceName = "";
-			- m_nDiagramIndex = 2;
+			- m_nDiagramIndex = 3;
 		}
 		{ CGEMdiDiagramParams 
 			- _placement = { CCommon_WINDOWPLACEMENT 
@@ -74,8 +74,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- m_ptMaxPositionY = -23;
 				- m_nLeft = 132;
 				- m_nTop = 132;
-				- m_nRight = 1306;
-				- m_nBottom = 620;
+				- m_nRight = 1320;
+				- m_nBottom = 671;
 			}
 			- _wasOpenedOnCloseProject = 1;
 			- _theDiagram = { IHandle 
@@ -86,8 +86,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 99ca466c-b72f-4e94-8ee3-1724b272c51a;
 			}
-			- _UpLeft = 188 -5 ;
-			- _DownRight = 1072 335 ;
+			- _UpLeft = 0 0 ;
+			- _DownRight = 1160 492 ;
 			- _instanceName = "MainDeApplication[0]->objAcqUserEnv";
 			- m_nDiagramIndex = 1;
 		}
@@ -114,8 +114,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "IHM";
 				- _id = GUID 384edb5b-dab8-40de-a538-b4e732957176;
 			}
-			- _UpLeft = 0 30 ;
-			- _DownRight = 1055 582 ;
+			- _UpLeft = 0 9 ;
+			- _DownRight = 1383 786 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 5;
 		}
@@ -128,10 +128,10 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- m_ptMinPositionY = -1;
 				- m_ptMaxPositionX = -4;
 				- m_ptMaxPositionY = -23;
-				- m_nLeft = 66;
-				- m_nTop = 66;
-				- m_nRight = 1279;
-				- m_nBottom = 563;
+				- m_nLeft = 110;
+				- m_nTop = 110;
+				- m_nRight = 1335;
+				- m_nBottom = 658;
 			}
 			- _wasOpenedOnCloseProject = 1;
 			- _theDiagram = { IHandle 
@@ -140,12 +140,12 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _subsystem = "_MonPkg";
 				- _class = "VehiculeMoteur";
 				- _name = "StatechartDiagram";
-				- _id = GUID f0db9f69-418d-44cc-b2c0-fe87f5fe35b2;
+				- _id = GUID 32d7ac53-85c2-4343-a6b7-225cadb111b8;
 			}
-			- _UpLeft = 0 32 ;
-			- _DownRight = 860 359 ;
+			- _UpLeft = 263 225 ;
+			- _DownRight = 1112 580 ;
 			- _instanceName = "";
-			- m_nDiagramIndex = 3;
+			- m_nDiagramIndex = 2;
 		}
 		{ CGEMdiDiagramParams 
 			- _placement = { CCommon_WINDOWPLACEMENT 
@@ -158,8 +158,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- m_ptMaxPositionY = -23;
 				- m_nLeft = 154;
 				- m_nTop = 154;
-				- m_nRight = 1328;
-				- m_nBottom = 642;
+				- m_nRight = 1342;
+				- m_nBottom = 693;
 			}
 			- _wasOpenedOnCloseProject = 1;
 			- _theDiagram = { IHandle 
@@ -168,15 +168,15 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _subsystem = "_MonPkg";
 				- _class = "VehiculeMoteur";
 				- _name = "StatechartDiagram";
-				- _id = GUID f0db9f69-418d-44cc-b2c0-fe87f5fe35b2;
+				- _id = GUID 32d7ac53-85c2-4343-a6b7-225cadb111b8;
 			}
-			- _UpLeft = 0 0 ;
-			- _DownRight = 1146 441 ;
+			- _UpLeft = 287 263 ;
+			- _DownRight = 1447 755 ;
 			- _instanceName = "MainDeApplication[0]->objVehiculeMoteur";
 			- m_nDiagramIndex = 0;
 		}
 	}
-	- _fullName = "U:\\Documents\\E4FE\\IN4E11\\TP-Voiture\\HelloWorld2";
+	- _fullName = "U:\\Documents\\E4FE\\IN4E11\\TP-Voiture_2\\HelloWorld2";
 	- m_SearchScopeList = { IRPYRawContainer 
 		- size = 0;
 	}

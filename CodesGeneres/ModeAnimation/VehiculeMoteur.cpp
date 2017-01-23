@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: VehiculeMoteur
-//!	Generated Date	: Thu, 19, Jan 2017  
+//!	Generated Date	: Mon, 23, Jan 2017  
 	File Path	: CodesGeneres\ModeAnimation\VehiculeMoteur.cpp
 *********************************************************************/
 
@@ -18,7 +18,7 @@
 //#[ ignore
 #define _MonPkg_VehiculeMoteur_VehiculeMoteur_SERIALIZE OM_NO_OP
 
-#define _MonPkg_VehiculeMoteur_accelerer_SERIALIZE OM_NO_OP
+#define _MonPkg_VehiculeMoteur_accelerer_SERIALIZE aomsmethod->addAttribute("intensite", x2String(intensite));
 
 #define _MonPkg_VehiculeMoteur_arreter_SERIALIZE OM_NO_OP
 
@@ -26,7 +26,7 @@
 
 #define _MonPkg_VehiculeMoteur_dyn_moteur_SERIALIZE OM_NO_OP
 
-#define _MonPkg_VehiculeMoteur_freiner_SERIALIZE OM_NO_OP
+#define _MonPkg_VehiculeMoteur_freiner_SERIALIZE aomsmethod->addAttribute("intensite", x2String(intensite));
 
 #define _MonPkg_VehiculeMoteur_setAlpha_SERIALIZE aomsmethod->addAttribute("p_alpha", x2String(p_alpha));
 
@@ -75,14 +75,14 @@ VehiculeMoteur::~VehiculeMoteur() {
     cancelTimeouts();
 }
 
-void VehiculeMoteur::accelerer() {
-    NOTIFY_OPERATION(accelerer, accelerer(), 0, _MonPkg_VehiculeMoteur_accelerer_SERIALIZE);
-    //#[ operation accelerer()
+void VehiculeMoteur::accelerer(int intensite) {
+    NOTIFY_OPERATION(accelerer, accelerer(int), 1, _MonPkg_VehiculeMoteur_accelerer_SERIALIZE);
+    //#[ operation accelerer(int)
     if(brakePedal>0)
     	brakePedal=0;
     else{
     	if(throttle<(MAX_THROTTLE-1))
-    		throttle+=intensite_acceleration;	
+    		throttle+=intensite;	
     	else 
     		 throttle=MAX_THROTTLE;
     }
@@ -128,17 +128,15 @@ void VehiculeMoteur::dyn_moteur() {
     
     if(throttle>0.0) throttle-=(0.5/5.0);
     
-    printf("dynmoteur : speed=%d\n", speed);
-    
     
     //#]
 }
 
-void VehiculeMoteur::freiner() {
-    NOTIFY_OPERATION(freiner, freiner(), 0, _MonPkg_VehiculeMoteur_freiner_SERIALIZE);
-    //#[ operation freiner()
+void VehiculeMoteur::freiner(int intensite) {
+    NOTIFY_OPERATION(freiner, freiner(int), 1, _MonPkg_VehiculeMoteur_freiner_SERIALIZE);
+    //#[ operation freiner(int)
     if(throttle>1.0) 
-    	throttle -= 2.0;
+    	throttle -= intensite;
             
      else {
      	if ( brakePedal < MAX_BRAKE ) brakePedal +=1;
@@ -193,6 +191,7 @@ int VehiculeMoteur::getDistance() {
 
 void VehiculeMoteur::setDistance(int p_distance) {
     distance = p_distance;
+    NOTIFY_SET_OPERATION;
 }
 
 double VehiculeMoteur::getFdist() {
@@ -221,7 +220,6 @@ void VehiculeMoteur::setIgnition(bool p_ignition) {
     ignition = p_ignition;
     NOTIFY_SET_OPERATION;
     //#]
-    NOTIFY_SET_OPERATION;
 }
 
 int VehiculeMoteur::getPeriod() {
@@ -297,7 +295,7 @@ void VehiculeMoteur::setIntensite_acceleration(double p_intensite_acceleration) 
     intensite_acceleration = p_intensite_acceleration;
 }
 
-VehiculeMoteur::VehiculeMoteur(IOxfActive* theActiveContext) : MAX_BRAKE(10), MAX_SPEED(120), MAX_THROTTLE(10.0), alpha(0), distance(0), ignition(false), intensite_acceleration(1.0), period(200), speed(0), throttle(0.0) {
+VehiculeMoteur::VehiculeMoteur(IOxfActive* theActiveContext) : MAX_BRAKE(10), MAX_SPEED(120), MAX_THROTTLE(10.0), alpha(0), distance(0), intensite_acceleration(1.0), period(200), speed(0), throttle(0.0) {
     NOTIFY_ACTIVE_CONSTRUCTOR(VehiculeMoteur, VehiculeMoteur(), 0, _MonPkg_VehiculeMoteur_VehiculeMoteur_SERIALIZE);
     setActiveContext(this, true);
     initRelations();
@@ -366,7 +364,7 @@ IOxfReactive::TakeEventStatus VehiculeMoteur::rootState_processEvent() {
                     NOTIFY_TRANSITION_STARTED("1");
                     NOTIFY_STATE_EXITED("ROOT.moteur_arrete");
                     //#[ transition 1 
-                    demarrer();
+                    demarrer() ;
                     //#]
                     NOTIFY_STATE_ENTERED("ROOT.moteur_demarre");
                     rootState_subState = moteur_demarre;
@@ -392,25 +390,7 @@ IOxfReactive::TakeEventStatus VehiculeMoteur::rootState_processEvent() {
 
 IOxfReactive::TakeEventStatus VehiculeMoteur::moteur_demarre_handleEvent() {
     IOxfReactive::TakeEventStatus res = eventNotConsumed;
-    if(IS_EVENT_TYPE_OF(OMTimeoutEventId))
-        {
-            if(getCurrentEvent() == rootState_timeout)
-                {
-                    NOTIFY_TRANSITION_STARTED("4");
-                    cancel(rootState_timeout);
-                    NOTIFY_STATE_EXITED("ROOT.moteur_demarre");
-                    //#[ transition 4 
-                    dyn_moteur();
-                    //#]
-                    NOTIFY_STATE_ENTERED("ROOT.moteur_demarre");
-                    rootState_subState = moteur_demarre;
-                    rootState_active = moteur_demarre;
-                    rootState_timeout = scheduleTimeout(200, "ROOT.moteur_demarre");
-                    NOTIFY_TRANSITION_TERMINATED("4");
-                    res = eventConsumed;
-                }
-        }
-    else if(IS_EVENT_TYPE_OF(evContact__MonPkg_id))
+    if(IS_EVENT_TYPE_OF(evContact__MonPkg_id))
         {
             //## transition 3 
             if(ignition==true)
@@ -428,6 +408,24 @@ IOxfReactive::TakeEventStatus VehiculeMoteur::moteur_demarre_handleEvent() {
                     res = eventConsumed;
                 }
         }
+    else if(IS_EVENT_TYPE_OF(OMTimeoutEventId))
+        {
+            if(getCurrentEvent() == rootState_timeout)
+                {
+                    NOTIFY_TRANSITION_STARTED("4");
+                    cancel(rootState_timeout);
+                    NOTIFY_STATE_EXITED("ROOT.moteur_demarre");
+                    //#[ transition 4 
+                    dyn_moteur();
+                    //#]
+                    NOTIFY_STATE_ENTERED("ROOT.moteur_demarre");
+                    rootState_subState = moteur_demarre;
+                    rootState_active = moteur_demarre;
+                    rootState_timeout = scheduleTimeout(200, "ROOT.moteur_demarre");
+                    NOTIFY_TRANSITION_TERMINATED("4");
+                    res = eventConsumed;
+                }
+        }
     else if(IS_EVENT_TYPE_OF(evFreiner__MonPkg_id))
         {
             OMSETPARAMS(evFreiner);
@@ -435,7 +433,7 @@ IOxfReactive::TakeEventStatus VehiculeMoteur::moteur_demarre_handleEvent() {
             cancel(rootState_timeout);
             NOTIFY_STATE_EXITED("ROOT.moteur_demarre");
             //#[ transition 5 
-            freiner();
+            freiner(params->val);
             //#]
             NOTIFY_STATE_ENTERED("ROOT.moteur_demarre");
             rootState_subState = moteur_demarre;
@@ -451,8 +449,7 @@ IOxfReactive::TakeEventStatus VehiculeMoteur::moteur_demarre_handleEvent() {
             cancel(rootState_timeout);
             NOTIFY_STATE_EXITED("ROOT.moteur_demarre");
             //#[ transition 2 
-            intensite_acceleration=params->val;
-            accelerer();
+            accelerer(params->val);
             //#]
             NOTIFY_STATE_ENTERED("ROOT.moteur_demarre");
             rootState_subState = moteur_demarre;
