@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: VehiculeMoteur
-//!	Generated Date	: Mon, 23, Jan 2017  
+//!	Generated Date	: Fri, 27, Jan 2017  
 	File Path	: CodesGeneres\ModeAnimation\VehiculeMoteur.h
 *********************************************************************/
 
@@ -320,7 +320,50 @@ public :
     inline bool moteur_demarre_IN() const;
     
     //## statechart_method
+    void moteur_demarre_entDef();
+    
+    //## statechart_method
+    void moteur_demarre_exit();
+    
+    //## statechart_method
+    IOxfReactive::TakeEventStatus moteur_demarre_processEvent();
+    
+    //## statechart_method
     IOxfReactive::TakeEventStatus moteur_demarre_handleEvent();
+    
+    // state_4:
+    //## statechart_method
+    inline bool state_4_IN() const;
+    
+    //## statechart_method
+    void state_4_entDef();
+    
+    //## statechart_method
+    void state_4_exit();
+    
+    //## statechart_method
+    IOxfReactive::TakeEventStatus state_4_processEvent();
+    
+    // dyn_loop:
+    //## statechart_method
+    inline bool dyn_loop_IN() const;
+    
+    // state_3:
+    //## statechart_method
+    inline bool state_3_IN() const;
+    
+    //## statechart_method
+    void state_3_entDef();
+    
+    //## statechart_method
+    void state_3_exit();
+    
+    //## statechart_method
+    IOxfReactive::TakeEventStatus state_3_processEvent();
+    
+    // moteur_action:
+    //## statechart_method
+    inline bool moteur_action_IN() const;
     
     // moteur_arrete:
     //## statechart_method
@@ -332,14 +375,26 @@ protected :
     enum VehiculeMoteur_Enum {
         OMNonState = 0,
         moteur_demarre = 1,
-        moteur_arrete = 2
+        state_4 = 2,
+        dyn_loop = 3,
+        state_3 = 4,
+        moteur_action = 5,
+        moteur_arrete = 6
     };
     
     int rootState_subState;
     
     int rootState_active;
     
-    IOxfTimeout* rootState_timeout;
+    int state_4_subState;
+    
+    int state_4_active;
+    
+    IOxfTimeout* state_4_timeout;
+    
+    int state_3_subState;
+    
+    int state_3_active;
 //#]
 };
 
@@ -365,6 +420,18 @@ public :
     void moteur_demarre_serializeStates(AOMSState* aomsState) const;
     
     //## statechart_method
+    void state_4_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void dyn_loop_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void state_3_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void moteur_action_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
     void moteur_arrete_serializeStates(AOMSState* aomsState) const;
 };
 //#]
@@ -376,6 +443,22 @@ inline bool VehiculeMoteur::rootState_IN() const {
 
 inline bool VehiculeMoteur::moteur_demarre_IN() const {
     return rootState_subState == moteur_demarre;
+}
+
+inline bool VehiculeMoteur::state_4_IN() const {
+    return moteur_demarre_IN();
+}
+
+inline bool VehiculeMoteur::dyn_loop_IN() const {
+    return state_4_subState == dyn_loop;
+}
+
+inline bool VehiculeMoteur::state_3_IN() const {
+    return moteur_demarre_IN();
+}
+
+inline bool VehiculeMoteur::moteur_action_IN() const {
+    return state_3_subState == moteur_action;
 }
 
 inline bool VehiculeMoteur::moteur_arrete_IN() const {

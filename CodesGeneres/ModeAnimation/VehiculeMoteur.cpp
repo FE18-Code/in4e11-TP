@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: VehiculeMoteur
-//!	Generated Date	: Mon, 23, Jan 2017  
+//!	Generated Date	: Fri, 27, Jan 2017  
 	File Path	: CodesGeneres\ModeAnimation\VehiculeMoteur.cpp
 *********************************************************************/
 
@@ -94,7 +94,6 @@ void VehiculeMoteur::arreter() {
     NOTIFY_OPERATION(arreter, arreter(), 0, _MonPkg_VehiculeMoteur_arreter_SERIALIZE);
     //#[ operation arreter()
     //stop engine
-    speed=0;
     ignition=false;
     throttle=0.0;
     //#]
@@ -326,18 +325,22 @@ void VehiculeMoteur::setAlpha(double p_alpha) {
 void VehiculeMoteur::initStatechart() {
     rootState_subState = OMNonState;
     rootState_active = OMNonState;
-    rootState_timeout = NULL;
+    state_4_subState = OMNonState;
+    state_4_active = OMNonState;
+    state_4_timeout = NULL;
+    state_3_subState = OMNonState;
+    state_3_active = OMNonState;
 }
 
 void VehiculeMoteur::cancelTimeouts() {
-    cancel(rootState_timeout);
+    cancel(state_4_timeout);
 }
 
 bool VehiculeMoteur::cancelTimeout(const IOxfTimeout* arg) {
     bool res = false;
-    if(rootState_timeout == arg)
+    if(state_4_timeout == arg)
         {
-            rootState_timeout = NULL;
+            state_4_timeout = NULL;
             res = true;
         }
     return res;
@@ -367,10 +370,7 @@ IOxfReactive::TakeEventStatus VehiculeMoteur::rootState_processEvent() {
                     //#[ transition 1 
                     demarrer() ;
                     //#]
-                    NOTIFY_STATE_ENTERED("ROOT.moteur_demarre");
-                    rootState_subState = moteur_demarre;
-                    rootState_active = moteur_demarre;
-                    rootState_timeout = scheduleTimeout(200, "ROOT.moteur_demarre");
+                    moteur_demarre_entDef();
                     NOTIFY_TRANSITION_TERMINATED("1");
                     res = eventConsumed;
                 }
@@ -380,7 +380,7 @@ IOxfReactive::TakeEventStatus VehiculeMoteur::rootState_processEvent() {
         // State moteur_demarre
         case moteur_demarre:
         {
-            res = moteur_demarre_handleEvent();
+            res = moteur_demarre_processEvent();
         }
         break;
         default:
@@ -389,77 +389,195 @@ IOxfReactive::TakeEventStatus VehiculeMoteur::rootState_processEvent() {
     return res;
 }
 
+void VehiculeMoteur::moteur_demarre_entDef() {
+    NOTIFY_STATE_ENTERED("ROOT.moteur_demarre");
+    pushNullTransition();
+    rootState_subState = moteur_demarre;
+    rootState_active = moteur_demarre;
+    state_3_entDef();
+    state_4_entDef();
+}
+
+void VehiculeMoteur::moteur_demarre_exit() {
+    popNullTransition();
+    state_3_exit();
+    state_4_exit();
+    
+    NOTIFY_STATE_EXITED("ROOT.moteur_demarre");
+}
+
+IOxfReactive::TakeEventStatus VehiculeMoteur::moteur_demarre_processEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    // State state_3
+    if(state_3_processEvent() != eventNotConsumed)
+        {
+            res = eventConsumed;
+            if(!IS_IN(moteur_demarre))
+                {
+                    return res;
+                }
+        }
+    // State state_4
+    if(state_4_processEvent() != eventNotConsumed)
+        {
+            res = eventConsumed;
+            if(!IS_IN(moteur_demarre))
+                {
+                    return res;
+                }
+        }
+    if(res == eventNotConsumed)
+        {
+            res = moteur_demarre_handleEvent();
+        }
+    return res;
+}
+
 IOxfReactive::TakeEventStatus VehiculeMoteur::moteur_demarre_handleEvent() {
     IOxfReactive::TakeEventStatus res = eventNotConsumed;
-    if(IS_EVENT_TYPE_OF(evContact__MonPkg_id))
+    if(IS_EVENT_TYPE_OF(OMNullEventId))
         {
-            //## transition 3 
-            if(ignition==true)
+            //## transition 2 
+            if((speed<1) && (ignition==false)  )
                 {
-                    NOTIFY_TRANSITION_STARTED("3");
-                    cancel(rootState_timeout);
-                    NOTIFY_STATE_EXITED("ROOT.moteur_demarre");
-                    //#[ transition 3 
-                    arreter();
-                    //#]
+                    NOTIFY_TRANSITION_STARTED("2");
+                    moteur_demarre_exit();
                     NOTIFY_STATE_ENTERED("ROOT.moteur_arrete");
                     rootState_subState = moteur_arrete;
                     rootState_active = moteur_arrete;
-                    NOTIFY_TRANSITION_TERMINATED("3");
+                    NOTIFY_TRANSITION_TERMINATED("2");
                     res = eventConsumed;
                 }
-        }
-    else if(IS_EVENT_TYPE_OF(OMTimeoutEventId))
-        {
-            if(getCurrentEvent() == rootState_timeout)
-                {
-                    NOTIFY_TRANSITION_STARTED("4");
-                    cancel(rootState_timeout);
-                    NOTIFY_STATE_EXITED("ROOT.moteur_demarre");
-                    //#[ transition 4 
-                    dyn_moteur();
-                    //#]
-                    NOTIFY_STATE_ENTERED("ROOT.moteur_demarre");
-                    rootState_subState = moteur_demarre;
-                    rootState_active = moteur_demarre;
-                    rootState_timeout = scheduleTimeout(200, "ROOT.moteur_demarre");
-                    NOTIFY_TRANSITION_TERMINATED("4");
-                    res = eventConsumed;
-                }
-        }
-    else if(IS_EVENT_TYPE_OF(evFreiner__MonPkg_id))
-        {
-            OMSETPARAMS(evFreiner);
-            NOTIFY_TRANSITION_STARTED("5");
-            cancel(rootState_timeout);
-            NOTIFY_STATE_EXITED("ROOT.moteur_demarre");
-            //#[ transition 5 
-            freiner(params->val);
-            //#]
-            NOTIFY_STATE_ENTERED("ROOT.moteur_demarre");
-            rootState_subState = moteur_demarre;
-            rootState_active = moteur_demarre;
-            rootState_timeout = scheduleTimeout(200, "ROOT.moteur_demarre");
-            NOTIFY_TRANSITION_TERMINATED("5");
-            res = eventConsumed;
-        }
-    else if(IS_EVENT_TYPE_OF(evAccelerer__MonPkg_id))
-        {
-            OMSETPARAMS(evAccelerer);
-            NOTIFY_TRANSITION_STARTED("2");
-            cancel(rootState_timeout);
-            NOTIFY_STATE_EXITED("ROOT.moteur_demarre");
-            //#[ transition 2 
-            accelerer(params->val);
-            //#]
-            NOTIFY_STATE_ENTERED("ROOT.moteur_demarre");
-            rootState_subState = moteur_demarre;
-            rootState_active = moteur_demarre;
-            rootState_timeout = scheduleTimeout(200, "ROOT.moteur_demarre");
-            NOTIFY_TRANSITION_TERMINATED("2");
-            res = eventConsumed;
         }
     
+    return res;
+}
+
+void VehiculeMoteur::state_4_entDef() {
+    NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_4");
+    NOTIFY_TRANSITION_STARTED("4");
+    NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_4.dyn_loop");
+    state_4_subState = dyn_loop;
+    state_4_active = dyn_loop;
+    state_4_timeout = scheduleTimeout(200, "ROOT.moteur_demarre.state_4.dyn_loop");
+    NOTIFY_TRANSITION_TERMINATED("4");
+}
+
+void VehiculeMoteur::state_4_exit() {
+    // State dyn_loop
+    if(state_4_subState == dyn_loop)
+        {
+            cancel(state_4_timeout);
+            NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_4.dyn_loop");
+        }
+    state_4_subState = OMNonState;
+    
+    NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_4");
+}
+
+IOxfReactive::TakeEventStatus VehiculeMoteur::state_4_processEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    // State dyn_loop
+    if(state_4_active == dyn_loop)
+        {
+            if(IS_EVENT_TYPE_OF(OMTimeoutEventId))
+                {
+                    if(getCurrentEvent() == state_4_timeout)
+                        {
+                            NOTIFY_TRANSITION_STARTED("3");
+                            cancel(state_4_timeout);
+                            NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_4.dyn_loop");
+                            //#[ transition 3 
+                            dyn_moteur();
+                            printf("speed=%d, ignition=%d\n", speed, ignition);
+                            //#]
+                            NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_4.dyn_loop");
+                            state_4_subState = dyn_loop;
+                            state_4_active = dyn_loop;
+                            state_4_timeout = scheduleTimeout(200, "ROOT.moteur_demarre.state_4.dyn_loop");
+                            NOTIFY_TRANSITION_TERMINATED("3");
+                            res = eventConsumed;
+                        }
+                }
+            
+            
+        }
+    return res;
+}
+
+void VehiculeMoteur::state_3_entDef() {
+    NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_3");
+    NOTIFY_TRANSITION_STARTED("5");
+    NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_3.moteur_action");
+    state_3_subState = moteur_action;
+    state_3_active = moteur_action;
+    NOTIFY_TRANSITION_TERMINATED("5");
+}
+
+void VehiculeMoteur::state_3_exit() {
+    // State moteur_action
+    if(state_3_subState == moteur_action)
+        {
+            NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_3.moteur_action");
+        }
+    state_3_subState = OMNonState;
+    
+    NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_3");
+}
+
+IOxfReactive::TakeEventStatus VehiculeMoteur::state_3_processEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    // State moteur_action
+    if(state_3_active == moteur_action)
+        {
+            if(IS_EVENT_TYPE_OF(evContact__MonPkg_id))
+                {
+                    NOTIFY_TRANSITION_STARTED("8");
+                    NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_3.moteur_action");
+                    //#[ transition 8 
+                    arreter();
+                    //#]
+                    NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_3.moteur_action");
+                    state_3_subState = moteur_action;
+                    state_3_active = moteur_action;
+                    NOTIFY_TRANSITION_TERMINATED("8");
+                    res = eventConsumed;
+                }
+            else if(IS_EVENT_TYPE_OF(evFreiner__MonPkg_id))
+                {
+                    OMSETPARAMS(evFreiner);
+                    NOTIFY_TRANSITION_STARTED("6");
+                    NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_3.moteur_action");
+                    //#[ transition 6 
+                    freiner(params->val);
+                    //#]
+                    NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_3.moteur_action");
+                    state_3_subState = moteur_action;
+                    state_3_active = moteur_action;
+                    NOTIFY_TRANSITION_TERMINATED("6");
+                    res = eventConsumed;
+                }
+            else if(IS_EVENT_TYPE_OF(evAccelerer__MonPkg_id))
+                {
+                    OMSETPARAMS(evAccelerer);
+                    //## transition 7 
+                    if(ignition==true)
+                        {
+                            NOTIFY_TRANSITION_STARTED("7");
+                            NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_3.moteur_action");
+                            //#[ transition 7 
+                            accelerer(params->val);
+                            //#]
+                            NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_3.moteur_action");
+                            state_3_subState = moteur_action;
+                            state_3_active = moteur_action;
+                            NOTIFY_TRANSITION_TERMINATED("7");
+                            res = eventConsumed;
+                        }
+                }
+            
+            
+        }
     return res;
 }
 
@@ -502,6 +620,32 @@ void OMAnimatedVehiculeMoteur::rootState_serializeStates(AOMSState* aomsState) c
 
 void OMAnimatedVehiculeMoteur::moteur_demarre_serializeStates(AOMSState* aomsState) const {
     aomsState->addState("ROOT.moteur_demarre");
+    state_3_serializeStates(aomsState);
+    state_4_serializeStates(aomsState);
+}
+
+void OMAnimatedVehiculeMoteur::state_4_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.moteur_demarre.state_4");
+    if(myReal->state_4_subState == VehiculeMoteur::dyn_loop)
+        {
+            dyn_loop_serializeStates(aomsState);
+        }
+}
+
+void OMAnimatedVehiculeMoteur::dyn_loop_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.moteur_demarre.state_4.dyn_loop");
+}
+
+void OMAnimatedVehiculeMoteur::state_3_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.moteur_demarre.state_3");
+    if(myReal->state_3_subState == VehiculeMoteur::moteur_action)
+        {
+            moteur_action_serializeStates(aomsState);
+        }
+}
+
+void OMAnimatedVehiculeMoteur::moteur_action_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.moteur_demarre.state_3.moteur_action");
 }
 
 void OMAnimatedVehiculeMoteur::moteur_arrete_serializeStates(AOMSState* aomsState) const {
