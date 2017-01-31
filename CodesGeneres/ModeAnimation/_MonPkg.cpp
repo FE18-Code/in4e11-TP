@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: _MonPkg
-//!	Generated Date	: Mon, 23, Jan 2017  
+//!	Generated Date	: Fri, 27, Jan 2017  
 	File Path	: CodesGeneres\ModeAnimation\_MonPkg.cpp
 *********************************************************************/
 
@@ -85,6 +85,30 @@
 #define evSimu_UNSERIALIZE OM_NO_OP
 
 #define evSimu_CONSTRUCTOR evSimu()
+
+#define evToggleReg_SERIALIZE OM_NO_OP
+
+#define evToggleReg_UNSERIALIZE OM_NO_OP
+
+#define evToggleReg_CONSTRUCTOR evToggleReg()
+
+#define evRegPlus_SERIALIZE OM_NO_OP
+
+#define evRegPlus_UNSERIALIZE OM_NO_OP
+
+#define evRegPlus_CONSTRUCTOR evRegPlus()
+
+#define evRegMoins_SERIALIZE OM_NO_OP
+
+#define evRegMoins_UNSERIALIZE OM_NO_OP
+
+#define evRegMoins_CONSTRUCTOR evRegMoins()
+
+#define evSetSpeed_SERIALIZE OMADD_SER(speed, x2String(myEvent->speed))
+
+#define evSetSpeed_UNSERIALIZE OMADD_UNSER(int, speed, OMDestructiveString2X)
+
+#define evSetSpeed_CONSTRUCTOR evSetSpeed(speed)
 //#]
 
 //## package _MonPkg
@@ -240,6 +264,59 @@ bool evSimu::isTypeOf(const short id) const {
 }
 
 IMPLEMENT_META_EVENT_P(evSimu, _MonPkg, _MonPkg, evSimu())
+
+//## event evToggleReg()
+evToggleReg::evToggleReg() {
+    NOTIFY_EVENT_CONSTRUCTOR(evToggleReg)
+    setId(evToggleReg__MonPkg_id);
+}
+
+bool evToggleReg::isTypeOf(const short id) const {
+    return (evToggleReg__MonPkg_id==id);
+}
+
+IMPLEMENT_META_EVENT_P(evToggleReg, _MonPkg, _MonPkg, evToggleReg())
+
+//## event evRegPlus()
+evRegPlus::evRegPlus() {
+    NOTIFY_EVENT_CONSTRUCTOR(evRegPlus)
+    setId(evRegPlus__MonPkg_id);
+}
+
+bool evRegPlus::isTypeOf(const short id) const {
+    return (evRegPlus__MonPkg_id==id);
+}
+
+IMPLEMENT_META_EVENT_P(evRegPlus, _MonPkg, _MonPkg, evRegPlus())
+
+//## event evRegMoins()
+evRegMoins::evRegMoins() {
+    NOTIFY_EVENT_CONSTRUCTOR(evRegMoins)
+    setId(evRegMoins__MonPkg_id);
+}
+
+bool evRegMoins::isTypeOf(const short id) const {
+    return (evRegMoins__MonPkg_id==id);
+}
+
+IMPLEMENT_META_EVENT_P(evRegMoins, _MonPkg, _MonPkg, evRegMoins())
+
+//## event evSetSpeed(int)
+evSetSpeed::evSetSpeed() {
+    NOTIFY_EVENT_CONSTRUCTOR(evSetSpeed)
+    setId(evSetSpeed__MonPkg_id);
+}
+
+evSetSpeed::evSetSpeed(int p_speed) : speed(p_speed) {
+    NOTIFY_EVENT_CONSTRUCTOR(evSetSpeed)
+    setId(evSetSpeed__MonPkg_id);
+}
+
+bool evSetSpeed::isTypeOf(const short id) const {
+    return (evSetSpeed__MonPkg_id==id);
+}
+
+IMPLEMENT_META_EVENT_P(evSetSpeed, _MonPkg, _MonPkg, evSetSpeed(int))
 
 /*********************************************************************
 	File Path	: CodesGeneres\ModeAnimation\_MonPkg.cpp

@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: MainDeApplication
-//!	Generated Date	: Mon, 23, Jan 2017  
+//!	Generated Date	: Fri, 27, Jan 2017  
 	File Path	: CodesGeneres\ModeAnimation\MainDeApplication.cpp
 *********************************************************************/
 
@@ -32,6 +32,7 @@ bool MainDeApplication::startBehavior() {
     bool done = true;
     done &= objAcqUserEnv.startBehavior();
     done &= objVehiculeMoteur.startBehavior();
+    done &= objetSysControle.startBehavior();
     done &= OMReactive::startBehavior();
     return done;
 }
@@ -69,6 +70,7 @@ void MainDeApplication::initRelations() {
 void MainDeApplication::destroy() {
     objAcqUserEnv.destroy();
     objVehiculeMoteur.destroy();
+    objetSysControle.destroy();
     OMReactive::destroy();
 }
 
@@ -78,6 +80,9 @@ MainDeApplication::MainDeApplication(IOxfActive* theActiveContext) {
     {
         {
             objVehiculeMoteur.setShouldDelete(false);
+        }
+        {
+            objetSysControle.setShouldDelete(false);
         }
         {
             objAcqUserEnv.setShouldDelete(false);

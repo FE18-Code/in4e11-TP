@@ -4,7 +4,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 	- _myState = 8192;
 	- _name = "IHM_Objets";
 	- _lastID = 2;
-	- weakCGTime = 1.23.2017::10:46:15;
+	- weakCGTime = 1.31.2017::17:19:12;
 	- strongCGTime = 10.3.2016::22:41:54;
 	- ComponentFiles = { IRPYRawContainer 
 		- size = 2;
@@ -106,7 +106,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 			- _id = GUID c6ebe487-749a-424c-8c16-94f16e9ee15a;
 			- _myState = 40960;
 			- _name = "TopLevel";
-			- weakCGTime = 1.23.2017::10:46:15;
+			- weakCGTime = 1.27.2017::11:5:48;
 			- strongCGTime = 10.3.2016::22:41:54;
 			- _multiplicity = "";
 			- _itsStateChart = { IHandle 
@@ -136,7 +136,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 					- _body = "";
 				}
 			}
-			- weakCGTime = 1.23.2017::10:46:15;
+			- weakCGTime = 1.31.2017::17:19:36;
 			- strongCGTime = 10.2.2014::10:48:4;
 			- Operations = { IRPYRawContainer 
 				- size = 8;
@@ -170,7 +170,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID fa454d46-4abc-4104-a351-87e52f4274ea;
+						- _id = GUID 188f73e3-eab1-4b22-b848-5faa6de53313;
 						- _myState = 8192;
 						- _declaration = "SysControle*";
 						- _kind = Language;
@@ -211,6 +211,7 @@ I-Logix-RPY-Archive version 8.7.1 C++ 5066837
 						- _bodyData = "bool done = true;
 done &= objAcqUserEnv.startBehavior();
 done &= objVehiculeMoteur.startBehavior();
+done &= objetSysControle.startBehavior();
 done &= OMReactive::startBehavior();
 return done;";
 					}
@@ -292,6 +293,7 @@ return done;";
 					- _itsBody = { IBody 
 						- _bodyData = "objAcqUserEnv.destroy();
 objVehiculeMoteur.destroy();
+objetSysControle.destroy();
 OMReactive::destroy();";
 					}
 				}
@@ -322,7 +324,7 @@ OMReactive::destroy();";
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID 3020bcac-d65b-4d4e-8c06-864af5f9526e;
+						- _id = GUID e8899e7c-84e0-4d76-a0b6-e5570ef05fdc;
 						- _myState = 8192;
 						- _declaration = "AcquisitionUserEnv*";
 						- _kind = Language;
@@ -346,7 +348,7 @@ OMReactive::destroy();";
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID d6aadfb6-d745-498c-a81f-85e369b72447;
+						- _id = GUID 0e76f2ec-fbc8-4175-a4bd-ae1b93bee8b2;
 						- _myState = 8192;
 						- _declaration = "VehiculeMoteur*";
 						- _kind = Language;

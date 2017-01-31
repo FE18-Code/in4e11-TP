@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: _MonPkg
-//!	Generated Date	: Mon, 23, Jan 2017  
+//!	Generated Date	: Fri, 27, Jan 2017  
 	File Path	: CodesGeneres\ModeAnimation\_MonPkg.h
 *********************************************************************/
 
@@ -59,6 +59,14 @@ class VehiculeMoteur;
 #define evReel__MonPkg_id 13410
 
 #define evSimu__MonPkg_id 13411
+
+#define evToggleReg__MonPkg_id 13412
+
+#define evRegPlus__MonPkg_id 13413
+
+#define evRegMoins__MonPkg_id 13414
+
+#define evSetSpeed__MonPkg_id 13415
 //#]
 
 //## package _MonPkg
@@ -394,6 +402,129 @@ public :
 //#[ ignore
 class OMAnimatedevSimu : virtual public AOMEvent {
     DECLARE_META_EVENT(evSimu)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//## event evToggleReg()
+class evToggleReg : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedevToggleReg;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    evToggleReg();
+    
+    ////    Framework operations    ////
+    
+    //## statechart_method
+    virtual bool isTypeOf(const short id) const;
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedevToggleReg : virtual public AOMEvent {
+    DECLARE_META_EVENT(evToggleReg)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//## event evRegPlus()
+class evRegPlus : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedevRegPlus;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    evRegPlus();
+    
+    ////    Framework operations    ////
+    
+    //## statechart_method
+    virtual bool isTypeOf(const short id) const;
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedevRegPlus : virtual public AOMEvent {
+    DECLARE_META_EVENT(evRegPlus)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//## event evRegMoins()
+class evRegMoins : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedevRegMoins;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    evRegMoins();
+    
+    ////    Framework operations    ////
+    
+    //## statechart_method
+    virtual bool isTypeOf(const short id) const;
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedevRegMoins : virtual public AOMEvent {
+    DECLARE_META_EVENT(evRegMoins)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//## event evSetSpeed(int)
+class evSetSpeed : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedevSetSpeed;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    evSetSpeed();
+    
+    //## auto_generated
+    evSetSpeed(int p_speed);
+    
+    ////    Framework operations    ////
+    
+    //## statechart_method
+    virtual bool isTypeOf(const short id) const;
+    
+    ////    Framework    ////
+    
+    int speed;		//## auto_generated
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedevSetSpeed : virtual public AOMEvent {
+    DECLARE_META_EVENT(evSetSpeed)
 };
 //#]
 #endif // _OMINSTRUMENT

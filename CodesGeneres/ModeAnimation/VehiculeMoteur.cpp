@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: VehiculeMoteur
-//!	Generated Date	: Fri, 27, Jan 2017  
+//!	Generated Date	: Tue, 31, Jan 2017  
 	File Path	: CodesGeneres\ModeAnimation\VehiculeMoteur.cpp
 *********************************************************************/
 
@@ -27,6 +27,8 @@
 #define _MonPkg_VehiculeMoteur_dyn_moteur_SERIALIZE OM_NO_OP
 
 #define _MonPkg_VehiculeMoteur_freiner_SERIALIZE aomsmethod->addAttribute("intensite", x2String(intensite));
+
+#define _MonPkg_VehiculeMoteur_init_SERIALIZE OM_NO_OP
 
 #define _MonPkg_VehiculeMoteur_setAlpha_SERIALIZE aomsmethod->addAttribute("p_alpha", x2String(p_alpha));
 
@@ -72,6 +74,10 @@ void VehiculeMoteur::fromVolant_C::connectVehiculeMoteur(VehiculeMoteur* part) {
 
 VehiculeMoteur::~VehiculeMoteur() {
     NOTIFY_DESTRUCTOR(~VehiculeMoteur, true);
+    //#[ operation ~VehiculeMoteur()
+    cancelTimeouts();
+    
+    //#]
     cancelTimeouts();
 }
 
@@ -95,18 +101,18 @@ void VehiculeMoteur::arreter() {
     //#[ operation arreter()
     //stop engine
     ignition=false;
-    throttle=0.0;
+    //throttle=0.0;
     //#]
 }
 
 void VehiculeMoteur::demarrer() {
     NOTIFY_OPERATION(demarrer, demarrer(), 0, _MonPkg_VehiculeMoteur_demarrer_SERIALIZE);
     //#[ operation demarrer()
-    fdist=0.0;
-    fspeed=0.0;
+    //fdist=0.0;
+    //fspeed=0.0;
     ignition=true;
-    throttle=0.0;
-    airResistance=MAX_SPEED/MAX_THROTTLE;
+    //throttle=0.0;
+    //airResistance=MAX_SPEED/MAX_THROTTLE; //done in constructor
     brakePedal=0;
     //#]
 }
@@ -128,6 +134,7 @@ void VehiculeMoteur::dyn_moteur() {
     if(throttle>0.0) throttle-=(0.5/5.0);
     
     
+    OUT_PORT(toCtrl)->GEN(evSetSpeed(speed));
     //#]
 }
 
@@ -302,6 +309,16 @@ VehiculeMoteur::VehiculeMoteur(IOxfActive* theActiveContext) : MAX_BRAKE(10), MA
     initStatechart();
 }
 
+void VehiculeMoteur::init() {
+    NOTIFY_OPERATION(init, init(), 0, _MonPkg_VehiculeMoteur_init_SERIALIZE);
+    //#[ operation init()
+    fdist=0.0;
+    fspeed=0.0;
+    throttle=0.0;
+    airResistance=MAX_SPEED/MAX_THROTTLE;
+    //#]
+}
+
 VehiculeMoteur::toCtrl_C* VehiculeMoteur::getToCtrl() const {
     return (VehiculeMoteur::toCtrl_C*) &toCtrl;
 }
@@ -350,6 +367,9 @@ void VehiculeMoteur::rootState_entDef() {
     {
         NOTIFY_STATE_ENTERED("ROOT");
         NOTIFY_TRANSITION_STARTED("0");
+        //#[ transition 0 
+        init();
+        //#]
         NOTIFY_STATE_ENTERED("ROOT.moteur_arrete");
         rootState_subState = moteur_arrete;
         rootState_active = moteur_arrete;
@@ -489,7 +509,6 @@ IOxfReactive::TakeEventStatus VehiculeMoteur::state_4_processEvent() {
                             NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_4.dyn_loop");
                             //#[ transition 3 
                             dyn_moteur();
-                            printf("speed=%d, ignition=%d\n", speed, ignition);
                             //#]
                             NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_4.dyn_loop");
                             state_4_subState = dyn_loop;
@@ -530,7 +549,17 @@ IOxfReactive::TakeEventStatus VehiculeMoteur::state_3_processEvent() {
     // State moteur_action
     if(state_3_active == moteur_action)
         {
-            if(IS_EVENT_TYPE_OF(evContact__MonPkg_id))
+            res = moteur_action_handleEvent();
+        }
+    return res;
+}
+
+IOxfReactive::TakeEventStatus VehiculeMoteur::moteur_action_handleEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    if(IS_EVENT_TYPE_OF(evContact__MonPkg_id))
+        {
+            //## transition 8 
+            if(ignition==true)
                 {
                     NOTIFY_TRANSITION_STARTED("8");
                     NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_3.moteur_action");
@@ -543,41 +572,58 @@ IOxfReactive::TakeEventStatus VehiculeMoteur::state_3_processEvent() {
                     NOTIFY_TRANSITION_TERMINATED("8");
                     res = eventConsumed;
                 }
-            else if(IS_EVENT_TYPE_OF(evFreiner__MonPkg_id))
+            else
                 {
-                    OMSETPARAMS(evFreiner);
-                    NOTIFY_TRANSITION_STARTED("6");
-                    NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_3.moteur_action");
-                    //#[ transition 6 
-                    freiner(params->val);
-                    //#]
-                    NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_3.moteur_action");
-                    state_3_subState = moteur_action;
-                    state_3_active = moteur_action;
-                    NOTIFY_TRANSITION_TERMINATED("6");
-                    res = eventConsumed;
-                }
-            else if(IS_EVENT_TYPE_OF(evAccelerer__MonPkg_id))
-                {
-                    OMSETPARAMS(evAccelerer);
-                    //## transition 7 
-                    if(ignition==true)
+                    //## transition 9 
+                    if(ignition==false)
                         {
-                            NOTIFY_TRANSITION_STARTED("7");
+                            NOTIFY_TRANSITION_STARTED("9");
                             NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_3.moteur_action");
-                            //#[ transition 7 
-                            accelerer(params->val);
+                            //#[ transition 9 
+                            demarrer();
                             //#]
                             NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_3.moteur_action");
                             state_3_subState = moteur_action;
                             state_3_active = moteur_action;
-                            NOTIFY_TRANSITION_TERMINATED("7");
+                            NOTIFY_TRANSITION_TERMINATED("9");
                             res = eventConsumed;
                         }
                 }
-            
-            
         }
+    else if(IS_EVENT_TYPE_OF(evFreiner__MonPkg_id))
+        {
+            OMSETPARAMS(evFreiner);
+            NOTIFY_TRANSITION_STARTED("6");
+            NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_3.moteur_action");
+            //#[ transition 6 
+            freiner(params->val);
+            //#]
+            NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_3.moteur_action");
+            state_3_subState = moteur_action;
+            state_3_active = moteur_action;
+            NOTIFY_TRANSITION_TERMINATED("6");
+            res = eventConsumed;
+        }
+    else if(IS_EVENT_TYPE_OF(evAccelerer__MonPkg_id))
+        {
+            OMSETPARAMS(evAccelerer);
+            //## transition 7 
+            if(ignition==true)
+                {
+                    NOTIFY_TRANSITION_STARTED("7");
+                    NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_3.moteur_action");
+                    //#[ transition 7 
+                    accelerer(params->val);
+                    //#]
+                    NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_3.moteur_action");
+                    state_3_subState = moteur_action;
+                    state_3_active = moteur_action;
+                    NOTIFY_TRANSITION_TERMINATED("7");
+                    res = eventConsumed;
+                }
+        }
+    
+    
     return res;
 }
 

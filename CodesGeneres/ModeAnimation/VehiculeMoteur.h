@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: VehiculeMoteur
-//!	Generated Date	: Fri, 27, Jan 2017  
+//!	Generated Date	: Tue, 31, Jan 2017  
 	File Path	: CodesGeneres\ModeAnimation\VehiculeMoteur.h
 *********************************************************************/
 
@@ -108,7 +108,7 @@ public :
 
     ////    Constructors and destructors    ////
     
-    //## auto_generated
+    //## operation ~VehiculeMoteur()
     ~VehiculeMoteur();
     
     ////    Operations    ////
@@ -269,6 +269,9 @@ public :
     //## auto_generated
     VehiculeMoteur(IOxfActive* theActiveContext = 0);
     
+    //## operation init()
+    void init();
+    
     //## auto_generated
     toCtrl_C* getToCtrl() const;
     
@@ -364,6 +367,9 @@ public :
     // moteur_action:
     //## statechart_method
     inline bool moteur_action_IN() const;
+    
+    //## statechart_method
+    IOxfReactive::TakeEventStatus moteur_action_handleEvent();
     
     // moteur_arrete:
     //## statechart_method
