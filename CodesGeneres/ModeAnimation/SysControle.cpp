@@ -18,6 +18,10 @@
 //#[ ignore
 #define _MonPkg_SysControle_SysControle_SERIALIZE OM_NO_OP
 
+#define _MonPkg_SysControle_chCons_SERIALIZE aomsmethod->addAttribute("param1", x2String(param1));
+
+#define _MonPkg_SysControle_dyn_reg_SERIALIZE OM_NO_OP
+
 #define _MonPkg_SysControle_getReg_on_SERIALIZE OM_NO_OP
 
 #define _MonPkg_SysControle_regOn_SERIALIZE OM_NO_OP
@@ -58,13 +62,34 @@ void SysControle::fromVolant_C::connectSysControle(SysControle* part) {
 
 SysControle::~SysControle() {
     NOTIFY_DESTRUCTOR(~SysControle, true);
+    cancelTimeouts();
 }
 
-SysControle::SysControle(IOxfActive* theActiveContext) : consigne(0), fetchSpeed(false), reg_on(false) {
+SysControle::SysControle(IOxfActive* theActiveContext) : consigne(0), error(0.0), fetchSpeed(false), reg_on(false), steady(0.0), throttle(0.0) {
     NOTIFY_ACTIVE_CONSTRUCTOR(SysControle, SysControle(), 0, _MonPkg_SysControle_SysControle_SERIALIZE);
     setActiveContext(this, true);
     initRelations();
     initStatechart();
+}
+
+void SysControle::chCons(int param1) {
+    NOTIFY_OPERATION(chCons, chCons(int), 1, _MonPkg_SysControle_chCons_SERIALIZE);
+    //#[ operation chCons(int)
+    consigne+=param1;
+    
+    if(consigne<0){
+    	consigne=0;
+    }
+    //#]
+}
+
+void SysControle::dyn_reg() {
+    NOTIFY_OPERATION(dyn_reg, dyn_reg(), 0, _MonPkg_SysControle_dyn_reg_SERIALIZE);
+    //#[ operation dyn_reg()
+    error = (double) ((consigne-speed)/6.0);
+    steady = (double) (consigne/12.0);
+    throttle = steady+error;
+    //#]
 }
 
 bool SysControle::getReg_on() {
@@ -127,6 +152,14 @@ void SysControle::setConsigne(int p_consigne) {
     NOTIFY_SET_OPERATION;
 }
 
+double SysControle::getError() {
+    return error;
+}
+
+void SysControle::setError(double p_error) {
+    error = p_error;
+}
+
 bool SysControle::getFetchSpeed() {
     return fetchSpeed;
 }
@@ -141,6 +174,23 @@ int SysControle::getSpeed() {
 
 void SysControle::setSpeed(int p_speed) {
     speed = p_speed;
+}
+
+double SysControle::getSteady() {
+    return steady;
+}
+
+void SysControle::setSteady(double p_steady) {
+    steady = p_steady;
+}
+
+double SysControle::getThrottle() {
+    return throttle;
+}
+
+void SysControle::setThrottle(double p_throttle) {
+    throttle = p_throttle;
+    NOTIFY_SET_OPERATION;
 }
 
 bool SysControle::startBehavior() {
@@ -165,6 +215,25 @@ void SysControle::initRelations() {
 void SysControle::initStatechart() {
     rootState_subState = OMNonState;
     rootState_active = OMNonState;
+    state_6_subState = OMNonState;
+    state_6_active = OMNonState;
+    state_6_timeout = NULL;
+    state_5_subState = OMNonState;
+    state_5_active = OMNonState;
+}
+
+void SysControle::cancelTimeouts() {
+    cancel(state_6_timeout);
+}
+
+bool SysControle::cancelTimeout(const IOxfTimeout* arg) {
+    bool res = false;
+    if(state_6_timeout == arg)
+        {
+            state_6_timeout = NULL;
+            res = true;
+        }
+    return res;
 }
 
 void SysControle::rootState_entDef() {
@@ -191,9 +260,7 @@ IOxfReactive::TakeEventStatus SysControle::rootState_processEvent() {
                     //#[ transition 1 
                     regOn();
                     //#]
-                    NOTIFY_STATE_ENTERED("ROOT.on");
-                    rootState_subState = on;
-                    rootState_active = on;
+                    on_entDef();
                     NOTIFY_TRANSITION_TERMINATED("1");
                     res = eventConsumed;
                 }
@@ -203,7 +270,7 @@ IOxfReactive::TakeEventStatus SysControle::rootState_processEvent() {
         // State on
         case on:
         {
-            res = on_handleEvent();
+            res = on_processEvent();
         }
         break;
         default:
@@ -212,63 +279,57 @@ IOxfReactive::TakeEventStatus SysControle::rootState_processEvent() {
     return res;
 }
 
+void SysControle::on_entDef() {
+    NOTIFY_STATE_ENTERED("ROOT.on");
+    rootState_subState = on;
+    rootState_active = on;
+    state_5_entDef();
+    state_6_entDef();
+}
+
+void SysControle::on_exit() {
+    state_5_exit();
+    state_6_exit();
+    
+    NOTIFY_STATE_EXITED("ROOT.on");
+}
+
+IOxfReactive::TakeEventStatus SysControle::on_processEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    // State state_5
+    if(state_5_processEvent() != eventNotConsumed)
+        {
+            res = eventConsumed;
+            if(!IS_IN(on))
+                {
+                    return res;
+                }
+        }
+    // State state_6
+    if(state_6_processEvent() != eventNotConsumed)
+        {
+            res = eventConsumed;
+            if(!IS_IN(on))
+                {
+                    return res;
+                }
+        }
+    if(res == eventNotConsumed)
+        {
+            res = on_handleEvent();
+        }
+    return res;
+}
+
 IOxfReactive::TakeEventStatus SysControle::on_handleEvent() {
     IOxfReactive::TakeEventStatus res = eventNotConsumed;
-    if(IS_EVENT_TYPE_OF(evRegMoins__MonPkg_id))
-        {
-            //## transition 4 
-            if(reg_on)
-                {
-                    NOTIFY_TRANSITION_STARTED("4");
-                    NOTIFY_STATE_EXITED("ROOT.on");
-                    //#[ transition 4 
-                    consigne--;
-                    //#]
-                    NOTIFY_STATE_ENTERED("ROOT.on");
-                    rootState_subState = on;
-                    rootState_active = on;
-                    NOTIFY_TRANSITION_TERMINATED("4");
-                    res = eventConsumed;
-                }
-        }
-    else if(IS_EVENT_TYPE_OF(evRegPlus__MonPkg_id))
-        {
-            //## transition 3 
-            if(reg_on)
-                {
-                    NOTIFY_TRANSITION_STARTED("3");
-                    NOTIFY_STATE_EXITED("ROOT.on");
-                    //#[ transition 3 
-                    consigne++;
-                    //#]
-                    NOTIFY_STATE_ENTERED("ROOT.on");
-                    rootState_subState = on;
-                    rootState_active = on;
-                    NOTIFY_TRANSITION_TERMINATED("3");
-                    res = eventConsumed;
-                }
-        }
-    else if(IS_EVENT_TYPE_OF(evSetSpeed__MonPkg_id))
-        {
-            OMSETPARAMS(evSetSpeed);
-            NOTIFY_TRANSITION_STARTED("5");
-            NOTIFY_STATE_EXITED("ROOT.on");
-            //#[ transition 5 
-            updateSpeed(params->speed);
-            //#]
-            NOTIFY_STATE_ENTERED("ROOT.on");
-            rootState_subState = on;
-            rootState_active = on;
-            NOTIFY_TRANSITION_TERMINATED("5");
-            res = eventConsumed;
-        }
-    else if(IS_EVENT_TYPE_OF(evToggleReg__MonPkg_id))
+    if(IS_EVENT_TYPE_OF(evToggleReg__MonPkg_id))
         {
             //## transition 2 
             if(reg_on==true)
                 {
                     NOTIFY_TRANSITION_STARTED("2");
-                    NOTIFY_STATE_EXITED("ROOT.on");
+                    on_exit();
                     //#[ transition 2 
                     reg_on=false;
                     //#]
@@ -283,6 +344,142 @@ IOxfReactive::TakeEventStatus SysControle::on_handleEvent() {
     return res;
 }
 
+void SysControle::state_6_entDef() {
+    NOTIFY_STATE_ENTERED("ROOT.on.state_6");
+    NOTIFY_TRANSITION_STARTED("7");
+    NOTIFY_STATE_ENTERED("ROOT.on.state_6.dyn_loop");
+    state_6_subState = dyn_loop;
+    state_6_active = dyn_loop;
+    state_6_timeout = scheduleTimeout(500, "ROOT.on.state_6.dyn_loop");
+    NOTIFY_TRANSITION_TERMINATED("7");
+}
+
+void SysControle::state_6_exit() {
+    // State dyn_loop
+    if(state_6_subState == dyn_loop)
+        {
+            cancel(state_6_timeout);
+            NOTIFY_STATE_EXITED("ROOT.on.state_6.dyn_loop");
+        }
+    state_6_subState = OMNonState;
+    
+    NOTIFY_STATE_EXITED("ROOT.on.state_6");
+}
+
+IOxfReactive::TakeEventStatus SysControle::state_6_processEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    // State dyn_loop
+    if(state_6_active == dyn_loop)
+        {
+            if(IS_EVENT_TYPE_OF(OMTimeoutEventId))
+                {
+                    if(getCurrentEvent() == state_6_timeout)
+                        {
+                            NOTIFY_TRANSITION_STARTED("6");
+                            cancel(state_6_timeout);
+                            NOTIFY_STATE_EXITED("ROOT.on.state_6.dyn_loop");
+                            //#[ transition 6 
+                            dyn_reg();
+                            //#]
+                            NOTIFY_STATE_ENTERED("ROOT.on.state_6.dyn_loop");
+                            state_6_subState = dyn_loop;
+                            state_6_active = dyn_loop;
+                            state_6_timeout = scheduleTimeout(500, "ROOT.on.state_6.dyn_loop");
+                            NOTIFY_TRANSITION_TERMINATED("6");
+                            res = eventConsumed;
+                        }
+                }
+            
+            
+        }
+    return res;
+}
+
+void SysControle::state_5_entDef() {
+    NOTIFY_STATE_ENTERED("ROOT.on.state_5");
+    NOTIFY_TRANSITION_STARTED("8");
+    NOTIFY_STATE_ENTERED("ROOT.on.state_5.action");
+    state_5_subState = action;
+    state_5_active = action;
+    NOTIFY_TRANSITION_TERMINATED("8");
+}
+
+void SysControle::state_5_exit() {
+    // State action
+    if(state_5_subState == action)
+        {
+            NOTIFY_STATE_EXITED("ROOT.on.state_5.action");
+        }
+    state_5_subState = OMNonState;
+    
+    NOTIFY_STATE_EXITED("ROOT.on.state_5");
+}
+
+IOxfReactive::TakeEventStatus SysControle::state_5_processEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    // State action
+    if(state_5_active == action)
+        {
+            res = action_handleEvent();
+        }
+    return res;
+}
+
+IOxfReactive::TakeEventStatus SysControle::action_handleEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    if(IS_EVENT_TYPE_OF(evRegMoins__MonPkg_id))
+        {
+            //## transition 4 
+            if(reg_on)
+                {
+                    NOTIFY_TRANSITION_STARTED("4");
+                    NOTIFY_STATE_EXITED("ROOT.on.state_5.action");
+                    //#[ transition 4 
+                    chCons(-1);
+                    //#]
+                    NOTIFY_STATE_ENTERED("ROOT.on.state_5.action");
+                    state_5_subState = action;
+                    state_5_active = action;
+                    NOTIFY_TRANSITION_TERMINATED("4");
+                    res = eventConsumed;
+                }
+        }
+    else if(IS_EVENT_TYPE_OF(evRegPlus__MonPkg_id))
+        {
+            //## transition 3 
+            if(reg_on)
+                {
+                    NOTIFY_TRANSITION_STARTED("3");
+                    NOTIFY_STATE_EXITED("ROOT.on.state_5.action");
+                    //#[ transition 3 
+                    chCons(1);
+                    //#]
+                    NOTIFY_STATE_ENTERED("ROOT.on.state_5.action");
+                    state_5_subState = action;
+                    state_5_active = action;
+                    NOTIFY_TRANSITION_TERMINATED("3");
+                    res = eventConsumed;
+                }
+        }
+    else if(IS_EVENT_TYPE_OF(evSetSpeed__MonPkg_id))
+        {
+            OMSETPARAMS(evSetSpeed);
+            NOTIFY_TRANSITION_STARTED("5");
+            NOTIFY_STATE_EXITED("ROOT.on.state_5.action");
+            //#[ transition 5 
+            updateSpeed(params->speed);
+            //#]
+            NOTIFY_STATE_ENTERED("ROOT.on.state_5.action");
+            state_5_subState = action;
+            state_5_active = action;
+            NOTIFY_TRANSITION_TERMINATED("5");
+            res = eventConsumed;
+        }
+    
+    
+    return res;
+}
+
 #ifdef _OMINSTRUMENT
 //#[ ignore
 void OMAnimatedSysControle::serializeAttributes(AOMSAttributes* aomsAttributes) const {
@@ -290,6 +487,9 @@ void OMAnimatedSysControle::serializeAttributes(AOMSAttributes* aomsAttributes) 
     aomsAttributes->addAttribute("consigne", x2String(myReal->consigne));
     aomsAttributes->addAttribute("speed", x2String(myReal->speed));
     aomsAttributes->addAttribute("fetchSpeed", x2String(myReal->fetchSpeed));
+    aomsAttributes->addAttribute("error", x2String(myReal->error));
+    aomsAttributes->addAttribute("steady", x2String(myReal->steady));
+    aomsAttributes->addAttribute("throttle", x2String(myReal->throttle));
 }
 
 void OMAnimatedSysControle::rootState_serializeStates(AOMSState* aomsState) const {
@@ -312,6 +512,32 @@ void OMAnimatedSysControle::rootState_serializeStates(AOMSState* aomsState) cons
 
 void OMAnimatedSysControle::on_serializeStates(AOMSState* aomsState) const {
     aomsState->addState("ROOT.on");
+    state_5_serializeStates(aomsState);
+    state_6_serializeStates(aomsState);
+}
+
+void OMAnimatedSysControle::state_6_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.on.state_6");
+    if(myReal->state_6_subState == SysControle::dyn_loop)
+        {
+            dyn_loop_serializeStates(aomsState);
+        }
+}
+
+void OMAnimatedSysControle::dyn_loop_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.on.state_6.dyn_loop");
+}
+
+void OMAnimatedSysControle::state_5_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.on.state_5");
+    if(myReal->state_5_subState == SysControle::action)
+        {
+            action_serializeStates(aomsState);
+        }
+}
+
+void OMAnimatedSysControle::action_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.on.state_5.action");
 }
 
 void OMAnimatedSysControle::off_serializeStates(AOMSState* aomsState) const {
