@@ -143,6 +143,9 @@ public :
     fromVolant_C* get_fromVolant() const;
     
     //## auto_generated
+    const double getREG_MAX_SPEED();
+    
+    //## auto_generated
     const double getREG_MIN_SPEED();
     
     //## auto_generated
@@ -197,6 +200,8 @@ protected :
     
     //## auto_generated
     bool cancelTimeout(const IOxfTimeout* arg);
+    
+    const double REG_MAX_SPEED;		//## attribute REG_MAX_SPEED
     
     const double REG_MIN_SPEED;		//## attribute REG_MIN_SPEED
     

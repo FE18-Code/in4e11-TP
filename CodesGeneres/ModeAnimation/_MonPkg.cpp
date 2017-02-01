@@ -115,6 +115,12 @@
 #define evRegThrottle_UNSERIALIZE OMADD_UNSER(double, val, OMDestructiveString2X)
 
 #define evRegThrottle_CONSTRUCTOR evRegThrottle(val)
+
+#define evAlpha_SERIALIZE OMADD_SER(val, x2String(myEvent->val))
+
+#define evAlpha_UNSERIALIZE OMADD_UNSER(double, val, OMDestructiveString2X)
+
+#define evAlpha_CONSTRUCTOR evAlpha(val)
 //#]
 
 //## package _MonPkg
@@ -340,6 +346,23 @@ bool evRegThrottle::isTypeOf(const short id) const {
 }
 
 IMPLEMENT_META_EVENT_P(evRegThrottle, _MonPkg, _MonPkg, evRegThrottle(double))
+
+//## event evAlpha(double)
+evAlpha::evAlpha() {
+    NOTIFY_EVENT_CONSTRUCTOR(evAlpha)
+    setId(evAlpha__MonPkg_id);
+}
+
+evAlpha::evAlpha(double p_val) : val(p_val) {
+    NOTIFY_EVENT_CONSTRUCTOR(evAlpha)
+    setId(evAlpha__MonPkg_id);
+}
+
+bool evAlpha::isTypeOf(const short id) const {
+    return (evAlpha__MonPkg_id==id);
+}
+
+IMPLEMENT_META_EVENT_P(evAlpha, _MonPkg, _MonPkg, evAlpha(double))
 
 /*********************************************************************
 	File Path	: CodesGeneres\ModeAnimation\_MonPkg.cpp

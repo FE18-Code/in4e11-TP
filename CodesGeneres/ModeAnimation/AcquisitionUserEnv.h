@@ -41,6 +41,8 @@
 //#[ ignore
 #define OMAnim__MonPkg_AcquisitionUserEnv_setAcc_int_ARGS_DECLARATION int p_acc;
 
+#define OMAnim__MonPkg_AcquisitionUserEnv_setAlpha_int_ARGS_DECLARATION int p_alpha;
+
 #define OMAnim__MonPkg_AcquisitionUserEnv_setFre_int_ARGS_DECLARATION int p_fre;
 //#]
 
@@ -333,6 +335,8 @@ protected :
 #ifdef _OMINSTRUMENT
 DECLARE_OPERATION_CLASS(_MonPkg_AcquisitionUserEnv_setAcc_int)
 
+DECLARE_OPERATION_CLASS(_MonPkg_AcquisitionUserEnv_setAlpha_int)
+
 DECLARE_OPERATION_CLASS(_MonPkg_AcquisitionUserEnv_setFre_int)
 
 //#[ ignore
@@ -340,6 +344,8 @@ class OMAnimatedAcquisitionUserEnv : virtual public AOMInstance {
     DECLARE_REACTIVE_META(AcquisitionUserEnv, OMAnimatedAcquisitionUserEnv)
     
     DECLARE_META_OP(_MonPkg_AcquisitionUserEnv_setAcc_int)
+    
+    DECLARE_META_OP(_MonPkg_AcquisitionUserEnv_setAlpha_int)
     
     DECLARE_META_OP(_MonPkg_AcquisitionUserEnv_setFre_int)
     

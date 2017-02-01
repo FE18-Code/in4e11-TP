@@ -330,8 +330,10 @@ void VehiculeMoteur::init() {
 void VehiculeMoteur::regThrottle(double param1) {
     NOTIFY_OPERATION(regThrottle, regThrottle(double), 1, _MonPkg_VehiculeMoteur_regThrottle_SERIALIZE);
     //#[ operation regThrottle(double)
-    throttle=param1;
-    regCtrl=true;
+    if(ignition==true){	
+    	throttle=param1;
+    	regCtrl=true;
+    }
     //#]
 }
 

@@ -28,6 +28,10 @@
 
 #define OMAnim__MonPkg_AcquisitionUserEnv_setAcc_int_SERIALIZE_RET_VAL
 
+#define OMAnim__MonPkg_AcquisitionUserEnv_setAlpha_int_UNSERIALIZE_ARGS OP_UNSER(OMDestructiveString2X,p_alpha)
+
+#define OMAnim__MonPkg_AcquisitionUserEnv_setAlpha_int_SERIALIZE_RET_VAL
+
 #define OMAnim__MonPkg_AcquisitionUserEnv_setFre_int_UNSERIALIZE_ARGS OP_UNSER(OMDestructiveString2X,p_fre)
 
 #define OMAnim__MonPkg_AcquisitionUserEnv_setFre_int_SERIALIZE_RET_VAL
@@ -609,6 +613,10 @@ IMPLEMENT_REACTIVE_META_P(AcquisitionUserEnv, _MonPkg, _MonPkg, false, OMAnimate
 IMPLEMENT_META_OP(OMAnimatedAcquisitionUserEnv, _MonPkg_AcquisitionUserEnv_setAcc_int, "setAcc", FALSE, "setAcc(int)", 1)
 
 IMPLEMENT_OP_CALL(_MonPkg_AcquisitionUserEnv_setAcc_int, AcquisitionUserEnv, setAcc(p_acc), NO_OP())
+
+IMPLEMENT_META_OP(OMAnimatedAcquisitionUserEnv, _MonPkg_AcquisitionUserEnv_setAlpha_int, "setAlpha", FALSE, "setAlpha(int)", 1)
+
+IMPLEMENT_OP_CALL(_MonPkg_AcquisitionUserEnv_setAlpha_int, AcquisitionUserEnv, setAlpha(p_alpha), NO_OP())
 
 IMPLEMENT_META_OP(OMAnimatedAcquisitionUserEnv, _MonPkg_AcquisitionUserEnv_setFre_int, "setFre", FALSE, "setFre(int)", 1)
 

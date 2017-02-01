@@ -65,7 +65,7 @@ SysControle::~SysControle() {
     cancelTimeouts();
 }
 
-SysControle::SysControle(IOxfActive* theActiveContext) : REG_MIN_SPEED(50.0), consigne(0), error(0.0), fetchSpeed(false), reg_on(false), steady(0.0), throttle(0.0) {
+SysControle::SysControle(IOxfActive* theActiveContext) : REG_MAX_SPEED(120.0), REG_MIN_SPEED(50.0), consigne(0), error(0.0), fetchSpeed(false), reg_on(false), steady(0.0), throttle(0.0) {
     NOTIFY_ACTIVE_CONSTRUCTOR(SysControle, SysControle(), 0, _MonPkg_SysControle_SysControle_SERIALIZE);
     setActiveContext(this, true);
     initRelations();
@@ -79,6 +79,9 @@ void SysControle::chCons(int param1) {
     
     if(consigne<(int)REG_MIN_SPEED){
     	consigne=(int)REG_MIN_SPEED;
+    }
+    if(consigne>(int)REG_MAX_SPEED){
+    	consigne=(int)REG_MAX_SPEED;
     }
     //#]
 }
@@ -122,7 +125,8 @@ void SysControle::updateSpeed(int s) {
     //#[ operation updateSpeed(int)
     speed=s;
     if(fetchSpeed==true){
-    	consigne=speed;
+    	consigne=0;
+    	chCons(speed);
     	fetchSpeed=false;
     }
     
@@ -143,6 +147,10 @@ SysControle::fromVolant_C* SysControle::getFromVolant() const {
 
 SysControle::fromVolant_C* SysControle::get_fromVolant() const {
     return (SysControle::fromVolant_C*) &fromVolant;
+}
+
+const double SysControle::getREG_MAX_SPEED() {
+    return REG_MAX_SPEED;
 }
 
 const double SysControle::getREG_MIN_SPEED() {
@@ -370,6 +378,9 @@ void SysControle::state_8_entDef() {
     NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.off");
     state_8_subState = off;
     state_8_active = off;
+    //#[ state reg_state.state_8.off.(Entry) 
+    reg_on=false;
+    //#]
     NOTIFY_TRANSITION_TERMINATED("0");
 }
 
@@ -412,6 +423,7 @@ IOxfReactive::TakeEventStatus SysControle::state_8_processEvent() {
 
 void SysControle::on_entDef() {
     NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.on");
+    pushNullTransition();
     state_8_subState = on;
     state_8_active = on;
     state_5_entDef();
@@ -419,6 +431,7 @@ void SysControle::on_entDef() {
 }
 
 void SysControle::on_exit() {
+    popNullTransition();
     state_5_exit();
     state_6_exit();
     
@@ -454,17 +467,34 @@ IOxfReactive::TakeEventStatus SysControle::on_processEvent() {
 
 IOxfReactive::TakeEventStatus SysControle::on_handleEvent() {
     IOxfReactive::TakeEventStatus res = eventNotConsumed;
-    if(IS_EVENT_TYPE_OF(evFreiner__MonPkg_id))
+    if(IS_EVENT_TYPE_OF(OMNullEventId))
+        {
+            //## transition 11 
+            if(speed<REG_MIN_SPEED-1.0)
+                {
+                    NOTIFY_TRANSITION_STARTED("11");
+                    on_exit();
+                    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.off");
+                    state_8_subState = off;
+                    state_8_active = off;
+                    //#[ state reg_state.state_8.off.(Entry) 
+                    reg_on=false;
+                    //#]
+                    NOTIFY_TRANSITION_TERMINATED("11");
+                    res = eventConsumed;
+                }
+        }
+    else if(IS_EVENT_TYPE_OF(evFreiner__MonPkg_id))
         {
             OMSETPARAMS(evFreiner);
             NOTIFY_TRANSITION_STARTED("10");
             on_exit();
-            //#[ transition 10 
-            reg_on=false;
-            //#]
             NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.off");
             state_8_subState = off;
             state_8_active = off;
+            //#[ state reg_state.state_8.off.(Entry) 
+            reg_on=false;
+            //#]
             NOTIFY_TRANSITION_TERMINATED("10");
             res = eventConsumed;
         }
@@ -475,12 +505,12 @@ IOxfReactive::TakeEventStatus SysControle::on_handleEvent() {
                 {
                     NOTIFY_TRANSITION_STARTED("2");
                     on_exit();
-                    //#[ transition 2 
-                    reg_on=false;
-                    //#]
                     NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.off");
                     state_8_subState = off;
                     state_8_active = off;
+                    //#[ state reg_state.state_8.off.(Entry) 
+                    reg_on=false;
+                    //#]
                     NOTIFY_TRANSITION_TERMINATED("2");
                     res = eventConsumed;
                 }
@@ -617,6 +647,7 @@ void OMAnimatedSysControle::serializeAttributes(AOMSAttributes* aomsAttributes) 
     aomsAttributes->addAttribute("steady", x2String(myReal->steady));
     aomsAttributes->addAttribute("throttle", x2String(myReal->throttle));
     aomsAttributes->addAttribute("REG_MIN_SPEED", x2String(myReal->REG_MIN_SPEED));
+    aomsAttributes->addAttribute("REG_MAX_SPEED", x2String(myReal->REG_MAX_SPEED));
 }
 
 void OMAnimatedSysControle::rootState_serializeStates(AOMSState* aomsState) const {

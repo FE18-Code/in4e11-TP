@@ -69,6 +69,8 @@ class VehiculeMoteur;
 #define evSetSpeed__MonPkg_id 13415
 
 #define evRegThrottle__MonPkg_id 13416
+
+#define evAlpha__MonPkg_id 13417
 //#]
 
 //## package _MonPkg
@@ -563,6 +565,42 @@ public :
 //#[ ignore
 class OMAnimatedevRegThrottle : virtual public AOMEvent {
     DECLARE_META_EVENT(evRegThrottle)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//## event evAlpha(double)
+class evAlpha : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedevAlpha;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    evAlpha();
+    
+    //## auto_generated
+    evAlpha(double p_val);
+    
+    ////    Framework operations    ////
+    
+    //## statechart_method
+    virtual bool isTypeOf(const short id) const;
+    
+    ////    Framework    ////
+    
+    double val;		//## auto_generated
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedevAlpha : virtual public AOMEvent {
+    DECLARE_META_EVENT(evAlpha)
 };
 //#]
 #endif // _OMINSTRUMENT
