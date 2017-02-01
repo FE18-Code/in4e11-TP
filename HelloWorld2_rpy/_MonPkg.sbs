@@ -3354,7 +3354,7 @@ tiveCenterX;0,5;RelativeCenterY;0,55;RelativeEnclosingCircleRadius;0,98;Relative
 			}
 		}
 	}
-	- weakCGTime = 2.1.2017::22:1:7;
+	- weakCGTime = 2.1.2017::22:27:22;
 	- strongCGTime = 10.3.2016::9:40:13;
 	- ComponentFiles = { IRPYRawContainer 
 		- size = 2;
@@ -3697,7 +3697,7 @@ tiveCenterX;0,5;RelativeCenterY;0,55;RelativeEnclosingCircleRadius;0,98;Relative
 			- _id = GUID ce1ec9e6-dcba-46da-9bb8-b1ebb5c0fcc5;
 			- _myState = 40960;
 			- _name = "TopLevel";
-			- weakCGTime = 2.1.2017::21:7:3;
+			- weakCGTime = 2.1.2017::22:27:22;
 			- strongCGTime = 10.3.2016::9:40:13;
 			- _multiplicity = "";
 			- _itsStateChart = { IHandle 
@@ -3736,7 +3736,7 @@ tiveCenterX;0,5;RelativeCenterY;0,55;RelativeEnclosingCircleRadius;0,98;Relative
 			}
 			- _name = "VehiculeMoteur";
 			- _lastID = 60;
-			- weakCGTime = 2.1.2017::21:55:33;
+			- weakCGTime = 2.1.2017::22:28:17;
 			- strongCGTime = 1.19.2017::16:30:50;
 			- Ports = { IRPYRawContainer 
 				- size = 2;
@@ -4075,7 +4075,7 @@ OUT_PORT(toCtrl)->GEN(evSetSpeed(speed));";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 309725cc-0dc7-4ab1-a71c-1ad769ac8540;
+							- _id = GUID c30695f9-a376-4e1f-98ce-d7391e11ebc5;
 							- _myState = 8192;
 							- _name = "p_MAX_BRAKE";
 							- _typeOf = { IHandle 
@@ -4143,7 +4143,7 @@ OUT_PORT(toCtrl)->GEN(evSetSpeed(speed));";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID d28fa4b8-aac8-477b-bf43-4e7be6d53044;
+							- _id = GUID c5e1bd02-3250-4e07-ab7e-813916f88d82;
 							- _myState = 8192;
 							- _name = "p_MAX_SPEED";
 							- _typeOf = { IHandle 
@@ -4211,7 +4211,7 @@ OUT_PORT(toCtrl)->GEN(evSetSpeed(speed));";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID fbe724c0-cdd8-43ba-8e71-acab4b7f37e2;
+							- _id = GUID d7271291-4fc1-4abf-92e2-86a358d44e3c;
 							- _myState = 8192;
 							- _name = "p_MAX_THROTTLE";
 							- _typeOf = { IHandle 
@@ -4279,7 +4279,7 @@ OUT_PORT(toCtrl)->GEN(evSetSpeed(speed));";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID f922a1a1-b9fc-4df8-95ec-aa4aa058fa6f;
+							- _id = GUID c4a75e89-8bb9-4e41-b89a-46689fb616e3;
 							- _myState = 8192;
 							- _name = "p_airResistance";
 							- _typeOf = { IHandle 
@@ -4347,7 +4347,7 @@ OUT_PORT(toCtrl)->GEN(evSetSpeed(speed));";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID d86ac9d9-5aab-4462-b0b3-9559dfa20fa8;
+							- _id = GUID d33274b8-f78c-41fe-bf00-323bb713b243;
 							- _myState = 8192;
 							- _name = "p_brakePedal";
 							- _typeOf = { IHandle 
@@ -4415,7 +4415,7 @@ OUT_PORT(toCtrl)->GEN(evSetSpeed(speed));";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 937cf136-7ffc-40fa-8d70-ca12420d9d25;
+							- _id = GUID 401fddec-1754-41a8-9de8-3404bc04f8ad;
 							- _myState = 8192;
 							- _name = "p_distance";
 							- _typeOf = { IHandle 
@@ -4483,7 +4483,7 @@ OUT_PORT(toCtrl)->GEN(evSetSpeed(speed));";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 6b9addd9-ac10-4e3b-9760-e347c1a2ec0f;
+							- _id = GUID ffd45469-aea6-4849-bbab-3f84a7b68bae;
 							- _myState = 8192;
 							- _name = "p_fdist";
 							- _typeOf = { IHandle 
@@ -4551,7 +4551,7 @@ OUT_PORT(toCtrl)->GEN(evSetSpeed(speed));";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 8ba28cff-70e3-4273-9ac7-a94a372b3623;
+							- _id = GUID 58bdaf3b-fd47-4bd6-add6-a2637a80be15;
 							- _myState = 8192;
 							- _name = "p_fspeed";
 							- _typeOf = { IHandle 
@@ -4688,7 +4688,7 @@ NOTIFY_SET_OPERATION;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 2741b0e0-e664-4885-836a-e502a428b01b;
+							- _id = GUID 3d902512-300e-467e-b1fd-0a7cce5ed962;
 							- _myState = 8192;
 							- _name = "p_period";
 							- _typeOf = { IHandle 
@@ -5070,7 +5070,7 @@ NOTIFY_SET_OPERATION;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID eda8790c-23db-4e61-8893-aba21a253c94;
+							- _id = GUID a279ca5c-cb6e-4aa8-9b2c-088617e787e6;
 							- _myState = 8192;
 							- _name = "p_intensite_acceleration";
 							- _typeOf = { IHandle 
@@ -5136,7 +5136,7 @@ NOTIFY_SET_OPERATION;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID af124feb-7fd7-4941-8ed1-6ce30417c24d;
+							- _id = GUID 88810ae8-7b48-41e7-9f8f-d4dd676b7874;
 							- _myState = 8192;
 							- _name = "p_alpha";
 							- _typeOf = { IHandle 
@@ -5178,7 +5178,7 @@ NOTIFY_SET_OPERATION;";
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID 810e6dda-b426-4def-8156-2734d7a81fac;
+						- _id = GUID fdbfed40-0f2c-4975-8daf-85a092fdc0f0;
 						- _myState = 8192;
 						- _declaration = "fromVolant_C*";
 						- _kind = Language;
@@ -5202,7 +5202,7 @@ NOTIFY_SET_OPERATION;";
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID 57bd3552-e4c0-496b-be58-f9989f2f7008;
+						- _id = GUID f3b75564-f16f-449a-8b20-bb954e3e9c10;
 						- _myState = 8192;
 						- _declaration = "fromVolant_C*";
 						- _kind = Language;
@@ -5226,7 +5226,7 @@ NOTIFY_SET_OPERATION;";
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID 8b4d9697-f9fb-49a5-a96b-e9831bb65643;
+						- _id = GUID 73e0c8a5-735f-4fc4-9235-421b45b5dfd1;
 						- _myState = 8192;
 						- _declaration = "toCtrl_C*";
 						- _kind = Language;
@@ -5250,7 +5250,7 @@ NOTIFY_SET_OPERATION;";
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID aa054167-47f4-4b02-9b57-c74a14e79262;
+						- _id = GUID f2d736fd-4351-422c-8484-9a7ff1382218;
 						- _myState = 8192;
 						- _declaration = "toCtrl_C*";
 						- _kind = Language;
@@ -5399,7 +5399,7 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 0668f10b-cc75-4a5e-b90a-83ce5280adf5;
+							- _id = GUID dd66219b-be38-499c-9c48-e94c2fc99aab;
 							- _myState = 8192;
 							- _name = "p_regCtrl";
 							- _typeOf = { IHandle 
@@ -9459,8 +9459,8 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 					- _id = GUID d3b7025c-f18c-45e4-8976-1e4c146de7e3;
 					- _myState = 10240;
 					- _name = "statechart_56";
-					- _lastID = 11;
-					- weakCGTime = 2.1.2017::21:55:33;
+					- _lastID = 12;
+					- weakCGTime = 2.1.2017::22:28:17;
 					- strongCGTime = 1.19.2017::16:30:50;
 					- _multiplicity = "";
 					- _itsStateChart = { IHandle 
@@ -9469,7 +9469,7 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 					- _classModifier = Unspecified;
 					- _defNumber = 9;
 					- Transitions = { IRPYRawContainer 
-						- size = 11;
+						- size = 12;
 						- value = 
 						{ IDefaultDrvdTrans 
 							- _id = GUID 9a7a6905-0c20-4161-8c90-cb8eab52c491;
@@ -9720,6 +9720,31 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 							- _staticReaction = 0;
 							- _itsSource = GUID e3d1de89-56ec-4f78-b842-d6ee1f0ebb6a;
 						}
+						{ ITransition 
+							- _id = GUID 12e7517f-73d1-4ff9-8b9f-04a39616d892;
+							- _myState = 2048;
+							- _name = "transition_11";
+							- _itsLabel = { ILabel 
+								- _id = GUID 569714bc-9682-446f-8d50-9d2d3ded8e26;
+								- _itsTrigger = { IInterfaceItemTrigger 
+									- _id = GUID 78f5664c-2ff5-49ef-ab86-ae5a166a0f2e;
+									- _body = "evAlpha";
+									- _info = "";
+									- _itsInterfaceItem = { IHandle 
+										- _m2Class = "IEvent";
+										- _id = GUID e1d7bfff-9b41-4684-bbda-c7a74848081a;
+									}
+								}
+								- _itsGuard = NULL;
+								- _itsAction = { IAction 
+									- _id = GUID 28db8728-1482-4da1-9951-2328a9350436;
+									- _body = "alpha=params->val;";
+								}
+							}
+							- _itsTarget = GUID e3d1de89-56ec-4f78-b842-d6ee1f0ebb6a;
+							- _staticReaction = 0;
+							- _itsSource = GUID e3d1de89-56ec-4f78-b842-d6ee1f0ebb6a;
+						}
 					}
 					- States = { IRPYRawContainer 
 						- size = 7;
@@ -9769,7 +9794,7 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 							- _defaultTrans = ;
 						}
 					}
-					- _version = 2.1.2017::22:55:33;
+					- _version = 2.1.2017::23:28:17;
 					- _baseVersion = 1.2.1990::0:0:0;
 					- _diagram = GUID 32d7ac53-85c2-4343-a6b7-225cadb111b8;
 					- Views = { IRPYRawContainer 
@@ -9915,7 +9940,7 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 								}
 							}
 							- _name = "statechartdiagram_0";
-							- _lastModifiedTime = "2.1.2017::21:55:33";
+							- _lastModifiedTime = "2.1.2017::22:28:17";
 							- _graphicChart = { CGIStateChart 
 								- _id = GUID d8174268-5ea0-480a-a6f4-4eff086df7b0;
 								- m_type = 0;
@@ -9939,7 +9964,7 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 								}
 								- m_drawBehavior = 4096;
 								- m_bIsPreferencesInitialized = 1;
-								- elementList = 18;
+								- elementList = 19;
 								{ CGIState 
 									- _id = GUID ece42bfe-8f05-4dcc-97af-e58ef30f9a5e;
 									- m_type = 5;
@@ -11267,6 +11292,87 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 									- m_nInheritanceMask = 0;
 									- m_bShowName = 1;
 								}
+								{ CGITrans 
+									- _id = GUID 22f3baac-a4ae-47bf-8aa2-0929cf38beb7;
+									- _properties = { IPropertyContainer 
+										- Subjects = { IRPYRawContainer 
+											- size = 1;
+											- value = 
+											{ IPropertySubject 
+												- _Name = "General";
+												- Metaclasses = { IRPYRawContainer 
+													- size = 1;
+													- value = 
+													{ IPropertyMetaclass 
+														- _Name = "Graphics";
+														- Properties = { IRPYRawContainer 
+															- size = 1;
+															- value = 
+															{ IProperty 
+																- _Name = "ShowLabels";
+																- _Value = "False";
+																- _Type = Bool;
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+									- m_type = 28;
+									- m_pModelObject = { IHandle 
+										- _m2Class = "ITransition";
+										- _id = GUID 12e7517f-73d1-4ff9-8b9f-04a39616d892;
+									}
+									- m_pParent = ;
+									- m_name = { CGIText 
+										- m_str = "";
+										- m_style = "Arial" 10 0 0 0 1 ;
+										- m_color = { IColor 
+											- m_fgColor = 0;
+											- m_bgColor = 0;
+											- m_bgFlag = 0;
+										}
+										- m_position = 1 0 0  ;
+										- m_nIdent = 0;
+										- m_bImplicitSetRectPoints = 0;
+										- m_nOrientationCtrlPt = 8;
+									}
+									- m_drawBehavior = 4096;
+									- m_bIsPreferencesInitialized = 1;
+									- m_pSource = GUID 34727733-5c52-4073-b211-a07fa08c86c9;
+									- m_sourceType = 'F';
+									- m_pTarget = GUID 34727733-5c52-4073-b211-a07fa08c86c9;
+									- m_targetType = 'T';
+									- m_direction = ' ';
+									- m_rpn = { CGIText 
+										- m_str = "evAlpha/alpha=params->val;";
+										- m_style = "Arial" 10 0 0 0 1 ;
+										- m_color = { IColor 
+											- m_fgColor = 0;
+											- m_bgColor = 0;
+											- m_bgFlag = 0;
+										}
+										- m_position = 4 -6 -9  174 -9  174 5  -6 5  ;
+										- m_nIdent = 0;
+										- m_bImplicitSetRectPoints = 0;
+										- m_transform = 1 0 0 1 989 504 ;
+										- m_nHorizontalSpacing = -155;
+										- m_nVerticalSpacing = 17;
+										- m_nOrientationCtrlPt = 0;
+									}
+									- m_arrow = 1 1143 492  ;
+									- m_anglePoint1 = 0 0 ;
+									- m_anglePoint2 = 0 0 ;
+									- m_line_style = 1;
+									- m_SourcePort = 322 1044 ;
+									- m_TargetPort = 25 1027 ;
+									- m_pInheritsFrom = { IHandle 
+										- _m2Class = "";
+									}
+									- m_nInheritanceMask = 0;
+									- m_bShowName = 1;
+								}
 								
 								- m_access = 'Z';
 								- m_modified = 'N';
@@ -11324,7 +11430,7 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 			}
 			- _name = "SysControle";
 			- _lastID = 65;
-			- weakCGTime = 2.1.2017::22:7:53;
+			- weakCGTime = 2.1.2017::22:27:22;
 			- strongCGTime = 1.27.2017::10:19:9;
 			- Ports = { IRPYRawContainer 
 				- size = 2;
@@ -11454,7 +11560,7 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID fe1a2ffa-0763-44b6-9f75-59b7139c59b4;
+						- _id = GUID d6ff63e4-2996-483f-bf10-5b49cd540b17;
 						- _myState = 8192;
 						- _declaration = "fromVolant_C*";
 						- _kind = Language;
@@ -11478,7 +11584,7 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID 292bc402-cba8-4588-865d-a8c62d6a5f9b;
+						- _id = GUID cc2409e1-5a53-4fff-ba73-50b25385084c;
 						- _myState = 8192;
 						- _declaration = "fromVolant_C*";
 						- _kind = Language;
@@ -11502,7 +11608,7 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID 90cb73aa-5267-436a-b83b-5a0d03cbb50c;
+						- _id = GUID 2897cf38-8833-4437-a2f5-d6bfba49dafc;
 						- _myState = 8192;
 						- _declaration = "toMoteur_C*";
 						- _kind = Language;
@@ -11526,7 +11632,7 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID 0213ab9a-f2d4-46ac-bab0-413a590cec7a;
+						- _id = GUID 89eccefd-1b97-4aeb-9995-8d19dcdca036;
 						- _myState = 8192;
 						- _declaration = "toMoteur_C*";
 						- _kind = Language;
@@ -11624,7 +11730,7 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 11b9eee8-1432-4ce7-a468-af92a2d21caa;
+							- _id = GUID 43c43298-fcae-44c9-98fb-8b293e4e4ab9;
 							- _myState = 8192;
 							- _name = "p_consigne";
 							- _typeOf = { IHandle 
@@ -11760,7 +11866,7 @@ airResistance=MAX_SPEED/MAX_THROTTLE;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID c1b52ce4-277e-4b67-8eae-be04508d2271;
+							- _id = GUID 34b2ec23-0631-4523-8642-a2675b48c405;
 							- _myState = 8192;
 							- _name = "p_speed";
 							- _typeOf = { IHandle 
@@ -11940,7 +12046,7 @@ if(fetchSpeed==true){
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID d0b79b6e-bf1a-4808-b179-9e8eec930263;
+							- _id = GUID f17ff88e-2b43-4194-8ba1-9bf4d30bf18b;
 							- _myState = 8192;
 							- _name = "p_fetchSpeed";
 							- _typeOf = { IHandle 
@@ -12065,7 +12171,7 @@ OUT_PORT(toMoteur)->GEN(evRegThrottle(throttle));";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 1427b86e-150a-4f1f-b578-7e2fb69442fc;
+							- _id = GUID 983fd86e-4448-43a6-a295-78a0296d54b8;
 							- _myState = 8192;
 							- _name = "p_error";
 							- _typeOf = { IHandle 
@@ -12133,7 +12239,7 @@ OUT_PORT(toMoteur)->GEN(evRegThrottle(throttle));";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 5fdcd98f-6830-47c8-99fa-c3df9f3f6afc;
+							- _id = GUID 6cda964d-bcce-4c36-8784-f66fab40ffdf;
 							- _myState = 8192;
 							- _name = "p_steady";
 							- _typeOf = { IHandle 
@@ -12201,7 +12307,7 @@ OUT_PORT(toMoteur)->GEN(evRegThrottle(throttle));";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 309b9180-7ab8-4085-a32a-4b058174df46;
+							- _id = GUID e934decc-ced4-48c1-80fa-777df02efa10;
 							- _myState = 8192;
 							- _name = "p_throttle";
 							- _typeOf = { IHandle 
@@ -15356,7 +15462,7 @@ if(consigne>(int)REG_MAX_SPEED){
 			}
 			- _name = "AcquisitionUserEnv";
 			- _lastID = 63;
-			- weakCGTime = 2.1.2017::21:59:9;
+			- weakCGTime = 2.1.2017::22:27:22;
 			- strongCGTime = 10.3.2016::23:44:54;
 			- Ports = { IRPYRawContainer 
 				- size = 1;
@@ -15616,7 +15722,7 @@ if(consigne>(int)REG_MAX_SPEED){
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID dc3bc033-6412-4a97-90cb-b13b02d562b6;
+						- _id = GUID 16f94f5c-0509-4019-9c08-1d3ce9e28c81;
 						- _myState = 8192;
 						- _declaration = "out_C*";
 						- _kind = Language;
@@ -15640,7 +15746,7 @@ if(consigne>(int)REG_MAX_SPEED){
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID d6edbc8c-5de5-4b1e-bddb-f40e28a77f83;
+						- _id = GUID cc9515aa-b352-4af3-baec-1017cfc5eb8f;
 						- _myState = 8192;
 						- _declaration = "out_C*";
 						- _kind = Language;
@@ -15759,7 +15865,7 @@ NOTIFY_SET_OPERATION;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID deae9205-17ff-49cb-a312-dc345ee8af39;
+							- _id = GUID 4bf50206-5538-4d88-a7cc-8aaa407a65bf;
 							- _myState = 8192;
 							- _name = "p_VolantAcc";
 							- _typeOf = { IHandle 
@@ -15827,7 +15933,7 @@ NOTIFY_SET_OPERATION;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID f20273cb-ec3d-4b4d-a53f-d6c9beb7b684;
+							- _id = GUID 533b2ad3-d4d7-4735-8b2b-7d670ad114cb;
 							- _myState = 8192;
 							- _name = "p_VolantAngle";
 							- _typeOf = { IHandle 
@@ -15895,7 +16001,7 @@ NOTIFY_SET_OPERATION;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 5c4e9efc-3cff-4ef3-978a-ee4658f4c109;
+							- _id = GUID ea445ddb-f233-419e-b9b4-779e7cb6a1aa;
 							- _myState = 8192;
 							- _name = "p_VolantFrein";
 							- _typeOf = { IHandle 
@@ -15963,7 +16069,7 @@ NOTIFY_SET_OPERATION;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID bbf23e5f-cebd-4338-aa11-cfe39f7a1e80;
+							- _id = GUID 314503f6-0989-4d9f-91a3-486eef0ea623;
 							- _myState = 8192;
 							- _name = "p_bReadStat";
 							- _typeOf = { IHandle 
@@ -16005,7 +16111,7 @@ NOTIFY_SET_OPERATION;";
 						- size = 0;
 					}
 					- myReturnType = { IType 
-						- _id = GUID f5290b79-71d6-4b8c-9142-2d2881637300;
+						- _id = GUID 065c2e6e-a80d-430d-98d1-9064a782279c;
 						- _myState = 8192;
 						- _declaration = "HANDLE";
 						- _kind = Language;
@@ -16029,11 +16135,11 @@ NOTIFY_SET_OPERATION;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 629ef7d0-b3ed-418e-b19c-fa98ff559e3c;
+							- _id = GUID bcc50bf0-b49d-449c-a61d-20dc81618a53;
 							- _myState = 8192;
 							- _name = "p_g_hCom";
 							- myTypeOf = { IType 
-								- _id = GUID e1cc17d1-0d55-49a8-834e-7c18c9d0933b;
+								- _id = GUID 2a082447-852d-40b0-949f-1e8328bea4dc;
 								- _myState = 8192;
 								- _declaration = "HANDLE";
 								- _kind = Language;
@@ -16095,7 +16201,7 @@ NOTIFY_SET_OPERATION;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID e03b49de-2cc8-4e1d-bec5-992e01dccfe9;
+							- _id = GUID dcfd30e9-37eb-4e3a-a416-b8469c9bd6b2;
 							- _myState = 8192;
 							- _name = "p_period";
 							- _typeOf = { IHandle 
@@ -16223,7 +16329,7 @@ return done;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 880753e3-aa79-470d-8070-21f0b0e5a457;
+							- _id = GUID 9f8bddf0-9a57-44bf-9278-d99776d06264;
 							- _myState = 8192;
 							- _name = "p_acc";
 							- _typeOf = { IHandle 
@@ -16291,7 +16397,7 @@ return done;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 6c94d9f1-9c2f-4c13-8468-7a1e867021f6;
+							- _id = GUID 7c2162cc-6245-471d-a0ad-b6d039924f1c;
 							- _myState = 8192;
 							- _name = "p_volant";
 							- _typeOf = { IHandle 
@@ -16359,7 +16465,7 @@ return done;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID bd580cdb-a497-4e3f-b186-833910c5fe6b;
+							- _id = GUID 8bf2ae30-ca73-4042-97b3-9a52aa9cb5f4;
 							- _myState = 8192;
 							- _name = "p_alpha";
 							- _typeOf = { IHandle 
@@ -16463,7 +16569,7 @@ return done;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID f34fdbeb-3a6a-459d-90f4-2be899ae4280;
+							- _id = GUID 09fbeec8-5c93-455e-874f-5cd0c84a4d6d;
 							- _myState = 8192;
 							- _name = "p_volantVersDroite";
 							- _typeOf = { IHandle 
@@ -16531,7 +16637,7 @@ return done;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID aae0964b-7fd5-48c8-a91f-e2384192fd43;
+							- _id = GUID 0f67830c-9e59-4a3e-8214-b238c77965e3;
 							- _myState = 8192;
 							- _name = "p_volantVersGauche";
 							- _typeOf = { IHandle 
@@ -16599,7 +16705,7 @@ return done;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID d18fb440-eaba-4498-8cf3-c6a10f18b247;
+							- _id = GUID eb771ab5-00db-4d18-835b-ce74bf68b1e2;
 							- _myState = 8192;
 							- _name = "p_bDroit";
 							- _typeOf = { IHandle 
@@ -16667,7 +16773,7 @@ return done;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 64318d22-220e-4254-b432-61000ba3a5a1;
+							- _id = GUID c6b6dd5e-bd6e-4082-9eed-2cf38a9ece0e;
 							- _myState = 8192;
 							- _name = "p_bGauche";
 							- _typeOf = { IHandle 
@@ -16735,7 +16841,7 @@ return done;";
 						- size = 1;
 						- value = 
 						{ IArgument 
-							- _id = GUID 345b4508-67ea-41ad-a8c8-ad77231c1c14;
+							- _id = GUID ebc9c37e-083b-443d-8ac0-ef26a8d7ea62;
 							- _myState = 8192;
 							- _name = "p_fre";
 							- _typeOf = { IHandle 
@@ -19540,7 +19646,7 @@ return done;";
 					- _myState = 10240;
 					- _name = "statechart_38";
 					- _lastID = 80;
-					- weakCGTime = 2.1.2017::21:59:9;
+					- weakCGTime = 2.1.2017::22:26:13;
 					- strongCGTime = 10.3.2016::23:44:54;
 					- _multiplicity = "";
 					- _itsStateChart = { IHandle 
@@ -19692,7 +19798,8 @@ if (VolantFrein>5) OUT_PORT(out)->GEN(evFreiner(VolantFrein));";
 									- _id = GUID 5f46aaad-f85a-4df5-ba2d-45f560887a0e;
 									- _body = "
 if (acc>0) OUT_PORT(out)->GEN(evAccelerer(acc));
-if (fre>0) MULTICAST_GEN(out, evFreiner(fre));";
+if (fre>0) MULTICAST_GEN(out, evFreiner(fre));
+if (alpha!=0) OUT_PORT(out)->GEN(evAlpha(alpha));";
 								}
 							}
 							- _itsTarget = GUID c285c2a1-5c9a-45c6-9f8b-d07566ab29ef;
@@ -19738,7 +19845,7 @@ if (fre>0) MULTICAST_GEN(out, evFreiner(fre));";
 							- _defaultTrans = ;
 						}
 					}
-					- _version = 2.1.2017::22:59:9;
+					- _version = 2.1.2017::23:26:13;
 					- _baseVersion = 1.2.1990::0:0:0;
 					- _diagram = GUID 99ca466c-b72f-4e94-8ee3-1724b272c51a;
 					- Views = { IRPYRawContainer 
@@ -19943,7 +20050,7 @@ if (fre>0) MULTICAST_GEN(out, evFreiner(fre));";
 								}
 							}
 							- _name = "statechartdiagram_0";
-							- _lastModifiedTime = "2.1.2017::21:59:9";
+							- _lastModifiedTime = "2.1.2017::22:26:13";
 							- _graphicChart = { CGIStateChart 
 								- _id = GUID 13d8a0f9-ea68-4792-8747-07efcd1fcf5c;
 								- m_type = 0;
@@ -20797,7 +20904,8 @@ if (VolantFrein>5) OUT_PORT(out)->GEN(evFreiner(VolantFrein));";
 									- m_rpn = { CGIText 
 										- m_str = "tm(255)/
 if (acc>0) OUT_PORT(out)->GEN(evAccelerer(acc));
-if (fre>0) MULTICAST_GEN(out, evFreiner(fre));";
+if (fre>0) MULTICAST_GEN(out, evFreiner(fre));
+if (alpha!=0) OUT_PORT(out)->GEN(evAlpha(alpha));";
 										- m_style = "Arial" 10 0 0 0 1 ;
 										- m_color = { IColor 
 											- m_fgColor = 0;

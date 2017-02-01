@@ -42,8 +42,6 @@
 #include "tchar.h"
 //#[ ignore
 #define OMAnim__MonPkg_VehiculeMoteur_setAlpha_intRef_ARGS_DECLARATION int p_alpha;
-
-#define OMAnim__MonPkg_VehiculeMoteur_setAlpha_double_ARGS_DECLARATION double p_alpha;
 //#]
 
 //## package _MonPkg
@@ -420,15 +418,11 @@ protected :
 #ifdef _OMINSTRUMENT
 DECLARE_OPERATION_CLASS(_MonPkg_VehiculeMoteur_setAlpha_intRef)
 
-DECLARE_OPERATION_CLASS(_MonPkg_VehiculeMoteur_setAlpha_double)
-
 //#[ ignore
 class OMAnimatedVehiculeMoteur : virtual public AOMInstance {
     DECLARE_REACTIVE_META(VehiculeMoteur, OMAnimatedVehiculeMoteur)
     
     DECLARE_META_OP(_MonPkg_VehiculeMoteur_setAlpha_intRef)
-    
-    DECLARE_META_OP(_MonPkg_VehiculeMoteur_setAlpha_double)
     
     ////    Framework operations    ////
     

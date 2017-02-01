@@ -43,10 +43,6 @@
 #define _MonPkg_VehiculeMoteur_setSpeed_SERIALIZE aomsmethod->addAttribute("p_speed", x2String(p_speed));
 
 #define _MonPkg_VehiculeMoteur_setThrottle_SERIALIZE aomsmethod->addAttribute("p_throttle", x2String(p_throttle));
-
-#define OMAnim__MonPkg_VehiculeMoteur_setAlpha_double_UNSERIALIZE_ARGS OP_UNSER(OMDestructiveString2X,p_alpha)
-
-#define OMAnim__MonPkg_VehiculeMoteur_setAlpha_double_SERIALIZE_RET_VAL
 //#]
 
 //## package _MonPkg
@@ -299,7 +295,6 @@ void VehiculeMoteur::setAlpha(int& p_alpha) {
     alpha = p_alpha;
     NOTIFY_SET_OPERATION;
     //#]
-    NOTIFY_SET_OPERATION;
 }
 
 double VehiculeMoteur::getIntensite_acceleration() {
@@ -355,7 +350,6 @@ VehiculeMoteur::fromVolant_C* VehiculeMoteur::get_fromVolant() const {
 
 void VehiculeMoteur::setAlpha(double p_alpha) {
     alpha = p_alpha;
-    NOTIFY_SET_OPERATION;
 }
 
 bool VehiculeMoteur::getRegCtrl() {
@@ -618,6 +612,20 @@ IOxfReactive::TakeEventStatus VehiculeMoteur::moteur_action_handleEvent() {
                         }
                 }
         }
+    else if(IS_EVENT_TYPE_OF(evAlpha__MonPkg_id))
+        {
+            OMSETPARAMS(evAlpha);
+            NOTIFY_TRANSITION_STARTED("11");
+            NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_3.moteur_action");
+            //#[ transition 11 
+            alpha=params->val;
+            //#]
+            NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_3.moteur_action");
+            state_3_subState = moteur_action;
+            state_3_active = moteur_action;
+            NOTIFY_TRANSITION_TERMINATED("11");
+            res = eventConsumed;
+        }
     else if(IS_EVENT_TYPE_OF(evFreiner__MonPkg_id))
         {
             OMSETPARAMS(evFreiner);
@@ -747,10 +755,6 @@ IMPLEMENT_REACTIVE_META_P(VehiculeMoteur, _MonPkg, _MonPkg, false, OMAnimatedVeh
 IMPLEMENT_META_OP(OMAnimatedVehiculeMoteur, _MonPkg_VehiculeMoteur_setAlpha_intRef, "setAlpha", FALSE, "setAlpha(int)", 1)
 
 IMPLEMENT_OP_CALL(_MonPkg_VehiculeMoteur_setAlpha_intRef, VehiculeMoteur, setAlpha(p_alpha), NO_OP())
-
-IMPLEMENT_META_OP(OMAnimatedVehiculeMoteur, _MonPkg_VehiculeMoteur_setAlpha_double, "setAlpha", FALSE, "setAlpha(double)", 1)
-
-IMPLEMENT_OP_CALL(_MonPkg_VehiculeMoteur_setAlpha_double, VehiculeMoteur, setAlpha(p_alpha), NO_OP())
 #endif // _OMINSTRUMENT
 
 /*********************************************************************

@@ -86,8 +86,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "IHM";
 				- _id = GUID 384edb5b-dab8-40de-a538-b4e732957176;
 			}
-			- _UpLeft = 20 19 ;
-			- _DownRight = 1251 620 ;
+			- _UpLeft = 20 38 ;
+			- _DownRight = 1251 639 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 6;
 		}
@@ -170,8 +170,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 32d7ac53-85c2-4343-a6b7-225cadb111b8;
 			}
-			- _UpLeft = 886 181 ;
-			- _DownRight = 1607 483 ;
+			- _UpLeft = 886 231 ;
+			- _DownRight = 1607 533 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 3;
 		}
@@ -181,7 +181,7 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- m_nFlags = 2;
 				- m_showCmd = 2;
 				- m_ptMinPositionX = 0;
-				- m_ptMinPositionY = 700;
+				- m_ptMinPositionY = 669;
 				- m_ptMaxPositionX = -4;
 				- m_ptMaxPositionY = -23;
 				- m_nLeft = 176;
@@ -198,8 +198,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 32d7ac53-85c2-4343-a6b7-225cadb111b8;
 			}
-			- _UpLeft = 1190 259 ;
-			- _DownRight = 1948 629 ;
+			- _UpLeft = 1190 267 ;
+			- _DownRight = 1948 621 ;
 			- _instanceName = "MainDeApplication[0]->objVehiculeMoteur";
 			- m_nDiagramIndex = 1;
 		}
