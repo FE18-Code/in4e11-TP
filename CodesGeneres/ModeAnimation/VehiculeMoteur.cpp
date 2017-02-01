@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: VehiculeMoteur
-//!	Generated Date	: Tue, 31, Jan 2017  
+//!	Generated Date	: Wed, 1, Feb 2017  
 	File Path	: CodesGeneres\ModeAnimation\VehiculeMoteur.cpp
 *********************************************************************/
 
@@ -30,6 +30,8 @@
 
 #define _MonPkg_VehiculeMoteur_init_SERIALIZE OM_NO_OP
 
+#define _MonPkg_VehiculeMoteur_regThrottle_SERIALIZE aomsmethod->addAttribute("param1", x2String(param1));
+
 #define _MonPkg_VehiculeMoteur_setAlpha_SERIALIZE aomsmethod->addAttribute("p_alpha", x2String(p_alpha));
 
 #define OMAnim__MonPkg_VehiculeMoteur_setAlpha_intRef_UNSERIALIZE_ARGS OP_UNSER(OMDestructiveString2X,p_alpha)
@@ -41,6 +43,10 @@
 #define _MonPkg_VehiculeMoteur_setSpeed_SERIALIZE aomsmethod->addAttribute("p_speed", x2String(p_speed));
 
 #define _MonPkg_VehiculeMoteur_setThrottle_SERIALIZE aomsmethod->addAttribute("p_throttle", x2String(p_throttle));
+
+#define OMAnim__MonPkg_VehiculeMoteur_setAlpha_double_UNSERIALIZE_ARGS OP_UNSER(OMDestructiveString2X,p_alpha)
+
+#define OMAnim__MonPkg_VehiculeMoteur_setAlpha_double_SERIALIZE_RET_VAL
 //#]
 
 //## package _MonPkg
@@ -133,6 +139,7 @@ void VehiculeMoteur::dyn_moteur() {
     
     if(throttle>0.0) throttle-=(0.5/5.0);
     
+    regCtrl=false; /* throttle was not set by reg */
     
     OUT_PORT(toCtrl)->GEN(evSetSpeed(speed));
     //#]
@@ -292,6 +299,7 @@ void VehiculeMoteur::setAlpha(int& p_alpha) {
     alpha = p_alpha;
     NOTIFY_SET_OPERATION;
     //#]
+    NOTIFY_SET_OPERATION;
 }
 
 double VehiculeMoteur::getIntensite_acceleration() {
@@ -302,7 +310,7 @@ void VehiculeMoteur::setIntensite_acceleration(double p_intensite_acceleration) 
     intensite_acceleration = p_intensite_acceleration;
 }
 
-VehiculeMoteur::VehiculeMoteur(IOxfActive* theActiveContext) : MAX_BRAKE(10), MAX_SPEED(120), MAX_THROTTLE(10.0), alpha(0), distance(0), ignition(false), intensite_acceleration(1.0), period(200), speed(0), throttle(0.0) {
+VehiculeMoteur::VehiculeMoteur(IOxfActive* theActiveContext) : MAX_BRAKE(10), MAX_SPEED(120), MAX_THROTTLE(10.0), alpha(0), distance(0), ignition(false), intensite_acceleration(1.0), period(200), regCtrl(false), speed(0), throttle(0.0) {
     NOTIFY_ACTIVE_CONSTRUCTOR(VehiculeMoteur, VehiculeMoteur(), 0, _MonPkg_VehiculeMoteur_VehiculeMoteur_SERIALIZE);
     setActiveContext(this, true);
     initRelations();
@@ -316,6 +324,14 @@ void VehiculeMoteur::init() {
     fspeed=0.0;
     throttle=0.0;
     airResistance=MAX_SPEED/MAX_THROTTLE;
+    //#]
+}
+
+void VehiculeMoteur::regThrottle(double param1) {
+    NOTIFY_OPERATION(regThrottle, regThrottle(double), 1, _MonPkg_VehiculeMoteur_regThrottle_SERIALIZE);
+    //#[ operation regThrottle(double)
+    throttle=param1;
+    regCtrl=true;
     //#]
 }
 
@@ -337,6 +353,16 @@ VehiculeMoteur::fromVolant_C* VehiculeMoteur::get_fromVolant() const {
 
 void VehiculeMoteur::setAlpha(double p_alpha) {
     alpha = p_alpha;
+    NOTIFY_SET_OPERATION;
+}
+
+bool VehiculeMoteur::getRegCtrl() {
+    return regCtrl;
+}
+
+void VehiculeMoteur::setRegCtrl(bool p_regCtrl) {
+    regCtrl = p_regCtrl;
+    NOTIFY_SET_OPERATION;
 }
 
 void VehiculeMoteur::initStatechart() {
@@ -604,6 +630,20 @@ IOxfReactive::TakeEventStatus VehiculeMoteur::moteur_action_handleEvent() {
             NOTIFY_TRANSITION_TERMINATED("6");
             res = eventConsumed;
         }
+    else if(IS_EVENT_TYPE_OF(evRegThrottle__MonPkg_id))
+        {
+            OMSETPARAMS(evRegThrottle);
+            NOTIFY_TRANSITION_STARTED("10");
+            NOTIFY_STATE_EXITED("ROOT.moteur_demarre.state_3.moteur_action");
+            //#[ transition 10 
+            regThrottle(params->val);
+            //#]
+            NOTIFY_STATE_ENTERED("ROOT.moteur_demarre.state_3.moteur_action");
+            state_3_subState = moteur_action;
+            state_3_active = moteur_action;
+            NOTIFY_TRANSITION_TERMINATED("10");
+            res = eventConsumed;
+        }
     else if(IS_EVENT_TYPE_OF(evAccelerer__MonPkg_id))
         {
             OMSETPARAMS(evAccelerer);
@@ -644,6 +684,7 @@ void OMAnimatedVehiculeMoteur::serializeAttributes(AOMSAttributes* aomsAttribute
     aomsAttributes->addAttribute("throttle", x2String(myReal->throttle));
     aomsAttributes->addAttribute("intensite_acceleration", x2String(myReal->intensite_acceleration));
     aomsAttributes->addAttribute("alpha", x2String(myReal->alpha));
+    aomsAttributes->addAttribute("regCtrl", x2String(myReal->regCtrl));
 }
 
 void OMAnimatedVehiculeMoteur::rootState_serializeStates(AOMSState* aomsState) const {
@@ -704,6 +745,10 @@ IMPLEMENT_REACTIVE_META_P(VehiculeMoteur, _MonPkg, _MonPkg, false, OMAnimatedVeh
 IMPLEMENT_META_OP(OMAnimatedVehiculeMoteur, _MonPkg_VehiculeMoteur_setAlpha_intRef, "setAlpha", FALSE, "setAlpha(int)", 1)
 
 IMPLEMENT_OP_CALL(_MonPkg_VehiculeMoteur_setAlpha_intRef, VehiculeMoteur, setAlpha(p_alpha), NO_OP())
+
+IMPLEMENT_META_OP(OMAnimatedVehiculeMoteur, _MonPkg_VehiculeMoteur_setAlpha_double, "setAlpha", FALSE, "setAlpha(double)", 1)
+
+IMPLEMENT_OP_CALL(_MonPkg_VehiculeMoteur_setAlpha_double, VehiculeMoteur, setAlpha(p_alpha), NO_OP())
 #endif // _OMINSTRUMENT
 
 /*********************************************************************

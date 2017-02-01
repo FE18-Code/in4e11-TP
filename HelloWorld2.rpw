@@ -86,8 +86,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "IHM";
 				- _id = GUID 384edb5b-dab8-40de-a538-b4e732957176;
 			}
-			- _UpLeft = 0 36 ;
-			- _DownRight = 1365 701 ;
+			- _UpLeft = 0 0 ;
+			- _DownRight = 1504 777 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 4;
 		}
@@ -114,8 +114,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 767eff79-f620-4966-914f-d2d8741fcf97;
 			}
-			- _UpLeft = 0 21 ;
-			- _DownRight = 1319 520 ;
+			- _UpLeft = 0 0 ;
+			- _DownRight = 1319 499 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 0;
 		}
@@ -142,8 +142,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 32d7ac53-85c2-4343-a6b7-225cadb111b8;
 			}
-			- _UpLeft = 361 38 ;
-			- _DownRight = 1546 534 ;
+			- _UpLeft = 783 181 ;
+			- _DownRight = 1504 483 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 1;
 		}

@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: _MonPkg
-//!	Generated Date	: Tue, 31, Jan 2017  
+//!	Generated Date	: Wed, 1, Feb 2017  
 	File Path	: CodesGeneres\ModeAnimation\_MonPkg.cpp
 *********************************************************************/
 
@@ -109,6 +109,12 @@
 #define evSetSpeed_UNSERIALIZE OMADD_UNSER(int, speed, OMDestructiveString2X)
 
 #define evSetSpeed_CONSTRUCTOR evSetSpeed(speed)
+
+#define evRegThrottle_SERIALIZE OMADD_SER(val, x2String(myEvent->val))
+
+#define evRegThrottle_UNSERIALIZE OMADD_UNSER(double, val, OMDestructiveString2X)
+
+#define evRegThrottle_CONSTRUCTOR evRegThrottle(val)
 //#]
 
 //## package _MonPkg
@@ -317,6 +323,23 @@ bool evSetSpeed::isTypeOf(const short id) const {
 }
 
 IMPLEMENT_META_EVENT_P(evSetSpeed, _MonPkg, _MonPkg, evSetSpeed(int))
+
+//## event evRegThrottle(double)
+evRegThrottle::evRegThrottle() {
+    NOTIFY_EVENT_CONSTRUCTOR(evRegThrottle)
+    setId(evRegThrottle__MonPkg_id);
+}
+
+evRegThrottle::evRegThrottle(double p_val) : val(p_val) {
+    NOTIFY_EVENT_CONSTRUCTOR(evRegThrottle)
+    setId(evRegThrottle__MonPkg_id);
+}
+
+bool evRegThrottle::isTypeOf(const short id) const {
+    return (evRegThrottle__MonPkg_id==id);
+}
+
+IMPLEMENT_META_EVENT_P(evRegThrottle, _MonPkg, _MonPkg, evRegThrottle(double))
 
 /*********************************************************************
 	File Path	: CodesGeneres\ModeAnimation\_MonPkg.cpp

@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: VehiculeMoteur
-//!	Generated Date	: Tue, 31, Jan 2017  
+//!	Generated Date	: Wed, 1, Feb 2017  
 	File Path	: CodesGeneres\ModeAnimation\VehiculeMoteur.h
 *********************************************************************/
 
@@ -42,6 +42,8 @@
 #include "tchar.h"
 //#[ ignore
 #define OMAnim__MonPkg_VehiculeMoteur_setAlpha_intRef_ARGS_DECLARATION int p_alpha;
+
+#define OMAnim__MonPkg_VehiculeMoteur_setAlpha_double_ARGS_DECLARATION double p_alpha;
 //#]
 
 //## package _MonPkg
@@ -272,6 +274,9 @@ public :
     //## operation init()
     void init();
     
+    //## operation regThrottle(double)
+    void regThrottle(double param1);
+    
     //## auto_generated
     toCtrl_C* getToCtrl() const;
     
@@ -286,6 +291,12 @@ public :
     
     //## auto_generated
     void setAlpha(double p_alpha);
+    
+    //## auto_generated
+    bool getRegCtrl();
+    
+    //## auto_generated
+    void setRegCtrl(bool p_regCtrl);
 
 protected :
 
@@ -299,6 +310,8 @@ protected :
     bool cancelTimeout(const IOxfTimeout* arg);
     
     double alpha;		//## attribute alpha
+    
+    bool regCtrl;		//## attribute regCtrl
     
 //#[ ignore
     toCtrl_C toCtrl;
@@ -407,11 +420,15 @@ protected :
 #ifdef _OMINSTRUMENT
 DECLARE_OPERATION_CLASS(_MonPkg_VehiculeMoteur_setAlpha_intRef)
 
+DECLARE_OPERATION_CLASS(_MonPkg_VehiculeMoteur_setAlpha_double)
+
 //#[ ignore
 class OMAnimatedVehiculeMoteur : virtual public AOMInstance {
     DECLARE_REACTIVE_META(VehiculeMoteur, OMAnimatedVehiculeMoteur)
     
     DECLARE_META_OP(_MonPkg_VehiculeMoteur_setAlpha_intRef)
+    
+    DECLARE_META_OP(_MonPkg_VehiculeMoteur_setAlpha_double)
     
     ////    Framework operations    ////
     

@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: SysControle
-//!	Generated Date	: Tue, 31, Jan 2017  
+//!	Generated Date	: Wed, 1, Feb 2017  
 	File Path	: CodesGeneres\ModeAnimation\SysControle.cpp
 *********************************************************************/
 
@@ -89,6 +89,8 @@ void SysControle::dyn_reg() {
     error = (double) ((consigne-speed)/6.0);
     steady = (double) (consigne/12.0);
     throttle = steady+error;
+    
+    OUT_PORT(toMoteur)->GEN(evRegThrottle(throttle));
     //#]
 }
 

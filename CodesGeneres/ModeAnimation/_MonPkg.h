@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: _MonPkg
-//!	Generated Date	: Tue, 31, Jan 2017  
+//!	Generated Date	: Wed, 1, Feb 2017  
 	File Path	: CodesGeneres\ModeAnimation\_MonPkg.h
 *********************************************************************/
 
@@ -67,6 +67,8 @@ class VehiculeMoteur;
 #define evRegMoins__MonPkg_id 13414
 
 #define evSetSpeed__MonPkg_id 13415
+
+#define evRegThrottle__MonPkg_id 13416
 //#]
 
 //## package _MonPkg
@@ -525,6 +527,42 @@ public :
 //#[ ignore
 class OMAnimatedevSetSpeed : virtual public AOMEvent {
     DECLARE_META_EVENT(evSetSpeed)
+};
+//#]
+#endif // _OMINSTRUMENT
+
+//## event evRegThrottle(double)
+class evRegThrottle : public OMEvent {
+    ////    Friends    ////
+    
+public :
+
+#ifdef _OMINSTRUMENT
+    friend class OMAnimatedevRegThrottle;
+#endif // _OMINSTRUMENT
+
+    ////    Constructors and destructors    ////
+    
+    //## auto_generated
+    evRegThrottle();
+    
+    //## auto_generated
+    evRegThrottle(double p_val);
+    
+    ////    Framework operations    ////
+    
+    //## statechart_method
+    virtual bool isTypeOf(const short id) const;
+    
+    ////    Framework    ////
+    
+    double val;		//## auto_generated
+};
+
+#ifdef _OMINSTRUMENT
+//#[ ignore
+class OMAnimatedevRegThrottle : virtual public AOMEvent {
+    DECLARE_META_EVENT(evRegThrottle)
 };
 //#]
 #endif // _OMINSTRUMENT
