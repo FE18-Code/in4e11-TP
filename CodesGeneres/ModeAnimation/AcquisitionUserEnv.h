@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: AcquisitionUserEnv
-//!	Generated Date	: Tue, 31, Jan 2017  
+//!	Generated Date	: Wed, 1, Feb 2017  
 	File Path	: CodesGeneres\ModeAnimation\AcquisitionUserEnv.h
 *********************************************************************/
 
@@ -40,8 +40,6 @@
 #include <oxf\OMDefaultMulticastReactivePort.h>
 //#[ ignore
 #define OMAnim__MonPkg_AcquisitionUserEnv_setAcc_int_ARGS_DECLARATION int p_acc;
-
-#define OMAnim__MonPkg_AcquisitionUserEnv_setAlpha_int_ARGS_DECLARATION int p_alpha;
 
 #define OMAnim__MonPkg_AcquisitionUserEnv_setFre_int_ARGS_DECLARATION int p_fre;
 //#]
@@ -335,8 +333,6 @@ protected :
 #ifdef _OMINSTRUMENT
 DECLARE_OPERATION_CLASS(_MonPkg_AcquisitionUserEnv_setAcc_int)
 
-DECLARE_OPERATION_CLASS(_MonPkg_AcquisitionUserEnv_setAlpha_int)
-
 DECLARE_OPERATION_CLASS(_MonPkg_AcquisitionUserEnv_setFre_int)
 
 //#[ ignore
@@ -344,8 +340,6 @@ class OMAnimatedAcquisitionUserEnv : virtual public AOMInstance {
     DECLARE_REACTIVE_META(AcquisitionUserEnv, OMAnimatedAcquisitionUserEnv)
     
     DECLARE_META_OP(_MonPkg_AcquisitionUserEnv_setAcc_int)
-    
-    DECLARE_META_OP(_MonPkg_AcquisitionUserEnv_setAlpha_int)
     
     DECLARE_META_OP(_MonPkg_AcquisitionUserEnv_setFre_int)
     

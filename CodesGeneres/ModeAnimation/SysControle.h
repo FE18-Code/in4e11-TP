@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: SysControle
-//!	Generated Date	: Tue, 31, Jan 2017  
+//!	Generated Date	: Wed, 1, Feb 2017  
 	File Path	: CodesGeneres\ModeAnimation\SysControle.h
 *********************************************************************/
 
@@ -143,6 +143,9 @@ public :
     fromVolant_C* get_fromVolant() const;
     
     //## auto_generated
+    const double getREG_MIN_SPEED();
+    
+    //## auto_generated
     int getConsigne();
     
     //## auto_generated
@@ -195,6 +198,8 @@ protected :
     //## auto_generated
     bool cancelTimeout(const IOxfTimeout* arg);
     
+    const double REG_MIN_SPEED;		//## attribute REG_MIN_SPEED
+    
     int consigne;		//## attribute consigne
     
     double error;		//## attribute error
@@ -226,6 +231,46 @@ public :
     
     //## statechart_method
     virtual IOxfReactive::TakeEventStatus rootState_processEvent();
+    
+    // reg_state:
+    //## statechart_method
+    inline bool reg_state_IN() const;
+    
+    //## statechart_method
+    void reg_state_entDef();
+    
+    //## statechart_method
+    void reg_state_exit();
+    
+    //## statechart_method
+    IOxfReactive::TakeEventStatus reg_state_processEvent();
+    
+    // state_9:
+    //## statechart_method
+    inline bool state_9_IN() const;
+    
+    //## statechart_method
+    void state_9_entDef();
+    
+    //## statechart_method
+    void state_9_exit();
+    
+    //## statechart_method
+    IOxfReactive::TakeEventStatus state_9_processEvent();
+    
+    // speed_loop:
+    //## statechart_method
+    inline bool speed_loop_IN() const;
+    
+    // state_8:
+    //## statechart_method
+    inline bool state_8_IN() const;
+    
+    //## statechart_method
+    void state_8_entDef();
+    
+    //## statechart_method
+    IOxfReactive::TakeEventStatus state_8_processEvent();
     
     // on:
     //## statechart_method
@@ -277,9 +322,6 @@ public :
     //## statechart_method
     inline bool action_IN() const;
     
-    //## statechart_method
-    IOxfReactive::TakeEventStatus action_handleEvent();
-    
     // off:
     //## statechart_method
     inline bool off_IN() const;
@@ -289,17 +331,29 @@ protected :
 //#[ ignore
     enum SysControle_Enum {
         OMNonState = 0,
-        on = 1,
-        state_6 = 2,
-        dyn_loop = 3,
-        state_5 = 4,
-        action = 5,
-        off = 6
+        reg_state = 1,
+        state_9 = 2,
+        speed_loop = 3,
+        state_8 = 4,
+        on = 5,
+        state_6 = 6,
+        dyn_loop = 7,
+        state_5 = 8,
+        action = 9,
+        off = 10
     };
     
     int rootState_subState;
     
     int rootState_active;
+    
+    int state_9_subState;
+    
+    int state_9_active;
+    
+    int state_8_subState;
+    
+    int state_8_active;
     
     int state_6_subState;
     
@@ -328,6 +382,18 @@ public :
     void rootState_serializeStates(AOMSState* aomsState) const;
     
     //## statechart_method
+    void reg_state_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void state_9_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void speed_loop_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void state_8_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
     void on_serializeStates(AOMSState* aomsState) const;
     
     //## statechart_method
@@ -352,8 +418,24 @@ inline bool SysControle::rootState_IN() const {
     return true;
 }
 
+inline bool SysControle::reg_state_IN() const {
+    return rootState_subState == reg_state;
+}
+
+inline bool SysControle::state_9_IN() const {
+    return reg_state_IN();
+}
+
+inline bool SysControle::speed_loop_IN() const {
+    return state_9_subState == speed_loop;
+}
+
+inline bool SysControle::state_8_IN() const {
+    return reg_state_IN();
+}
+
 inline bool SysControle::on_IN() const {
-    return rootState_subState == on;
+    return state_8_subState == on;
 }
 
 inline bool SysControle::state_6_IN() const {
@@ -373,7 +455,7 @@ inline bool SysControle::action_IN() const {
 }
 
 inline bool SysControle::off_IN() const {
-    return rootState_subState == off;
+    return state_8_subState == off;
 }
 
 #endif

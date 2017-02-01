@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: AcquisitionUserEnv
-//!	Generated Date	: Tue, 31, Jan 2017  
+//!	Generated Date	: Wed, 1, Feb 2017  
 	File Path	: CodesGeneres\ModeAnimation\AcquisitionUserEnv.cpp
 *********************************************************************/
 
@@ -27,10 +27,6 @@
 #define OMAnim__MonPkg_AcquisitionUserEnv_setAcc_int_UNSERIALIZE_ARGS OP_UNSER(OMDestructiveString2X,p_acc)
 
 #define OMAnim__MonPkg_AcquisitionUserEnv_setAcc_int_SERIALIZE_RET_VAL
-
-#define OMAnim__MonPkg_AcquisitionUserEnv_setAlpha_int_UNSERIALIZE_ARGS OP_UNSER(OMDestructiveString2X,p_alpha)
-
-#define OMAnim__MonPkg_AcquisitionUserEnv_setAlpha_int_SERIALIZE_RET_VAL
 
 #define OMAnim__MonPkg_AcquisitionUserEnv_setFre_int_UNSERIALIZE_ARGS OP_UNSER(OMDestructiveString2X,p_fre)
 
@@ -613,10 +609,6 @@ IMPLEMENT_REACTIVE_META_P(AcquisitionUserEnv, _MonPkg, _MonPkg, false, OMAnimate
 IMPLEMENT_META_OP(OMAnimatedAcquisitionUserEnv, _MonPkg_AcquisitionUserEnv_setAcc_int, "setAcc", FALSE, "setAcc(int)", 1)
 
 IMPLEMENT_OP_CALL(_MonPkg_AcquisitionUserEnv_setAcc_int, AcquisitionUserEnv, setAcc(p_acc), NO_OP())
-
-IMPLEMENT_META_OP(OMAnimatedAcquisitionUserEnv, _MonPkg_AcquisitionUserEnv_setAlpha_int, "setAlpha", FALSE, "setAlpha(int)", 1)
-
-IMPLEMENT_OP_CALL(_MonPkg_AcquisitionUserEnv_setAlpha_int, AcquisitionUserEnv, setAlpha(p_alpha), NO_OP())
 
 IMPLEMENT_META_OP(OMAnimatedAcquisitionUserEnv, _MonPkg_AcquisitionUserEnv_setFre_int, "setFre", FALSE, "setFre(int)", 1)
 

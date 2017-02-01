@@ -87,7 +87,7 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _id = GUID 384edb5b-dab8-40de-a538-b4e732957176;
 			}
 			- _UpLeft = 0 0 ;
-			- _DownRight = 1504 777 ;
+			- _DownRight = 1569 810 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 4;
 		}
@@ -114,8 +114,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 767eff79-f620-4966-914f-d2d8741fcf97;
 			}
-			- _UpLeft = 0 0 ;
-			- _DownRight = 1319 499 ;
+			- _UpLeft = 215 262 ;
+			- _DownRight = 1379 702 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 0;
 		}
