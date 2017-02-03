@@ -65,7 +65,7 @@ SysControle::~SysControle() {
     cancelTimeouts();
 }
 
-SysControle::SysControle(IOxfActive* theActiveContext) : REG_MAX_SPEED(120.0), REG_MIN_SPEED(50.0), consigne(0), error(0.0), fetchSpeed(false), reg_on(false), steady(0.0), throttle(0.0) {
+SysControle::SysControle(IOxfActive* theActiveContext) : REG_ACCEL_IDLE(7), REG_MAX_SPEED(120.0), REG_MIN_SPEED(50.0), consigne(0), error(0.0), fetchSpeed(false), intens_accel(0), reg_on(false), steady(0.0), throttle(0.0) {
     NOTIFY_ACTIVE_CONSTRUCTOR(SysControle, SysControle(), 0, _MonPkg_SysControle_SysControle_SERIALIZE);
     setActiveContext(this, true);
     initRelations();
@@ -149,6 +149,10 @@ SysControle::fromVolant_C* SysControle::get_fromVolant() const {
     return (SysControle::fromVolant_C*) &fromVolant;
 }
 
+const int SysControle::getREG_ACCEL_IDLE() {
+    return REG_ACCEL_IDLE;
+}
+
 const double SysControle::getREG_MAX_SPEED() {
     return REG_MAX_SPEED;
 }
@@ -180,6 +184,14 @@ bool SysControle::getFetchSpeed() {
 
 void SysControle::setFetchSpeed(bool p_fetchSpeed) {
     fetchSpeed = p_fetchSpeed;
+}
+
+int SysControle::getIntens_accel() {
+    return intens_accel;
+}
+
+void SysControle::setIntens_accel(int p_intens_accel) {
+    intens_accel = p_intens_accel;
 }
 
 int SysControle::getSpeed() {
@@ -241,6 +253,8 @@ void SysControle::initStatechart() {
     consigneUp_subState = OMNonState;
     state_5_timeout = NULL;
     consigneDown_subState = OMNonState;
+    state_15_subState = OMNonState;
+    state_15_active = OMNonState;
 }
 
 void SysControle::cancelTimeouts() {
@@ -286,6 +300,7 @@ void SysControle::reg_state_entDef() {
     rootState_active = reg_state;
     state_8_entDef();
     state_9_entDef();
+    state_15_entDef();
 }
 
 void SysControle::reg_state_exit() {
@@ -302,12 +317,20 @@ void SysControle::reg_state_exit() {
             on_exit();
         }
         break;
+        // State idle_highAccel
+        case idle_highAccel:
+        {
+            popNullTransition();
+            NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.idle_highAccel");
+        }
+        break;
         default:
             break;
     }
     state_8_subState = OMNonState;
     NOTIFY_STATE_EXITED("ROOT.reg_state.state_8");
     state_9_exit();
+    state_15_exit();
     
     NOTIFY_STATE_EXITED("ROOT.reg_state");
 }
@@ -325,6 +348,15 @@ IOxfReactive::TakeEventStatus SysControle::reg_state_processEvent() {
         }
     // State state_9
     if(state_9_processEvent() != eventNotConsumed)
+        {
+            res = eventConsumed;
+            if(!IS_IN(reg_state))
+                {
+                    return res;
+                }
+        }
+    // State state_15
+    if(state_15_processEvent() != eventNotConsumed)
         {
             res = eventConsumed;
             if(!IS_IN(reg_state))
@@ -424,6 +456,26 @@ IOxfReactive::TakeEventStatus SysControle::state_8_processEvent() {
             res = on_processEvent();
         }
         break;
+        // State idle_highAccel
+        case idle_highAccel:
+        {
+            if(IS_EVENT_TYPE_OF(OMNullEventId))
+                {
+                    //## transition 21 
+                    if(intens_accel<REG_ACCEL_IDLE)
+                        {
+                            NOTIFY_TRANSITION_STARTED("21");
+                            popNullTransition();
+                            NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.idle_highAccel");
+                            on_entDef();
+                            NOTIFY_TRANSITION_TERMINATED("21");
+                            res = eventConsumed;
+                        }
+                }
+            
+            
+        }
+        break;
         default:
             break;
     }
@@ -470,6 +522,40 @@ void SysControle::on_exit() {
     NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on");
 }
 
+IOxfReactive::TakeEventStatus SysControle::onTakeNull() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    //## transition 11 
+    if(speed<REG_MIN_SPEED-1.0)
+        {
+            NOTIFY_TRANSITION_STARTED("11");
+            on_exit();
+            NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.off");
+            state_8_subState = off;
+            state_8_active = off;
+            //#[ state reg_state.state_8.off.(Entry) 
+            reg_on=false;
+            //#]
+            NOTIFY_TRANSITION_TERMINATED("11");
+            res = eventConsumed;
+        }
+    else
+        {
+            //## transition 20 
+            if(intens_accel>REG_ACCEL_IDLE)
+                {
+                    NOTIFY_TRANSITION_STARTED("20");
+                    on_exit();
+                    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.idle_highAccel");
+                    pushNullTransition();
+                    state_8_subState = idle_highAccel;
+                    state_8_active = idle_highAccel;
+                    NOTIFY_TRANSITION_TERMINATED("20");
+                    res = eventConsumed;
+                }
+        }
+    return res;
+}
+
 IOxfReactive::TakeEventStatus SysControle::on_processEvent() {
     IOxfReactive::TakeEventStatus res = eventNotConsumed;
     // State state_5
@@ -501,20 +587,7 @@ IOxfReactive::TakeEventStatus SysControle::on_handleEvent() {
     IOxfReactive::TakeEventStatus res = eventNotConsumed;
     if(IS_EVENT_TYPE_OF(OMNullEventId))
         {
-            //## transition 11 
-            if(speed<REG_MIN_SPEED-1.0)
-                {
-                    NOTIFY_TRANSITION_STARTED("11");
-                    on_exit();
-                    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.off");
-                    state_8_subState = off;
-                    state_8_active = off;
-                    //#[ state reg_state.state_8.off.(Entry) 
-                    reg_on=false;
-                    //#]
-                    NOTIFY_TRANSITION_TERMINATED("11");
-                    res = eventConsumed;
-                }
+            res = onTakeNull();
         }
     else if(IS_EVENT_TYPE_OF(evFreiner__MonPkg_id))
         {
@@ -794,6 +867,51 @@ IOxfReactive::TakeEventStatus SysControle::action_handleEvent() {
     return res;
 }
 
+void SysControle::state_15_entDef() {
+    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_15");
+    NOTIFY_TRANSITION_STARTED("18");
+    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_15.intacc_loop");
+    state_15_subState = intacc_loop;
+    state_15_active = intacc_loop;
+    NOTIFY_TRANSITION_TERMINATED("18");
+}
+
+void SysControle::state_15_exit() {
+    // State intacc_loop
+    if(state_15_subState == intacc_loop)
+        {
+            NOTIFY_STATE_EXITED("ROOT.reg_state.state_15.intacc_loop");
+        }
+    state_15_subState = OMNonState;
+    
+    NOTIFY_STATE_EXITED("ROOT.reg_state.state_15");
+}
+
+IOxfReactive::TakeEventStatus SysControle::state_15_processEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    // State intacc_loop
+    if(state_15_active == intacc_loop)
+        {
+            if(IS_EVENT_TYPE_OF(evAccelerer__MonPkg_id))
+                {
+                    OMSETPARAMS(evAccelerer);
+                    NOTIFY_TRANSITION_STARTED("19");
+                    NOTIFY_STATE_EXITED("ROOT.reg_state.state_15.intacc_loop");
+                    //#[ transition 19 
+                    intens_accel=params->val;
+                    //#]
+                    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_15.intacc_loop");
+                    state_15_subState = intacc_loop;
+                    state_15_active = intacc_loop;
+                    NOTIFY_TRANSITION_TERMINATED("19");
+                    res = eventConsumed;
+                }
+            
+            
+        }
+    return res;
+}
+
 #ifdef _OMINSTRUMENT
 //#[ ignore
 void OMAnimatedSysControle::serializeAttributes(AOMSAttributes* aomsAttributes) const {
@@ -806,6 +924,8 @@ void OMAnimatedSysControle::serializeAttributes(AOMSAttributes* aomsAttributes) 
     aomsAttributes->addAttribute("throttle", x2String(myReal->throttle));
     aomsAttributes->addAttribute("REG_MIN_SPEED", x2String(myReal->REG_MIN_SPEED));
     aomsAttributes->addAttribute("REG_MAX_SPEED", x2String(myReal->REG_MAX_SPEED));
+    aomsAttributes->addAttribute("intens_accel", x2String(myReal->intens_accel));
+    aomsAttributes->addAttribute("REG_ACCEL_IDLE", x2String(myReal->REG_ACCEL_IDLE));
 }
 
 void OMAnimatedSysControle::rootState_serializeStates(AOMSState* aomsState) const {
@@ -820,6 +940,7 @@ void OMAnimatedSysControle::reg_state_serializeStates(AOMSState* aomsState) cons
     aomsState->addState("ROOT.reg_state");
     state_8_serializeStates(aomsState);
     state_9_serializeStates(aomsState);
+    state_15_serializeStates(aomsState);
 }
 
 void OMAnimatedSysControle::state_9_serializeStates(AOMSState* aomsState) const {
@@ -845,6 +966,11 @@ void OMAnimatedSysControle::state_8_serializeStates(AOMSState* aomsState) const 
         case SysControle::on:
         {
             on_serializeStates(aomsState);
+        }
+        break;
+        case SysControle::idle_highAccel:
+        {
+            idle_highAccel_serializeStates(aomsState);
         }
         break;
         default:
@@ -923,6 +1049,22 @@ void OMAnimatedSysControle::action_serializeStates(AOMSState* aomsState) const {
 
 void OMAnimatedSysControle::off_serializeStates(AOMSState* aomsState) const {
     aomsState->addState("ROOT.reg_state.state_8.off");
+}
+
+void OMAnimatedSysControle::idle_highAccel_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.reg_state.state_8.idle_highAccel");
+}
+
+void OMAnimatedSysControle::state_15_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.reg_state.state_15");
+    if(myReal->state_15_subState == SysControle::intacc_loop)
+        {
+            intacc_loop_serializeStates(aomsState);
+        }
+}
+
+void OMAnimatedSysControle::intacc_loop_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.reg_state.state_15.intacc_loop");
 }
 //#]
 

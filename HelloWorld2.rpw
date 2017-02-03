@@ -66,8 +66,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 		{ CGEMdiDiagramParams 
 			- _placement = { CCommon_WINDOWPLACEMENT 
 				- m_nLength = 44;
-				- m_nFlags = 2;
-				- m_showCmd = 3;
+				- m_nFlags = 0;
+				- m_showCmd = 1;
 				- m_ptMinPositionX = -1;
 				- m_ptMinPositionY = -1;
 				- m_ptMaxPositionX = -4;
@@ -87,7 +87,7 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _id = GUID 384edb5b-dab8-40de-a538-b4e732957176;
 			}
 			- _UpLeft = 0 0 ;
-			- _DownRight = 1565 810 ;
+			- _DownRight = 919 211 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 6;
 		}
@@ -114,16 +114,16 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 767eff79-f620-4966-914f-d2d8741fcf97;
 			}
-			- _UpLeft = 213 259 ;
-			- _DownRight = 1445 725 ;
+			- _UpLeft = 107 260 ;
+			- _DownRight = 1548 805 ;
 			- _instanceName = "";
 			- m_nDiagramIndex = 2;
 		}
 		{ CGEMdiDiagramParams 
 			- _placement = { CCommon_WINDOWPLACEMENT 
 				- m_nLength = 44;
-				- m_nFlags = 0;
-				- m_showCmd = 1;
+				- m_nFlags = 2;
+				- m_showCmd = 3;
 				- m_ptMinPositionX = -1;
 				- m_ptMinPositionY = -1;
 				- m_ptMaxPositionX = -4;
@@ -142,8 +142,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 767eff79-f620-4966-914f-d2d8741fcf97;
 			}
-			- _UpLeft = 0 170 ;
-			- _DownRight = 1213 596 ;
+			- _UpLeft = 108 260 ;
+			- _DownRight = 1845 1036 ;
 			- _instanceName = "MainDeApplication[0]->objetSysControle";
 			- m_nDiagramIndex = 0;
 		}
@@ -181,7 +181,7 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- m_nFlags = 2;
 				- m_showCmd = 2;
 				- m_ptMinPositionX = 0;
-				- m_ptMinPositionY = 226;
+				- m_ptMinPositionY = 649;
 				- m_ptMaxPositionX = -4;
 				- m_ptMaxPositionY = -23;
 				- m_nLeft = 176;
@@ -198,8 +198,8 @@ I-Logix-RPY-Archive version 8.7.1 * 5066837
 				- _name = "StatechartDiagram";
 				- _id = GUID 32d7ac53-85c2-4343-a6b7-225cadb111b8;
 			}
-			- _UpLeft = 804 257 ;
-			- _DownRight = 1811 611 ;
+			- _UpLeft = 429 55 ;
+			- _DownRight = 1852 691 ;
 			- _instanceName = "MainDeApplication[0]->objVehiculeMoteur";
 			- m_nDiagramIndex = 1;
 		}

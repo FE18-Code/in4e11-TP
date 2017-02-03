@@ -442,7 +442,7 @@ IOxfReactive::TakeEventStatus AcquisitionUserEnv::rootState_processEvent() {
                             NOTIFY_STATE_EXITED("ROOT.acq_volant_pedale_simule.state_41");
                             //#[ transition 6 
                             
-                            if (acc>0) OUT_PORT(out)->GEN(evAccelerer(acc));
+                            if (acc>0) MULTICAST_GEN(out, evAccelerer(acc));
                             if (fre>0) MULTICAST_GEN(out, evFreiner(fre));
                             if (alpha!=0) OUT_PORT(out)->GEN(evAlpha(alpha));
                             //#]

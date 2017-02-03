@@ -143,6 +143,9 @@ public :
     fromVolant_C* get_fromVolant() const;
     
     //## auto_generated
+    const int getREG_ACCEL_IDLE();
+    
+    //## auto_generated
     const double getREG_MAX_SPEED();
     
     //## auto_generated
@@ -165,6 +168,12 @@ public :
     
     //## auto_generated
     void setFetchSpeed(bool p_fetchSpeed);
+    
+    //## auto_generated
+    int getIntens_accel();
+    
+    //## auto_generated
+    void setIntens_accel(int p_intens_accel);
     
     //## auto_generated
     int getSpeed();
@@ -201,6 +210,8 @@ protected :
     //## auto_generated
     bool cancelTimeout(const IOxfTimeout* arg);
     
+    const int REG_ACCEL_IDLE;		//## attribute REG_ACCEL_IDLE
+    
     const double REG_MAX_SPEED;		//## attribute REG_MAX_SPEED
     
     const double REG_MIN_SPEED;		//## attribute REG_MIN_SPEED
@@ -210,6 +221,8 @@ protected :
     double error;		//## attribute error
     
     bool fetchSpeed;		//## attribute fetchSpeed
+    
+    int intens_accel;		//## attribute intens_accel
     
     bool reg_on;		//## attribute reg_on
     
@@ -288,6 +301,9 @@ public :
     void on_exit();
     
     //## statechart_method
+    IOxfReactive::TakeEventStatus onTakeNull();
+    
+    //## statechart_method
     IOxfReactive::TakeEventStatus on_processEvent();
     
     //## statechart_method
@@ -364,6 +380,27 @@ public :
     // off:
     //## statechart_method
     inline bool off_IN() const;
+    
+    // idle_highAccel:
+    //## statechart_method
+    inline bool idle_highAccel_IN() const;
+    
+    // state_15:
+    //## statechart_method
+    inline bool state_15_IN() const;
+    
+    //## statechart_method
+    void state_15_entDef();
+    
+    //## statechart_method
+    void state_15_exit();
+    
+    //## statechart_method
+    IOxfReactive::TakeEventStatus state_15_processEvent();
+    
+    // intacc_loop:
+    //## statechart_method
+    inline bool intacc_loop_IN() const;
 
 protected :
 
@@ -383,7 +420,10 @@ protected :
         consigneDown = 11,
         downdown = 12,
         action = 13,
-        off = 14
+        off = 14,
+        idle_highAccel = 15,
+        state_15 = 16,
+        intacc_loop = 17
     };
     
     int rootState_subState;
@@ -413,6 +453,10 @@ protected :
     IOxfTimeout* state_5_timeout;
     
     int consigneDown_subState;
+    
+    int state_15_subState;
+    
+    int state_15_active;
 //#]
 };
 
@@ -471,6 +515,15 @@ public :
     
     //## statechart_method
     void off_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void idle_highAccel_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void state_15_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void intacc_loop_serializeStates(AOMSState* aomsState) const;
 };
 //#]
 #endif // _OMINSTRUMENT
@@ -533,6 +586,18 @@ inline bool SysControle::action_IN() const {
 
 inline bool SysControle::off_IN() const {
     return state_8_subState == off;
+}
+
+inline bool SysControle::idle_highAccel_IN() const {
+    return state_8_subState == idle_highAccel;
+}
+
+inline bool SysControle::state_15_IN() const {
+    return reg_state_IN();
+}
+
+inline bool SysControle::intacc_loop_IN() const {
+    return state_15_subState == intacc_loop;
 }
 
 #endif
