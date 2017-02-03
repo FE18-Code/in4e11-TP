@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: SysControle
-//!	Generated Date	: Wed, 1, Feb 2017  
+//!	Generated Date	: Fri, 3, Feb 2017  
 	File Path	: CodesGeneres\ModeAnimation\SysControle.h
 *********************************************************************/
 
@@ -318,14 +318,48 @@ public :
     void state_5_entDef();
     
     //## statechart_method
-    void state_5_exit();
+    IOxfReactive::TakeEventStatus state_5_processEvent();
+    
+    // consigneUp:
+    //## statechart_method
+    inline bool consigneUp_IN() const;
     
     //## statechart_method
-    IOxfReactive::TakeEventStatus state_5_processEvent();
+    void consigneUp_entDef();
+    
+    //## statechart_method
+    virtual void consigneUp_exit();
+    
+    //## statechart_method
+    IOxfReactive::TakeEventStatus consigneUp_handleEvent();
+    
+    // upup:
+    //## statechart_method
+    inline bool upup_IN() const;
+    
+    // consigneDown:
+    //## statechart_method
+    inline bool consigneDown_IN() const;
+    
+    //## statechart_method
+    void consigneDown_entDef();
+    
+    //## statechart_method
+    virtual void consigneDown_exit();
+    
+    //## statechart_method
+    IOxfReactive::TakeEventStatus consigneDown_handleEvent();
+    
+    // downdown:
+    //## statechart_method
+    inline bool downdown_IN() const;
     
     // action:
     //## statechart_method
     inline bool action_IN() const;
+    
+    //## statechart_method
+    IOxfReactive::TakeEventStatus action_handleEvent();
     
     // off:
     //## statechart_method
@@ -344,8 +378,12 @@ protected :
         state_6 = 6,
         dyn_loop = 7,
         state_5 = 8,
-        action = 9,
-        off = 10
+        consigneUp = 9,
+        upup = 10,
+        consigneDown = 11,
+        downdown = 12,
+        action = 13,
+        off = 14
     };
     
     int rootState_subState;
@@ -369,6 +407,12 @@ protected :
     int state_5_subState;
     
     int state_5_active;
+    
+    int consigneUp_subState;
+    
+    IOxfTimeout* state_5_timeout;
+    
+    int consigneDown_subState;
 //#]
 };
 
@@ -409,6 +453,18 @@ public :
     
     //## statechart_method
     void state_5_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void consigneUp_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void upup_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void consigneDown_serializeStates(AOMSState* aomsState) const;
+    
+    //## statechart_method
+    void downdown_serializeStates(AOMSState* aomsState) const;
     
     //## statechart_method
     void action_serializeStates(AOMSState* aomsState) const;
@@ -453,6 +509,22 @@ inline bool SysControle::dyn_loop_IN() const {
 
 inline bool SysControle::state_5_IN() const {
     return on_IN();
+}
+
+inline bool SysControle::consigneUp_IN() const {
+    return state_5_subState == consigneUp;
+}
+
+inline bool SysControle::upup_IN() const {
+    return consigneUp_subState == upup;
+}
+
+inline bool SysControle::consigneDown_IN() const {
+    return state_5_subState == consigneDown;
+}
+
+inline bool SysControle::downdown_IN() const {
+    return consigneDown_subState == downdown;
 }
 
 inline bool SysControle::action_IN() const {

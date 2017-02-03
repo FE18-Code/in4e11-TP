@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: SysControle
-//!	Generated Date	: Wed, 1, Feb 2017  
+//!	Generated Date	: Fri, 3, Feb 2017  
 	File Path	: CodesGeneres\ModeAnimation\SysControle.cpp
 *********************************************************************/
 
@@ -238,10 +238,14 @@ void SysControle::initStatechart() {
     state_6_timeout = NULL;
     state_5_subState = OMNonState;
     state_5_active = OMNonState;
+    consigneUp_subState = OMNonState;
+    state_5_timeout = NULL;
+    consigneDown_subState = OMNonState;
 }
 
 void SysControle::cancelTimeouts() {
     cancel(state_6_timeout);
+    cancel(state_5_timeout);
 }
 
 bool SysControle::cancelTimeout(const IOxfTimeout* arg) {
@@ -249,6 +253,11 @@ bool SysControle::cancelTimeout(const IOxfTimeout* arg) {
     if(state_6_timeout == arg)
         {
             state_6_timeout = NULL;
+            res = true;
+        }
+    if(state_5_timeout == arg)
+        {
+            state_5_timeout = NULL;
             res = true;
         }
     return res;
@@ -281,16 +290,16 @@ void SysControle::reg_state_entDef() {
 
 void SysControle::reg_state_exit() {
     switch (state_8_subState) {
-        // State on
-        case on:
-        {
-            on_exit();
-        }
-        break;
         // State off
         case off:
         {
             NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.off");
+        }
+        break;
+        // State on
+        case on:
+        {
+            on_exit();
         }
         break;
         default:
@@ -387,12 +396,6 @@ void SysControle::state_8_entDef() {
 IOxfReactive::TakeEventStatus SysControle::state_8_processEvent() {
     IOxfReactive::TakeEventStatus res = eventNotConsumed;
     switch (state_8_active) {
-        // State on
-        case on:
-        {
-            res = on_processEvent();
-        }
-        break;
         // State off
         case off:
         {
@@ -415,6 +418,12 @@ IOxfReactive::TakeEventStatus SysControle::state_8_processEvent() {
             
         }
         break;
+        // State on
+        case on:
+        {
+            res = on_processEvent();
+        }
+        break;
         default:
             break;
     }
@@ -432,7 +441,30 @@ void SysControle::on_entDef() {
 
 void SysControle::on_exit() {
     popNullTransition();
-    state_5_exit();
+    switch (state_5_subState) {
+        // State action
+        case action:
+        {
+            NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5.action");
+        }
+        break;
+        // State consigneUp
+        case consigneUp:
+        {
+            consigneUp_exit();
+        }
+        break;
+        // State consigneDown
+        case consigneDown:
+        {
+            consigneDown_exit();
+        }
+        break;
+        default:
+            break;
+    }
+    state_5_subState = OMNonState;
+    NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5");
     state_6_exit();
     
     NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on");
@@ -580,59 +612,185 @@ void SysControle::state_5_entDef() {
     NOTIFY_TRANSITION_TERMINATED("8");
 }
 
-void SysControle::state_5_exit() {
-    // State action
-    if(state_5_subState == action)
-        {
-            NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5.action");
-        }
-    state_5_subState = OMNonState;
-    
-    NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5");
-}
-
 IOxfReactive::TakeEventStatus SysControle::state_5_processEvent() {
     IOxfReactive::TakeEventStatus res = eventNotConsumed;
-    // State action
-    if(state_5_active == action)
+    switch (state_5_active) {
+        // State action
+        case action:
+        {
+            res = action_handleEvent();
+        }
+        break;
+        // State upup
+        case upup:
+        {
+            if(IS_EVENT_TYPE_OF(evRegPlus__MonPkg_id))
+                {
+                    NOTIFY_TRANSITION_STARTED("14");
+                    NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5.consigneUp.upup");
+                    //#[ transition 14 
+                    chCons(9);
+                    //#]
+                    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.on.state_5.consigneUp.upup");
+                    consigneUp_subState = upup;
+                    state_5_active = upup;
+                    NOTIFY_TRANSITION_TERMINATED("14");
+                    res = eventConsumed;
+                }
+            
+            if(res == eventNotConsumed)
+                {
+                    res = consigneUp_handleEvent();
+                }
+        }
+        break;
+        // State downdown
+        case downdown:
         {
             if(IS_EVENT_TYPE_OF(evRegMoins__MonPkg_id))
                 {
-                    //## transition 4 
-                    if(reg_on)
-                        {
-                            NOTIFY_TRANSITION_STARTED("4");
-                            NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5.action");
-                            //#[ transition 4 
-                            chCons(-1);
-                            //#]
-                            NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.on.state_5.action");
-                            state_5_subState = action;
-                            state_5_active = action;
-                            NOTIFY_TRANSITION_TERMINATED("4");
-                            res = eventConsumed;
-                        }
+                    NOTIFY_TRANSITION_STARTED("15");
+                    NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5.consigneDown.downdown");
+                    //#[ transition 15 
+                    chCons(-9);
+                    //#]
+                    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.on.state_5.consigneDown.downdown");
+                    consigneDown_subState = downdown;
+                    state_5_active = downdown;
+                    NOTIFY_TRANSITION_TERMINATED("15");
+                    res = eventConsumed;
                 }
-            else if(IS_EVENT_TYPE_OF(evRegPlus__MonPkg_id))
+            
+            if(res == eventNotConsumed)
                 {
-                    //## transition 3 
-                    if(reg_on)
-                        {
-                            NOTIFY_TRANSITION_STARTED("3");
-                            NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5.action");
-                            //#[ transition 3 
-                            chCons(1);
-                            //#]
-                            NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.on.state_5.action");
-                            state_5_subState = action;
-                            state_5_active = action;
-                            NOTIFY_TRANSITION_TERMINATED("3");
-                            res = eventConsumed;
-                        }
+                    res = consigneDown_handleEvent();
                 }
-            
-            
         }
+        break;
+        default:
+            break;
+    }
+    return res;
+}
+
+void SysControle::consigneUp_entDef() {
+    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.on.state_5.consigneUp");
+    state_5_subState = consigneUp;
+    state_5_timeout = scheduleTimeout(250, "ROOT.reg_state.state_8.on.state_5.consigneUp");
+    NOTIFY_TRANSITION_STARTED("13");
+    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.on.state_5.consigneUp.upup");
+    consigneUp_subState = upup;
+    state_5_active = upup;
+    NOTIFY_TRANSITION_TERMINATED("13");
+}
+
+void SysControle::consigneUp_exit() {
+    // State upup
+    if(consigneUp_subState == upup)
+        {
+            NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5.consigneUp.upup");
+        }
+    consigneUp_subState = OMNonState;
+    cancel(state_5_timeout);
+    NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5.consigneUp");
+}
+
+IOxfReactive::TakeEventStatus SysControle::consigneUp_handleEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    if(IS_EVENT_TYPE_OF(OMTimeoutEventId))
+        {
+            if(getCurrentEvent() == state_5_timeout)
+                {
+                    NOTIFY_TRANSITION_STARTED("12");
+                    consigneUp_exit();
+                    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.on.state_5.action");
+                    state_5_subState = action;
+                    state_5_active = action;
+                    NOTIFY_TRANSITION_TERMINATED("12");
+                    res = eventConsumed;
+                }
+        }
+    
+    
+    return res;
+}
+
+void SysControle::consigneDown_entDef() {
+    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.on.state_5.consigneDown");
+    state_5_subState = consigneDown;
+    state_5_timeout = scheduleTimeout(250, "ROOT.reg_state.state_8.on.state_5.consigneDown");
+    NOTIFY_TRANSITION_STARTED("16");
+    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.on.state_5.consigneDown.downdown");
+    consigneDown_subState = downdown;
+    state_5_active = downdown;
+    NOTIFY_TRANSITION_TERMINATED("16");
+}
+
+void SysControle::consigneDown_exit() {
+    // State downdown
+    if(consigneDown_subState == downdown)
+        {
+            NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5.consigneDown.downdown");
+        }
+    consigneDown_subState = OMNonState;
+    cancel(state_5_timeout);
+    NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5.consigneDown");
+}
+
+IOxfReactive::TakeEventStatus SysControle::consigneDown_handleEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    if(IS_EVENT_TYPE_OF(OMTimeoutEventId))
+        {
+            if(getCurrentEvent() == state_5_timeout)
+                {
+                    NOTIFY_TRANSITION_STARTED("17");
+                    consigneDown_exit();
+                    NOTIFY_STATE_ENTERED("ROOT.reg_state.state_8.on.state_5.action");
+                    state_5_subState = action;
+                    state_5_active = action;
+                    NOTIFY_TRANSITION_TERMINATED("17");
+                    res = eventConsumed;
+                }
+        }
+    
+    
+    return res;
+}
+
+IOxfReactive::TakeEventStatus SysControle::action_handleEvent() {
+    IOxfReactive::TakeEventStatus res = eventNotConsumed;
+    if(IS_EVENT_TYPE_OF(evRegMoins__MonPkg_id))
+        {
+            //## transition 4 
+            if(reg_on)
+                {
+                    NOTIFY_TRANSITION_STARTED("4");
+                    NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5.action");
+                    //#[ transition 4 
+                    chCons(-1);
+                    //#]
+                    consigneDown_entDef();
+                    NOTIFY_TRANSITION_TERMINATED("4");
+                    res = eventConsumed;
+                }
+        }
+    else if(IS_EVENT_TYPE_OF(evRegPlus__MonPkg_id))
+        {
+            //## transition 3 
+            if(reg_on)
+                {
+                    NOTIFY_TRANSITION_STARTED("3");
+                    NOTIFY_STATE_EXITED("ROOT.reg_state.state_8.on.state_5.action");
+                    //#[ transition 3 
+                    chCons(1);
+                    //#]
+                    consigneUp_entDef();
+                    NOTIFY_TRANSITION_TERMINATED("3");
+                    res = eventConsumed;
+                }
+        }
+    
+    
     return res;
 }
 
@@ -679,14 +837,14 @@ void OMAnimatedSysControle::speed_loop_serializeStates(AOMSState* aomsState) con
 void OMAnimatedSysControle::state_8_serializeStates(AOMSState* aomsState) const {
     aomsState->addState("ROOT.reg_state.state_8");
     switch (myReal->state_8_subState) {
-        case SysControle::on:
-        {
-            on_serializeStates(aomsState);
-        }
-        break;
         case SysControle::off:
         {
             off_serializeStates(aomsState);
+        }
+        break;
+        case SysControle::on:
+        {
+            on_serializeStates(aomsState);
         }
         break;
         default:
@@ -714,10 +872,49 @@ void OMAnimatedSysControle::dyn_loop_serializeStates(AOMSState* aomsState) const
 
 void OMAnimatedSysControle::state_5_serializeStates(AOMSState* aomsState) const {
     aomsState->addState("ROOT.reg_state.state_8.on.state_5");
-    if(myReal->state_5_subState == SysControle::action)
+    switch (myReal->state_5_subState) {
+        case SysControle::action:
         {
             action_serializeStates(aomsState);
         }
+        break;
+        case SysControle::consigneUp:
+        {
+            consigneUp_serializeStates(aomsState);
+        }
+        break;
+        case SysControle::consigneDown:
+        {
+            consigneDown_serializeStates(aomsState);
+        }
+        break;
+        default:
+            break;
+    }
+}
+
+void OMAnimatedSysControle::consigneUp_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.reg_state.state_8.on.state_5.consigneUp");
+    if(myReal->consigneUp_subState == SysControle::upup)
+        {
+            upup_serializeStates(aomsState);
+        }
+}
+
+void OMAnimatedSysControle::upup_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.reg_state.state_8.on.state_5.consigneUp.upup");
+}
+
+void OMAnimatedSysControle::consigneDown_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.reg_state.state_8.on.state_5.consigneDown");
+    if(myReal->consigneDown_subState == SysControle::downdown)
+        {
+            downdown_serializeStates(aomsState);
+        }
+}
+
+void OMAnimatedSysControle::downdown_serializeStates(AOMSState* aomsState) const {
+    aomsState->addState("ROOT.reg_state.state_8.on.state_5.consigneDown.downdown");
 }
 
 void OMAnimatedSysControle::action_serializeStates(AOMSState* aomsState) const {

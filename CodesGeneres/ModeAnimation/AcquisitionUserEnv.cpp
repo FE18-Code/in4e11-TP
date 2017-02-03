@@ -3,7 +3,7 @@
 	Component	: CodesGeneres 
 	Configuration 	: ModeAnimation
 	Model Element	: AcquisitionUserEnv
-//!	Generated Date	: Wed, 1, Feb 2017  
+//!	Generated Date	: Fri, 3, Feb 2017  
 	File Path	: CodesGeneres\ModeAnimation\AcquisitionUserEnv.cpp
 *********************************************************************/
 
